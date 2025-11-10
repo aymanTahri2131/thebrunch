@@ -65,6 +65,20 @@ app.use('/api/reveillon', reveillonRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/communication', communicationRoutes);
 
+// Root route for Railway health check
+app.get('/', (req, res) => {
+  res.status(200).json({ 
+    message: 'The Brunch Traiteur API',
+    status: 'Online',
+    version: '1.0.0',
+    endpoints: {
+      health: '/api/health',
+      auth: '/api/auth',
+      menus: ['/api/lunch', '/api/brunch', '/api/reveillon']
+    }
+  });
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.status(200).json({ 
