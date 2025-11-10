@@ -108,7 +108,7 @@ const AdminLogin = () => {
                     id="username"
                     name="username"
                     type="text"
-                    placeholder="superadmin"
+                    placeholder="utilisateur"
                     value={formData.username}
                     onChange={handleInputChange}
                     className="pl-10"
@@ -127,7 +127,7 @@ const AdminLogin = () => {
                     id="password"
                     name="password"
                     type={showPassword ? "text" : "password"}
-                    placeholder="••••••••"
+                    placeholder="mot de passe"
                     value={formData.password}
                     onChange={handleInputChange}
                     className="pl-10 pr-10"
