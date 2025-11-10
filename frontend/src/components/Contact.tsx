@@ -103,7 +103,7 @@ export const Contact = () => {
     {
       icon: Clock,
       title: "Horaires",
-      content: "Lun - Sam: 9h - 19h",
+      content: "toujours ouvert",
     },
   ];
 
