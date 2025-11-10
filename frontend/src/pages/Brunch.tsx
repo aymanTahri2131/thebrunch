@@ -27,7 +27,7 @@ const Brunch = () => {
     const fetchBrunchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:5000/api/brunch');
+        const response = await fetch('https://thebrunchtraiteur-production.up.railway.app/api/brunch');
         
         if (!response.ok) {
           throw new Error(`Erreur ${response.status}: ${response.statusText}`);

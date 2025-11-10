@@ -173,9 +173,9 @@ const AdminDashboard = () => {
       };
 
       const [brunchResponse, lunchResponse, reveillonResponse] = await Promise.all([
-        fetch('http://localhost:5000/api/brunch/admin', { headers }),
-        fetch('http://localhost:5000/api/lunch/admin', { headers }),
-        fetch('http://localhost:5000/api/reveillon/admin', { headers })
+        fetch('https://thebrunchtraiteur-production.up.railway.app/api/brunch/admin', { headers }),
+        fetch('https://thebrunchtraiteur-production.up.railway.app/api/lunch/admin', { headers }),
+        fetch('https://thebrunchtraiteur-production.up.railway.app/api/reveillon/admin', { headers })
       ]);
 
       const brunch = await brunchResponse.json();
@@ -374,11 +374,11 @@ const AdminDashboard = () => {
 
       console.log('📤 Envoi de la requête:', {
         method,
-        endpoint: `http://localhost:5000/api/${editingMenuType}/admin`,
+        endpoint: `https://thebrunchtraiteur-production.up.railway.app/api/${editingMenuType}/admin`,
         data: requestData
       });
 
-      const response = await fetch(`http://localhost:5000/api/${editingMenuType}/admin`, {
+      const response = await fetch(`https://thebrunchtraiteur-production.up.railway.app/api/${editingMenuType}/admin`, {
         method,
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -443,7 +443,7 @@ const AdminDashboard = () => {
       console.log('Uploading file:', file.name, file.type, file.size);
       console.log('Token present:', !!token);
       
-      const response = await fetch('http://localhost:5000/api/upload/image', {
+      const response = await fetch('https://thebrunchtraiteur-production.up.railway.app/api/upload/image', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -497,7 +497,7 @@ const AdminDashboard = () => {
     if (!confirmed) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/${menuType}/admin`, {
+      const response = await fetch(`https://thebrunchtraiteur-production.up.railway.app/api/${menuType}/admin`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

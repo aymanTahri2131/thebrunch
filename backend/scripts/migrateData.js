@@ -68,9 +68,9 @@ const seedDatabase = async () => {
     console.log('   - Brunch Menu: Ready');
     console.log('   - Réveillon Menu: Ready');
     console.log('\n🔗 You can now test the API endpoints:');
-    console.log('   - GET http://localhost:5000/api/lunch');
-    console.log('   - GET http://localhost:5000/api/brunch');
-    console.log('   - GET http://localhost:5000/api/reveillon');
+    console.log('   - GET https://thebrunchtraiteur-production.up.railway.app/api/lunch');
+    console.log('   - GET https://thebrunchtraiteur-production.up.railway.app/api/brunch');
+    console.log('   - GET https://thebrunchtraiteur-production.up.railway.app/api/reveillon');
 
   } catch (error) {
     console.error('❌ Error during data migration:', error.message);

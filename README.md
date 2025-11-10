@@ -101,7 +101,7 @@ CLOUDINARY_API_SECRET=your_api_secret
 
 ### URLs
 - **Frontend**: http://localhost:8080
-- **Backend**: http://localhost:5000
+- **Backend**: https://thebrunchtraiteur-production.up.railway.app
 - **Admin**: http://localhost:8080/admin/login
 
 ### Compte Admin par défaut

@@ -107,7 +107,7 @@ export const Navigation = () => {
     
     try {
       // Envoyer une notification via notre API
-      await fetch('http://localhost:5000/api/communication/whatsapp', {
+      await fetch('https://thebrunchtraiteur-production.up.railway.app/api/communication/whatsapp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

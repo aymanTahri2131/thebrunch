@@ -23,7 +23,7 @@ export const ReveillonMenu = () => {
     const fetchReveillonData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:5000/api/reveillon');
+        const response = await fetch('https://thebrunchtraiteur-production.up.railway.app/api/reveillon');
         
         if (!response.ok) {
           throw new Error(`Erreur ${response.status}: ${response.statusText}`);

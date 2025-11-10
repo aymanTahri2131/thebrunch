@@ -29,7 +29,7 @@ const Lunch = () => {
     const fetchLunchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:5000/api/lunch');
+        const response = await fetch('https://thebrunchtraiteur-production.up.railway.app/api/lunch');
         
         if (!response.ok) {
           throw new Error(`Erreur ${response.status}: ${response.statusText}`);

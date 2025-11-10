@@ -37,7 +37,7 @@ const AdminBrunch = () => {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/brunch/admin', {
+      const response = await fetch('https://thebrunchtraiteur-production.up.railway.app/api/brunch/admin', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -64,7 +64,7 @@ const AdminBrunch = () => {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch('http://localhost:5000/api/brunch/admin', {
+      const response = await fetch('https://thebrunchtraiteur-production.up.railway.app/api/brunch/admin', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
