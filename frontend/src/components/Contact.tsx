@@ -86,7 +86,7 @@ export const Contact = () => {
     {
       icon: MapPin,
       title: "Adresse",
-      content: "Strasbourg, France (67)",
+      content: "Strasbourg, France ",
     },
     {
       icon: Phone,
