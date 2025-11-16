@@ -91,8 +91,8 @@ export const Contact = () => {
     {
       icon: Phone,
       title: "Téléphone",
-      content: "+33 1 23 45 67 89",
-      link: "tel:+33123456789",
+      content: "+33 7 83 45 36 05",
+      link: "tel:+33783453605",
     },
     {
       icon: Mail,
@@ -350,7 +350,7 @@ export const Contact = () => {
                 asChild
               >
                 <a
-                  href="https://wa.me/33123456789"
+                  href="https://wa.me/33783453605"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2"
