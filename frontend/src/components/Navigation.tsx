@@ -123,7 +123,7 @@ export const Navigation = () => {
     }
     
     // Ouvrir WhatsApp directement (fallback)
-    const phoneNumber = "212708003458"; // Votre numéro sans le +
+    const phoneNumber = "33783453605"; // Votre numéro sans le +
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
