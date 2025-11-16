@@ -51,8 +51,8 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email",
-      content: "contact@ta-traiteur.fr",
-      link: "mailto:contact@ta-traiteur.fr",
+      content: "contact@thebrunchtraiteur.fr",
+      link: "mailto:contact@thebrunchtraiteur.fr",
     },
     {
       icon: Clock,
