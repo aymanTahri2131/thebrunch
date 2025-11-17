@@ -11,8 +11,9 @@ export const Footer = () => {
           <div>
             <img src={Logo} className="w-20 mb-4" alt="Traiteur Oriental & Brunch à Strasbourg" />
             <p className="text-muted-foreground">
-              Traiteur Oriental basé à Strasbourg, spécialiste des événements
-              sur mesure.
+              Traiteur basé à Strasbourg et spécialisé dans la création d'événements sur mesure.
+              Nous mettons un point d'honneur à proposer des créations artisanales,
+              élégantes et adaptées à toutes vos occasions.
             </p>
           </div>
 
