@@ -72,21 +72,21 @@ export const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-muted-foreground">
                 <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span>Strasbourg, Bas-Rhin (67)</span>
+                <span>Strasbourg, France</span>
               </li>
               <li className="flex items-center gap-2 text-muted-foreground">
                 <Phone className="h-5 w-5 text-primary flex-shrink-0" />
                 <a
-                  href="tel:+33123456789"
+                  href="tel:+33783453605"
                   className="hover:text-primary transition-colors"
                 >
-                  +33 1 23 45 67 89
+                  +33 7 83 45 36 05
                 </a>
               </li>
               <li className="flex items-center gap-2 text-muted-foreground">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
                 <a
-                  href="mailto:contact@ta-traiteur.fr"
+                  href="mailto:contact@thebrunchtraiteur.fr"
                   className="hover:text-primary transition-colors"
                 >
                   contact@ta-traiteur.fr
@@ -95,7 +95,7 @@ export const Footer = () => {
               <li className="flex items-center gap-2">
                 <MessageCircle className="h-5 w-5 text-primary flex-shrink-0" />
                 <a
-                  href="https://wa.me/33123456789"
+                  href="https://wa.me/33783453605"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-primary transition-colors"
