@@ -86,12 +86,12 @@ export const Contact = () => {
     {
       icon: MapPin,
       title: "Adresse",
-      content: "Strasbourg, France ",
+      content: "Schiltigheim, Bas-rhin (67) ",
     },
     {
       icon: Phone,
       title: "Téléphone",
-      content: "+33 7 83 45 36 05",
+      content: "07 83 45 36 05",
       link: "tel:+33783453605",
     },
     {
