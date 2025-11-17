@@ -21,11 +21,10 @@ export const Hero = () => {
         <img src={HeroImage} alt="Traiteur Oriental basé à Strasbourg animate-fade-in" className="w-40 mx-auto mb-8" />
         
         <p className="text-3xl md:text-6xl mb-4 font-light font-bold" style={{ fontFamily: '"Modern Antiqua", serif' }}>
-          s'occupe de tous vos évènements
+          Traiteur à Strasbourg
         </p>
         <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-2xl mx-auto" style={{ fontFamily: '"Noto Sans JP", sans-serif' }}>
-          Traiteur Oriental basé à Strasbourg (67), spécialiste des événements
-          privés et professionnels
+          Des prestations raffinées pour vos événement privés et professionnels
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button
