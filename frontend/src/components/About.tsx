@@ -14,17 +14,16 @@ export const About = () => {
             </h3>
             <div className="space-y-4 text-lg text-foreground/90 leading-relaxed">
               <p>
-                Traiteur Oriental basé dans le Bas-Rhin à Strasbourg (67), je
-                réponds à tous les besoins.
+                Diplômée d'un CAP Boulangerie et forte de plus de dix ans d'expérience dans l'artisanat,
+                j'ai toujours été guidée par l'amour du goût et du travail bien fait. 
+                Ma passion pour la création culinaire m'a naturellement menée vers le métier de traiteur,
+                où je peux exprimer toute ma sensibilité et ma créativité.
+              
               </p>
               <p>
-                Evénements privés, Evénements professionnels, Fêtes, Mariages,
-                Baptêmes...
-              </p>
-              <p>
-                Mignardises sucrées, mignardises salées, Formules, Plateaux à
-                composer... tout est là pour vous proposer un Brunch sur mesure
-                selon vos goûts et vos envies.
+              J'aime raconter une histoire à travers mes
+réalisations et offrir des compositions soignées,
+préparées avec la même attention que si elles étaient destinées à mes proches.
               </p>
               <p className="text-sm text-primary pt-4">
                 Commandes à récupérer, commandes livrées ou prestation sur place
@@ -41,12 +40,13 @@ export const About = () => {
             </h3>
             <div className="space-y-4 text-lg text-foreground/90 leading-relaxed">
               <p>
-                Je prends énormément de soin et de précision dans la fabrication
-                de mes créations faites à la main, en y mettant tout mon amour.
+                Je crois profondément en la cuisine faite avec intention, précision et générosité. 
+                Chaque pièce est élaborée avec des produits de qualité, un sens aigu du détail et le désir de créer une expérience gustative unique.
               </p>
               <p>
-                Que ce soit pour vos fêtes privées, réceptions d'entreprises ou
-                mariage, je vous accompagne avec des créations uniques.
+              J'accorde une attention particulière à la
+              présentation, à l'harmonie des saveurs et à la
+              satisfaction de mes clients, car pour moi, chaque événement mérite d'être sublimé avec élégance et authenticité.
               </p>
               <p>
                 Toutes mes pièces sont préparées de manière artisanale et
