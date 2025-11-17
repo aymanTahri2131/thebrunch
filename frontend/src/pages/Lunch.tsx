@@ -112,7 +112,7 @@ const Lunch = () => {
             </h1>
           </div>
           <p className="text-xl text-white max-w-2xl mx-auto drop-shadow-lg">
-            Découvrez notre collection complète de créations gourmandes
+            Découvrez une sélection soigneusement élaborée pour offrir une expérience culinaire généreuse, créative et pleine de saveurs.
           </p>
         </div>
       </section>
