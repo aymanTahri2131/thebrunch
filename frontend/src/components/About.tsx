@@ -16,6 +16,8 @@ export const About = () => {
               <p>
                 Diplômée d'un CAP Boulangerie et forte de plus de dix ans d'expérience dans l'artisanat,
                 j'ai toujours été guidée par l'amour du goût et du travail bien fait. 
+              </p>
+                <p>
                 Ma passion pour la création culinaire m'a naturellement menée vers le métier de traiteur,
                 où je peux exprimer toute ma sensibilité et ma créativité.
               
