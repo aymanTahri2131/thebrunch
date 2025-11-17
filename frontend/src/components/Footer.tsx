@@ -73,7 +73,7 @@ export const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-muted-foreground">
                 <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span>Strasbourg, France</span>
+                <span>Schiltigheim, Bas-rhin (67)</span>
               </li>
               <li className="flex items-center gap-2 text-muted-foreground">
                 <Phone className="h-5 w-5 text-primary flex-shrink-0" />
@@ -81,7 +81,7 @@ export const Footer = () => {
                   href="tel:+33783453605"
                   className="hover:text-primary transition-colors"
                 >
-                  +33 7 83 45 36 05
+                  07 83 45 36 05
                 </a>
               </li>
               <li className="flex items-center gap-2 text-muted-foreground">
