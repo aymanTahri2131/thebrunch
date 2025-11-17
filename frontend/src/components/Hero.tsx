@@ -24,7 +24,7 @@ export const Hero = () => {
           Traiteur à Strasbourg
         </p>
         <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-2xl mx-auto" style={{ fontFamily: '"Noto Sans JP", sans-serif' }}>
-          Des prestations raffinées pour vos événement privés et professionnels
+          Des prestations raffinées pour vos événement privés et professionnels.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button
