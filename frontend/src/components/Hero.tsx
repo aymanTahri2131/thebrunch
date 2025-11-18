@@ -18,7 +18,7 @@ export const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
-        <img src={HeroImage} alt="Traiteur Oriental basé à Strasbourg animate-fade-in" className="w-56 mx-auto mb-8" />
+        <img src={HeroImage} alt="Traiteur Oriental basé à Strasbourg animate-fade-in" className="w-64 mx-auto mb-8" />
         
         <p className="text-2xl md:text-4xl mb-4 font-light font-bold" style={{ fontFamily: '"Modern Antiqua", serif' }}>
           Traiteur à Strasbourg
