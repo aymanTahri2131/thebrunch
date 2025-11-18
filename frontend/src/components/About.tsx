@@ -28,9 +28,7 @@ réalisations et offrir des compositions soignées,
 préparées avec la même attention que si elles étaient destinées à mes proches.
               </p>
               <p className="text-sm text-primary pt-4">
-                Commandes à récupérer, commandes livrées ou prestation sur place
-                avec mise en place de votre évènement et service assuré par nos
-                soins (sur devis)
+               
               </p>
             </div>
           </div>
@@ -55,8 +53,7 @@ préparées avec la même attention que si elles étaient destinées à mes proc
                 utilisent des produits de qualité soigneusement sélectionnés.
               </p>
               <p className="text-sm text-primary pt-2">
-                La présentation est d'une importance capitale afin de créer une
-                expérience sensorielle complète pour le plaisir de vos papilles.
+             
               </p>
             </div>
           </div>
