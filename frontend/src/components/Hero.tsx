@@ -18,13 +18,9 @@ export const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
-        <img src={HeroImage} alt="Traiteur Oriental basé à Strasbourg animate-fade-in" className="w-80 mx-auto mb-8" />
-        
-        <p className="text-2xl md:text-5xl mb-4 font-light font-bold" style={{ fontFamily: '"Modern Antiqua", serif' }}>
-          Traiteur à Strasbourg
-        </p>
-        <p className="text-lg md:text-xl mb-8 text-white/90 max-w-2xl mx-auto" style={{ fontFamily: '"Noto Sans JP", sans-serif' }}>
-          Des prestations raffinées pour vos événement privés et professionnels.
+        <img src={HeroImage} alt="Traiteur Oriental basé à Strasbourg animate-fade-in" className="w-80 mx-auto mb-8" /> 
+        <p className="text-lg md:text-xl mb-8 text-white/90 max-w-2xl mx-auto" style={{ fontFamily: '"Inconsolata", monospace; }}>
+          Découvrez nos mignardises salées et sucrées ainsi que nos brunchs gourmands : tout est pensé pour émerveiller vos convives et transformer vos moments en de véritables expériences culinaires.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button
