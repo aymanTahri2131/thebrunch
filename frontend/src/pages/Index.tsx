@@ -17,7 +17,7 @@ const Index = () => {
       <div className="flex flex-col sm:flex-col lg:flex-row w-full items-center justify-center p-12 gap-12 h-auto sm:h-auto lg:h-[350px] bg-accent/50 text-white">
         <div className="flex flex-col items-center justify-center gap-6 text-center">
           <Leaf size={40} />
-          <h2 className="text-[#4a3b36] font-bold text-xl" style={{font-family: "Poppins, sans-serif"}}>MATIÈRES PREMIÈRES SÉLECTIONNÉES</h2>
+          <h2 className="text-[#4a3b36] font-bold text-xl" style={{ fontFamily: "Poppins, sans-serif" }}>MATIÈRES PREMIÈRES SÉLECTIONNÉES</h2>
           <p className="text-center max-w-[400px]">Nos matières premières sont soigneusement sélectionnées afin de vous offrir la meilleure qualité pour vos plus beaux jours.</p>
         </div>
         <div className="flex flex-col items-center justify-center gap-6 text-center">
