@@ -15,7 +15,7 @@ const Index = () => {
       <About />
       <ReveillonMenu />
       <div className="flex w-full items-center justify-center p-12 gap-12 h-[350px] bg-accent/50 text-white">
-        <div>
+        <div className="flex flex-col items-center justyfy-center gap-6 ">
           <Leaf sise={20} />
           <h2 className="text-[#4a3b36]">MATIÈRES PREMIÈRES SÉLECTIONNÉES</h2>
           <p>Nos matières premières sont soigneusement sélectionnées afin de vous offrir la meilleure qualité pour vos plus beaux jours.</p>
