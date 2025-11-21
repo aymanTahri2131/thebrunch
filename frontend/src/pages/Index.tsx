@@ -35,7 +35,7 @@ const Index = () => {
         </div>
       </div>
       --------
-    <h2 className="text-center text-3xl md:text-4xl font-bold mb-16 text-[#a08f60] tracking-wide">
+    <h2 className="bg-[#f5f0e5] text-center text-3xl md:text-4xl font-bold mb-16 text-[#a08f60] tracking-wide">
   VOS RETOURS
 </h2>
 
