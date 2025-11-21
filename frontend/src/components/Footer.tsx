@@ -90,7 +90,7 @@ export const Footer = () => {
                   href="mailto:contact@thebrunchtraiteur.fr"
                   className="hover:text-primary transition-colors"
                 >
-                  contact@ta-traiteur.fr
+                  contact@thebrunchtraiteur.fr
                 </a>
               </li>
               <li className="flex items-center gap-2">
