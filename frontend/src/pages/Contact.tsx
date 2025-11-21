@@ -227,7 +227,29 @@ const Contact = () => {
                     <MessageCircle className="h-5 w-5" />
                     Ouvrir WhatsApp
                   </a>
-                </Button>
+                </Button
+                  </Button>
+
+{/* Instagram Section */}
+<div className="flex flex-col items-center mt-6">
+  <p className="text-[#4a3b36] mb-2 text-sm font-medium">
+    Suivez-nous sur Instagram
+  </p>
+
+  <a
+    href="https://instagram.com/the_brunch_strasbourg"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex items-center gap-3 bg-white px-4 py-2 rounded-full shadow hover:shadow-md transition"
+  >
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/500px-Instagram_icon.png"
+      alt="Instagram"
+      className="w-10 h-10 rounded-lg"
+    />
+    <span className="text-[#4a3b36] font-medium">@yourusername</span>
+  </a>
+</div>
               </CardContent>
             </Card>
           </div>
