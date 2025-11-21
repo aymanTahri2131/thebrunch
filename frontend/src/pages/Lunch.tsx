@@ -111,7 +111,7 @@ const Lunch = () => {
               Menu Lunch
             </h1>
           </div>
-          <p className="text-xl text-white max-w-2xl mx-auto drop-shadow-lg">
+            <p className="text-sm md:text-base mb-8 text-white/90 max-w-2xl mx-auto" style={{ fontFamily: '"Inconsolata", monospace' }}>
             Découvrez une sélection soigneusement élaborée pour offrir une expérience culinaire généreuse, créative et pleine de saveurs.
           </p>
         </div>
