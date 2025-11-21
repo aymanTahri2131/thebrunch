@@ -50,9 +50,8 @@ const Index = () => {
     fontFamily: '"Inconsolata", monospace',
     fontSize: '12px',
     lineHeight: '1.6'
-    color: 'black'
   }}
-  className="text-white/90"
+  className="text-black/90"
 >
   thebrunch est une pépite pour les amateurs de pâtisserie fine. Chaque
   création est faite avec des ingrédients de grande qualité, et ça se sent dès
