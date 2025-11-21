@@ -45,9 +45,21 @@ const Index = () => {
   <div className="flex flex-col items-center text-center gap-4">
     <Quote size={42} className="text-[#4a3b36]" />
     <h3 className="text-lg font-semibold text-[#4a3b36]">Yasmine S.</h3>
-    <p className="text-[15px] leading-7 text-gray-700 max-w-[330px]">
-      Busra Baking est une pépite pour les amateurs de pâtisserie fine. Chaque création est faite avec des ingrédients de grande qualité, et ça se sent dès la première bouchée. Les saveurs sont délicates, bien équilibrées, et les textures parfaitement maîtrisées. En plus du talent évident, il y a une vraie gentillesse et une passion qui se ressentent dans l’accueil comme dans chaque détail.
-    </p>
+    <p
+  style={{
+    fontFamily: '"Inconsolata", monospace',
+    fontSize: '18px',
+    lineHeight: '1.6'
+  }}
+  className="text-white/90"
+>
+  thebrunch est une pépite pour les amateurs de pâtisserie fine. Chaque
+  création est faite avec des ingrédients de grande qualité, et ça se sent dès
+  la première bouchée. Les saveurs sont délicates, bien équilibrées, et les
+  textures parfaitement maîtrisées. En plus du talent évident, il y a une vraie
+  gentillesse et une passion qui se ressentent dans l’accueil comme dans chaque
+  détail.
+</p>
   </div>
 
   {/* CARD 2 */}
@@ -55,7 +67,7 @@ const Index = () => {
     <Quote size={42} className="text-[#4a3b36]" />
     <h3 className="text-lg font-semibold text-[#4a3b36]">Laura S.</h3>
     <p className="text-[15px] leading-7 text-gray-700 max-w-[330px]">
-      J’ai enfin découvert les trompe-l’œil de Busra Baking … et quelle magnifique surprise ! Les visuels sont bluffants, les textures parfaitement maîtrisées, et la qualité des produits se ressent à chaque bouchée. Un véritable travail d’orfèvre, aussi beau que bon. Gros coup de cœur pour la pistache, la vanille et la framboise !
+      J’ai enfin découvert les trompe-l’œil de thebrunch … et quelle magnifique surprise ! Les visuels sont bluffants, les textures parfaitement maîtrisées, et la qualité des produits se ressent à chaque bouchée. Un véritable travail d’orfèvre, aussi beau que bon. Gros coup de cœur pour la pistache, la vanille et la framboise !
     </p>
   </div>
 
