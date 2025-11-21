@@ -48,8 +48,9 @@ const Index = () => {
     <p
   style={{
     fontFamily: '"Inconsolata", monospace',
-    fontSize: '18px',
+    fontSize: '12px',
     lineHeight: '1.6'
+    color: 'black'
   }}
   className="text-white/90"
 >
