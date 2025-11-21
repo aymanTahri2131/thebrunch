@@ -34,7 +34,7 @@ const Index = () => {
         </div>
       </div>
       --------
-      <h2 class="text-4xl md:text-5xl font-bold mb-4 text-foreground">VOS RETOURS</h2>
+      <h2 class="text-center text-4xl md:text-5xl font-bold mb-4 text-foreground">VOS RETOURS</h2>
       <div className="flex flex-col sm:flex-col lg:flex-row w-full items-center justify-center p-12 gap-12 h-auto sm:h-auto lg:h-[350px] bg-[#C2C2C2]/40 text-white">
        <div className="flex flex-col items-center justify-center gap-6 text-center">
           <Heart size={40} />
