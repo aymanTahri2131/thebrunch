@@ -34,12 +34,12 @@ const Index = () => {
         
         </div>
       </div>
-      --------
-    <h2 className="bg-[#f5f0e5] text-center text-3xl md:text-4xl font-bold mb-16 text-[#a08f60] tracking-wide">
+      -
+    <h2 className="text-center text-3xl md:text-4xl font-bold mb-16 text-[#a08f60] tracking-wide">
   VOS RETOURS
 </h2>
 
-<div className="bg-[#D6D6D6] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 px-6 md:px-12 lg:px-20 w-full">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 px-6 md:px-12 lg:px-20 w-full">
   
   {/* CARD 1 */}
   <div className="flex flex-col items-center text-center gap-4">
