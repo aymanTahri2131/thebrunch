@@ -35,28 +35,28 @@ const Index = () => {
       </div>
       --------
       <h2 class="text-center text-3xl md:text-4xl font-bold mb-4 text-foreground">VOS RETOURS</h2>
-      <div className="flex flex-col sm:flex-col lg:flex-row w-full items-center justify-center p-12 gap-12 h-auto sm:h-auto lg:h-[350px] bg-[#C2C2C2]/40 text-white">
+      <div className="flex flex-col sm:flex-col lg:flex-row w-full items-center justify-center p-12 gap-12 h-auto sm:h-auto lg:h-[350px] bg-[#A8A8A8]/40 text-white">
        <div className="flex flex-col items-center justify-center gap-6 text-center">
           <Heart size={40} />
-          <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>SAVOIR-FAIRE ARTISANAL</h2>
-          <p className="text-center max-w-[400px] text-lg">Nos matières premières sont soigneusement sélectionnées afin de vous offrir la meilleure qualité pour vos plus beaux jours.</p>
+          <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>Khadija B</h2>
+          <p className="text-center max-w-[400px] text-lg" style={{ fontFamily: "Inconsolata", monospace" }}>Nos matières premières sont soigneusement sélectionnées afin de vous offrir la meilleure qualité pour vos plus beaux jours.</p>
         </div>
         <div className="flex flex-col items-center justify-center gap-6 text-center">
           <Heart size={40} />
-          <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>SAVOIR-FAIRE ARTISANAL</h2>
-          <p className="text-center max-w-[400px] text-lg">Un travail artisanal fait avec amour et savoir-faire, pour transformer vos moments les plus importants en doux souvenirs gourmands.</p>
+          <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>Lina S</h2>
+          <p className="text-center max-w-[400px] text-lg" style={{ fontFamily: "Inconsolata", monospace" }}>Un travail artisanal fait avec amour et savoir-faire, pour transformer vos moments les plus importants en doux souvenirs gourmands.</p>
         
         </div>
           <div className="flex flex-col items-center justify-center gap-6 text-center">
           <Heart size={40} />
-          <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>SAVOIR-FAIRE ARTISANAL</h2>
-          <p className="text-center max-w-[400px] text-lg">Nous plaçons vos besoins et vos retours au cœur de notre démarche, pour faire de chaque commande une expérience unique et réussie.</p>
+          <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>Youssra E</h2>
+          <p className="text-center max-w-[400px] text-lg" style={{ fontFamily: "Inconsolata", monospace" }}>Nous plaçons vos besoins et vos retours au cœur de notre démarche, pour faire de chaque commande une expérience unique et réussie.</p>
         
         </div>
           <div className="flex flex-col items-center justify-center gap-6 text-center">
           <Heart size={40} />
-          <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>SAVOIR-FAIRE ARTISANAL</h2>
-          <p className="text-center max-w-[400px] text-lg">Nous plaçons vos besoins et vos retours au cœur de notre démarche, pour faire de chaque commande une expérience unique et réussie.</p>
+          <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>Manal K</h2>
+          <p className="text-center max-w-[400px] text-lg" style={{ fontFamily: "Inconsolata", monospace" }}>Nous plaçons vos besoins et vos retours au cœur de notre démarche, pour faire de chaque commande une expérience unique et réussie.</p>
         
         </div>
       </div>
