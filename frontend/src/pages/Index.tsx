@@ -19,18 +19,21 @@ const Index = () => {
         <div className="flex flex-col items-center justify-center gap-6 text-center">
           <Leaf size={40} />
           <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>MATIÈRES PREMIÈRES SÉLECTIONNÉES</h2>
-          <p className="text-center max-w-[400px] text-lg">Nos matières premières sont soigneusement sélectionnées afin de vous offrir la meilleure qualité pour vos plus beaux jours.</p>
+          <p className="text-center max-w-[400px] text-lg">Des ingrédients soigneusement choisis.</p>
+          <p className="text-center max-w-[400px] text-lg">Nous choisissons avec le plus grand soin des ingrédients d’exception afin de vous garantir une qualité irréprochable pour sublimer chacun de vos moments précieux.</p>
         </div>
         <div className="flex flex-col items-center justify-center gap-6 text-center">
           <Heart size={40} />
           <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>SAVOIR-FAIRE ARTISANAL</h2>
-          <p className="text-center max-w-[400px] text-lg">Un travail artisanal fait avec amour et savoir-faire, pour transformer vos moments les plus importants en doux souvenirs gourmands.</p>
-        
+          <p className="text-center max-w-[400px] text-lg">Un artisanat fait avec passion.</p>   
+                    <p className="text-center max-w-[400px] text-lg">Un travail artisanal réalisé avec passion et maîtrise, pour transformer vos instants les plus marquants en souvenirs gourmands raffinés et mémorables.</p>        
         </div>
         <div className="flex flex-col items-center justify-center gap-6 text-center">
           <Star size={40} />
           <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>SATISFACTION CLIENT</h2>
-          <p className="text-center max-w-[400px] text-lg">Nous plaçons vos besoins et vos retours au cœur de notre démarche, pour faire de chaque commande une expérience unique et réussie.</p>
+          <p className="text-center max-w-[400px] text-lg">Votre satisfaction au cœur de notre démarche.</p>
+          <p className="text-center max-w-[400px] text-lg">Nous plaçons vos attentes au centre de notre démarche afin de faire de chaque commande une expérience sur-mesure, unique et parfaitement réussie.</p>   
+
         
         </div>
       </div>
@@ -44,7 +47,7 @@ const Index = () => {
   {/* CARD 1 */}
   <div className="flex flex-col items-center text-center gap-4">
     <Quote size={42} className="text-[#4a3b36]" />
-    <h3 className="text-lg font-semibold text-[#4a3b36]">Youssra K.</h3>
+    <h3 className="text-lg font-semibold text-[#4a3b36]">Amélie R</h3>
     <p
   style={{
     fontFamily: '"Inconsolata", monospace',
@@ -53,14 +56,14 @@ const Index = () => {
   }}
   className="text-black/90"
 >
-Je suis toujours émerveillé par le talent de cette cheffe. Chaque dessert et plat est une petite œuvre d’art, préparée avec des ingrédients de qualité et une précision incroyable. Un vrai bonheur pour les amateurs de gastronomie !
+Nous avons pu goûté au brunch T&A lors d’un événement d’entreprise récemment. Et comment vous dire… c’était SUCCULENT ! Des produits frais, des détails dans la présentation, un service de livraison irréprochable. Je pense n’avoir jamais mangé d’aussi bon pancakes et egg muffin. Allez-y les yeux fermés. Très belle découverte pour ma part.
 </p>
   </div>
 
   {/* CARD 2 */}
   <div className="flex flex-col items-center text-center gap-4">
     <Quote size={42} className="text-[#4a3b36]" />
-    <h3 className="text-lg font-semibold text-[#4a3b36]">Meryem A.</h3>
+    <h3 className="text-lg font-semibold text-[#4a3b36]">Cassandra B</h3>
       <p
   style={{
     fontFamily: '"Inconsolata", monospace',
@@ -69,14 +72,15 @@ Je suis toujours émerveillé par le talent de cette cheffe. Chaque dessert et p
   }}
   className="text-black/90"
 >
-Chaque fois que je goûte ses plats, je suis bluffé par la qualité et la finesse des préparations. Son travail est soigné, élégant et surtout délicieux. Je recommande vivement à tous les gourmands !
+Un service exceptionnel du début à la fin !
+Nous avons fait appel à The brunch strass pour le baptême de ma fille et tout était parfait. La qualité des plats, la présentation : tout a été géré de manière professionnelle. Les invités n’ont eu que des compliments à faire sur le buffet, aussi bien pour le goût que pour l’originalité. Nous referons appel à ses services sans hésitation !
       </p>
   </div>
 
   {/* CARD 3 */}
   <div className="flex flex-col items-center text-center gap-4">
     <Quote size={42} className="text-[#4a3b36]" />
-    <h3 className="text-lg font-semibold text-[#4a3b36]">Lina A.</h3>
+    <h3 className="text-lg font-semibold text-[#4a3b36]">Ned N</h3>
      <p
   style={{
     fontFamily: '"Inconsolata", monospace',
@@ -85,13 +89,13 @@ Chaque fois que je goûte ses plats, je suis bluffé par la qualité et la fines
   }}
   className="text-black/90"
 >
-Les plats et desserts de cette cheffe sont à la fois raffinés et généreux. Chaque création reflète son professionnalisme et sa passion, offrant une expérience gustative inoubliable.     </p>
+J’ai donné les clefs de mon mariage en main a une vrai professionnelle, et tout était parfait de À à Z . Merci mille fois encore pour votre professionnalisme et les douceurs en bouche sans égale. Je recommande les yeux fermés. </p>
   </div>
 
   {/* CARD 4 */}
   <div className="flex flex-col items-center text-center gap-4">
     <Quote size={42} className="text-[#4a3b36]" />
-    <h3 className="text-lg font-semibold text-[#4a3b36]">Kaoutar Z.</h3>
+    <h3 className="text-lg font-semibold text-[#4a3b36]">Hanta D</h3>
     <p
   style={{
     fontFamily: '"Inconsolata", monospace',
@@ -100,7 +104,12 @@ Les plats et desserts de cette cheffe sont à la fois raffinés et généreux. C
   }}
   className="text-black/90"
 >
-Je suis toujours émerveillé par la créativité et le talent de cette cheffe. Ses préparations sont raffinées, gourmandes et réalisées avec des ingrédients de qualité exceptionnelle.    </p>
+Ne cherchez pas plus loin. Choisissez ce traiteur.
+Elle nous a fourni une prestation mémorable, délicieuse et rapide pour le lendemain de notre mariage.
+L’ensemble de nos convives ont adoré et certains d’entre eux ont beaucoup apprécié que les produits soient halal.
+Professionnelle, adorable....etc elle a compris notre besoin et y a répondu avec succès.
+Merci Aziza.Nous n’hesiterons pas à vous faire appel pour une prochaine fois.
+Hanta et Laurent. </p>
   </div>
 
 </div>
