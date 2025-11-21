@@ -34,6 +34,23 @@ const Index = () => {
         </div>
       </div>
       --------
+       <title>VOS RETOURS</title>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      font-size: clamp(28px, 8vw, 96px);
+      margin: 0;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
       <div className="flex flex-col sm:flex-col lg:flex-row w-full items-center justify-center p-12 gap-12 h-auto sm:h-auto lg:h-[350px] bg-[#C2C2C2]/40 text-white">
        <div className="flex flex-col items-center justify-center gap-6 text-center">
           <Heart size={40} />
