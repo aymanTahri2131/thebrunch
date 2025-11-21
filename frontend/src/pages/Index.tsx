@@ -53,7 +53,7 @@ const Index = () => {
   }}
   className="text-black/90"
 >
-  TheBrunch est un vrai trésor pour les passionnés de pâtisserie raffinée. Chaque création utilise des ingrédients de première qualité, ce qui se ressent dès la première bouchée. Les saveurs sont subtiles et harmonieuses, tandis que les textures sont impeccablement travaillées. Au-delà du savoir-faire évident, une véritable gentillesse et une passion sincère se dégagent tant dans l’accueil que dans chaque petit détail.
+Je suis toujours émerveillé par le talent de cette cheffe. Chaque dessert et plat est une petite œuvre d’art, préparée avec des ingrédients de qualité et une précision incroyable. Un vrai bonheur pour les amateurs de gastronomie !
 </p>
   </div>
 
