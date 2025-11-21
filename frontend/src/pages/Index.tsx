@@ -35,8 +35,9 @@ const Index = () => {
         </div>
       </div>
       --------
-      <h2 class="text-center text-3xl md:text-4xl font-bold mb-4 text-foreground">VOS RETOURS</h2>
-      <div className="flex flex-col sm:flex-col lg:flex-row w-full items-center justify-center p-12 gap-12 h-auto sm:h-auto lg:h-[350px] bg-[#B8B2B2]/40 text-white">
+      <h2 className="text-center text-3xl md:text-4xl font-bold mb-4 text-foreground">VOS RETOURS</h2>
+
+<div className="flex flex-col sm:flex-col lg:flex-row w-full items-center justify-center p-12 gap-12 h-auto sm:h-auto lg:h-[350px] bg-[#B8B2B2]/40 text-white">
   <div className="flex flex-col items-center justify-center gap-6 text-center">
     <Heart size={40} />
     <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: 'Poppins, sans-serif' }}>Khadija B</h2>
@@ -64,11 +65,12 @@ const Index = () => {
   <div className="flex flex-col items-center justify-center gap-6 text-center">
     <Heart size={40} />
     <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: 'Poppins, sans-serif' }}>Manal K</h2>
-    <p className="text-center max-w-[400px] text-lg" >
+    <p className="text-center max-w-[400px] text-lg">
       Cela fait des années que je suis cette cheffe traiteur sur les réseaux sociaux, et c’est toujours un plaisir de voir une personne aussi passionnée et talentueuse. Son savoir-faire est indéniable, et chaque création reflète son amour pour la cuisine. Elle travaille énormément pour offrir des prestations de qualité, et ça se ressent dans chacun de ses plats. Je recommande vivement !
     </p>
   </div>
 </div>
+
 
       </div>
       <Realisations />
