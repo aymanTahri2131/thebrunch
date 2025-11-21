@@ -33,6 +33,26 @@ const Index = () => {
         
         </div>
       </div>
+      --------
+      <div className="flex flex-col sm:flex-col lg:flex-row w-full items-center justify-center p-12 gap-12 h-auto sm:h-auto lg:h-[350px] bg-[#C2C2C2]/40 text-white">
+       <div className="flex flex-col items-center justify-center gap-6 text-center">
+          <Heart size={40} />
+          <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>SAVOIR-FAIRE ARTISANAL</h2>
+          <p className="text-center max-w-[400px] text-lg">Nos matières premières sont soigneusement sélectionnées afin de vous offrir la meilleure qualité pour vos plus beaux jours.</p>
+        </div>
+        <div className="flex flex-col items-center justify-center gap-6 text-center">
+          <Heart size={40} />
+          <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>SAVOIR-FAIRE ARTISANAL</h2>
+          <p className="text-center max-w-[400px] text-lg">Un travail artisanal fait avec amour et savoir-faire, pour transformer vos moments les plus importants en doux souvenirs gourmands.</p>
+        
+        </div>
+          <div className="flex flex-col items-center justify-center gap-6 text-center">
+          <Heart size={40} />
+          <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>SAVOIR-FAIRE ARTISANAL</h2>
+          <p className="text-center max-w-[400px] text-lg">Nous plaçons vos besoins et vos retours au cœur de notre démarche, pour faire de chaque commande une expérience unique et réussie.</p>
+        
+        </div>
+      </div>
       <Realisations />
       <Contact />
       <Footer />
