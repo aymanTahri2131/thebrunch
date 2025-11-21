@@ -69,8 +69,8 @@ Je suis toujours émerveillé par le talent de cette cheffe. Chaque dessert et p
   }}
   className="text-black/90"
 >
-  J’ai enfin eu la chance de découvrir les trompe-l’œil de Thebrunch… et quelle merveilleuse surprise ! Les visuels sont incroyablement impressionnants, les textures parfaitement équilibrées, et la qualité des ingrédients se perçoit à chaque bouchée. Un vrai travail d’artisan, aussi délicieux que splendide. Mention spéciale pour la pistache, la vanille et la framboise !.
-</p>
+Chaque fois que je goûte ses plats, je suis bluffé par la qualité et la finesse des préparations. Son travail est soigné, élégant et surtout délicieux. Je recommande vivement à tous les gourmands !
+      </p>
   </div>
 
   {/* CARD 3 */}
@@ -85,8 +85,7 @@ Je suis toujours émerveillé par le talent de cette cheffe. Chaque dessert et p
   }}
   className="text-black/90"
 >
-Un travail soigné et de grande qualité, avec des produits toujours frais. Après avoir goûté presque toute la carte, sucrée comme salée, je peux dire que c’est aussi délicieux que visuellement impeccable, voire encore mieux. Tout est excellent, un véritable travail de chef. Les tartes rivalisent avec celles des grands pâtissiers. Bravo et merci !
-     </p>
+Les plats et desserts de cette cheffe sont à la fois raffinés et généreux. Chaque création reflète son professionnalisme et sa passion, offrant une expérience gustative inoubliable.     </p>
   </div>
 
   {/* CARD 4 */}
@@ -101,8 +100,7 @@ Un travail soigné et de grande qualité, avec des produits toujours frais. Apr�
   }}
   className="text-black/90"
 >
-Je suis cette cheffe traiteur sur les réseaux sociaux depuis des années, et c’est toujours un plaisir de voir autant de passion et de talent réunis. Son savoir-faire est évident, et chaque création témoigne de son amour pour la cuisine. Elle met un soin remarquable dans chacune de ses prestations, et cela se ressent dans tous ses plats. Je la recommande chaudement !
-    </p>
+Je suis toujours émerveillé par la créativité et le talent de cette cheffe. Ses préparations sont raffinées, gourmandes et réalisées avec des ingrédients de qualité exceptionnelle.    </p>
   </div>
 
 </div>
