@@ -44,7 +44,7 @@ const Index = () => {
   {/* CARD 1 */}
   <div className="flex flex-col items-center text-center gap-4">
     <Quote size={42} className="text-[#4a3b36]" />
-    <h3 className="text-lg font-semibold text-[#4a3b36]">Yasmine S.</h3>
+    <h3 className="text-lg font-semibold text-[#4a3b36]">Youssra K.</h3>
     <p
   style={{
     fontFamily: '"Inconsolata", monospace',
@@ -53,39 +53,55 @@ const Index = () => {
   }}
   className="text-black/90"
 >
-  thebrunch est une pépite pour les amateurs de pâtisserie fine. Chaque
-  création est faite avec des ingrédients de grande qualité, et ça se sent dès
-  la première bouchée. Les saveurs sont délicates, bien équilibrées, et les
-  textures parfaitement maîtrisées. En plus du talent évident, il y a une vraie
-  gentillesse et une passion qui se ressentent dans l’accueil comme dans chaque
-  détail.
+  TheBrunch est un vrai trésor pour les passionnés de pâtisserie raffinée. Chaque création utilise des ingrédients de première qualité, ce qui se ressent dès la première bouchée. Les saveurs sont subtiles et harmonieuses, tandis que les textures sont impeccablement travaillées. Au-delà du savoir-faire évident, une véritable gentillesse et une passion sincère se dégagent tant dans l’accueil que dans chaque petit détail.
 </p>
   </div>
 
   {/* CARD 2 */}
   <div className="flex flex-col items-center text-center gap-4">
     <Quote size={42} className="text-[#4a3b36]" />
-    <h3 className="text-lg font-semibold text-[#4a3b36]">Laura S.</h3>
-    <p className="text-[15px] leading-7 text-gray-700 max-w-[330px]">
-      J’ai enfin découvert les trompe-l’œil de thebrunch … et quelle magnifique surprise ! Les visuels sont bluffants, les textures parfaitement maîtrisées, et la qualité des produits se ressent à chaque bouchée. Un véritable travail d’orfèvre, aussi beau que bon. Gros coup de cœur pour la pistache, la vanille et la framboise !
-    </p>
+    <h3 className="text-lg font-semibold text-[#4a3b36]">Meryem A.</h3>
+      <p
+  style={{
+    fontFamily: '"Inconsolata", monospace',
+    fontSize: '12px',
+    lineHeight: '1.6'
+  }}
+  className="text-black/90"
+>
+  J’ai enfin eu la chance de découvrir les trompe-l’œil de Thebrunch… et quelle merveilleuse surprise ! Les visuels sont incroyablement impressionnants, les textures parfaitement équilibrées, et la qualité des ingrédients se perçoit à chaque bouchée. Un vrai travail d’artisan, aussi délicieux que splendide. Mention spéciale pour la pistache, la vanille et la framboise !.
+</p>
   </div>
 
   {/* CARD 3 */}
   <div className="flex flex-col items-center text-center gap-4">
     <Quote size={42} className="text-[#4a3b36]" />
-    <h3 className="text-lg font-semibold text-[#4a3b36]">Elif B.</h3>
-    <p className="text-[15px] leading-7 text-gray-700 max-w-[330px]">
-      Un travail minutieux et de qualité, les produits sont frais. Après avoir goûté toute la carte (sucré et salé), je peux affirmer que c’est aussi beau que bon. Tout est excellent, un travail de chef. Les tartes sont dignes d’un grand pâtissier. Bravo et merci !
-    </p>
+    <h3 className="text-lg font-semibold text-[#4a3b36]">Lina A.</h3>
+     <p
+  style={{
+    fontFamily: '"Inconsolata", monospace',
+    fontSize: '12px',
+    lineHeight: '1.6'
+  }}
+  className="text-black/90"
+>
+Un travail soigné et de grande qualité, avec des produits toujours frais. Après avoir goûté presque toute la carte, sucrée comme salée, je peux dire que c’est aussi délicieux que visuellement impeccable, voire encore mieux. Tout est excellent, un véritable travail de chef. Les tartes rivalisent avec celles des grands pâtissiers. Bravo et merci !
+     </p>
   </div>
 
   {/* CARD 4 */}
   <div className="flex flex-col items-center text-center gap-4">
     <Quote size={42} className="text-[#4a3b36]" />
-    <h3 className="text-lg font-semibold text-[#4a3b36]">Khadija B.</h3>
-    <p className="text-[15px] leading-7 text-gray-700 max-w-[330px]">
-      Cela fait des années que je suis cette cheffe traiteur, et c’est toujours un plaisir de voir une personne aussi passionnée et talentueuse. Son savoir-faire est indéniable, et chaque création reflète son amour pour la cuisine. Je recommande vivement !
+    <h3 className="text-lg font-semibold text-[#4a3b36]">Kaoutar Z.</h3>
+    <p
+  style={{
+    fontFamily: '"Inconsolata", monospace',
+    fontSize: '12px',
+    lineHeight: '1.6'
+  }}
+  className="text-black/90"
+>
+Je suis cette cheffe traiteur sur les réseaux sociaux depuis des années, et c’est toujours un plaisir de voir autant de passion et de talent réunis. Son savoir-faire est évident, et chaque création témoigne de son amour pour la cuisine. Elle met un soin remarquable dans chacune de ses prestations, et cela se ressent dans tous ses plats. Je la recommande chaudement !
     </p>
   </div>
 
