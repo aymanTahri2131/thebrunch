@@ -35,10 +35,13 @@ Merci Aziza. Nous n’hésiterons pas à faire appel pour une prochaine fois.`
   ];
 
   return (
-    <section>
-      <h2 className="text-center text-3xl md:text-4xl font-bold mb-16 text-[#a08f60] tracking-wide">
-        VOS RETOURS
-      </h2>
+   <section>
+  <h2
+    className="text-center text-3xl md:text-4xl font-bold mb-8 tracking-wide"
+    style={{ color: "#000000" }}
+  >
+    VOS RETOURS
+  </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 px-6 md:px-12 lg:px-20 w-full">
         {testimonials.map((t, index) => (
