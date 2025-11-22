@@ -91,17 +91,17 @@ const FAQ = () => {
   const [open, setOpen] = useState(null);
 
   return (
-    <section className="py-24">
-      <h2 className="text-center text-4xl font-semibold tracking-wide text-[#a08f60] mb-16">
+    <section className="py-16">
+      <h2 className="text-center text-3xl font-semibold tracking-wide text-[#a08f60] mb-12">
         FAQ
       </h2>
 
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-6 px-4">
         {faqs.map((item, index) => (
-          <div key={index} className="border-b border-gray-300 py-5">
+          <div key={index} className="border-b border-gray-300 py-3">
             <button
               onClick={() => setOpen(open === index ? null : index)}
-              className="w-full flex items-center justify-between text-left text-[18px] font-medium tracking-wide"
+              className="w-full flex items-center justify-between text-left text-[15px] font-medium tracking-wide"
             >
               {item.q}
               <ChevronDown
@@ -113,10 +113,10 @@ const FAQ = () => {
 
             <div
               className={`overflow-hidden transition-all duration-300 ${
-                open === index ? "max-h-[500px] mt-3 opacity-100" : "max-h-0 opacity-0"
+                open === index ? "max-h-[500px] mt-2 opacity-100" : "max-h-0 opacity-0"
               }`}
             >
-              <p className="whitespace-pre-line text-gray-600 leading-relaxed">
+              <p className="whitespace-pre-line text-gray-600 text-sm leading-relaxed">
                 {item.a}
               </p>
             </div>
