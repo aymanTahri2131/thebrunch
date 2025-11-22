@@ -3,9 +3,11 @@ import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { ReveillonMenu } from "@/components/ReveillonMenu";
 import { Realisations } from "@/components/Realisations";
+import FAQ from "@/components/FAQ";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { Leaf, Heart, Star, Quote } from "lucide-react";
+
 
 const Index = () => {
   return (
@@ -136,6 +138,7 @@ const Index = () => {
       </div>
 
       <Realisations />
+      <FAQ />
       <Contact />
       <Footer />
     </div>
