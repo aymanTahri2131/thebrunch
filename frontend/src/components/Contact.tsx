@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, Phone, Mail, MessageCircle, Clock, Loader2 } from "lucide-react";
+import { MapPin, Phone, Mail, MessageCircle, Clock, Loader2, Instagram } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -27,9 +27,7 @@ export const Contact = () => {
     try {
       const response = await fetch('https://thebrunchtraiteur-production.up.railway.app/api/communication/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           customerName: formData.name,
           customerEmail: formData.email,
@@ -50,7 +48,6 @@ export const Contact = () => {
           description: "Nous avons reçu votre message et vous répondrons rapidement.",
         });
         
-        // Reset form
         setFormData({
           name: "",
           email: "",
@@ -83,28 +80,10 @@ export const Contact = () => {
   };
 
   const contactInfo = [
-    {
-      icon: MapPin,
-      title: "Adresse",
-      content: "Schiltigheim, Bas-rhin (67) ",
-    },
-    {
-      icon: Phone,
-      title: "Téléphone",
-      content: "07 83 45 36 05",
-      link: "tel:+33783453605",
-    },
-    {
-      icon: Mail,
-      title: "Email",
-      content: "contact@ta-traiteur.fr",
-      link: "mailto:contact@ta-traiteur.fr",
-    },
-    {
-      icon: Clock,
-      title: "Horaires",
-      content: "toujours ouvert",
-    },
+    { icon: MapPin, title: "Adresse", content: "Schiltigheim, Bas-rhin (67)" },
+    { icon: Phone, title: "Téléphone", content: "07 83 45 36 05", link: "tel:+33783453605" },
+    { icon: Mail, title: "Email", content: "contact@ta-traiteur.fr", link: "mailto:contact@ta-traiteur.fr" },
+    { icon: Clock, title: "Horaires", content: "toujours ouvert" },
   ];
 
   return (
@@ -132,14 +111,9 @@ export const Contact = () => {
               >
                 <CardContent className="p-6">
                   <Icon className="h-8 w-8 text-accent mx-auto mb-3" />
-                  <h3 className="font-semibold text-foreground mb-2">
-                    {info.title}
-                  </h3>
+                  <h3 className="font-semibold text-foreground mb-2">{info.title}</h3>
                   {info.link ? (
-                    <a
-                      href={info.link}
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                    >
+                    <a href={info.link} className="text-muted-foreground hover:text-primary transition-colors">
                       {info.content}
                     </a>
                   ) : (
@@ -151,86 +125,50 @@ export const Contact = () => {
           })}
         </div>
 
-        {/* Contact Form & WhatsApp */}
+        {/* Contact Form & WhatsApp/Instagram */}
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {/* Contact Form */}
           <Card className="md:col-span-2 border-2 border-accent/20 hover:border-accent/40 transition-colors duration-300">
             <CardContent className="p-8">
-              <h3 className="text-3xl font-bold mb-6 text-foreground">
-                Envoyez-nous un message
-              </h3>
+              <h3 className="text-3xl font-bold mb-6 text-foreground">Envoyez-nous un message</h3>
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Form Fields */}
                 <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium mb-2 text-foreground"
-                  >
-                    Nom complet *
-                  </label>
+                  <label htmlFor="name" className="block text-sm font-medium mb-2 text-foreground">Nom complet *</label>
                   <Input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={handleChange}
+                    id="name" name="name" type="text" required
+                    value={formData.name} onChange={handleChange}
                     placeholder="Jean Dupont"
                     className="border-accent/20 focus:border-accent"
                   />
                 </div>
-                
+
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium mb-2 text-foreground"
-                    >
-                      Email *
-                    </label>
+                    <label htmlFor="email" className="block text-sm font-medium mb-2 text-foreground">Email *</label>
                     <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
+                      id="email" name="email" type="email" required
+                      value={formData.email} onChange={handleChange}
                       placeholder="jean@exemple.fr"
                       className="border-accent/20 focus:border-accent"
                     />
                   </div>
                   <div>
-                    <label
-                      htmlFor="phone"
-                      className="block text-sm font-medium mb-2 text-foreground"
-                    >
-                      Téléphone
-                    </label>
+                    <label htmlFor="phone" className="block text-sm font-medium mb-2 text-foreground">Téléphone</label>
                     <Input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={handleChange}
+                      id="phone" name="phone" type="tel"
+                      value={formData.phone} onChange={handleChange}
                       placeholder="+33 1 23 45 67 89"
                       className="border-accent/20 focus:border-accent"
                     />
                   </div>
                 </div>
 
-                {/* Nouveaux champs pour l'événement */}
                 <div>
-                  <label
-                    htmlFor="subject"
-                    className="block text-sm font-medium mb-2 text-foreground"
-                  >
-                    Sujet
-                  </label>
+                  <label htmlFor="subject" className="block text-sm font-medium mb-2 text-foreground">Sujet</label>
                   <Input
-                    id="subject"
-                    name="subject"
-                    type="text"
-                    value={formData.subject}
-                    onChange={handleChange}
+                    id="subject" name="subject" type="text"
+                    value={formData.subject} onChange={handleChange}
                     placeholder="Demande de devis, question..."
                     className="border-accent/20 focus:border-accent"
                   />
@@ -238,17 +176,9 @@ export const Contact = () => {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label
-                      htmlFor="eventType"
-                      className="block text-sm font-medium mb-2 text-foreground"
-                    >
-                      Type d'événement
-                    </label>
+                    <label htmlFor="eventType" className="block text-sm font-medium mb-2 text-foreground">Type d'événement</label>
                     <select
-                      id="eventType"
-                      name="eventType"
-                      value={formData.eventType}
-                      onChange={handleChange}
+                      id="eventType" name="eventType" value={formData.eventType} onChange={handleChange}
                       className="w-full px-3 py-2 border border-accent/20 rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent bg-background"
                     >
                       <option value="">Sélectionner...</option>
@@ -260,18 +190,10 @@ export const Contact = () => {
                     </select>
                   </div>
                   <div>
-                    <label
-                      htmlFor="guestCount"
-                      className="block text-sm font-medium mb-2 text-foreground"
-                    >
-                      Nombre d'invités
-                    </label>
+                    <label htmlFor="guestCount" className="block text-sm font-medium mb-2 text-foreground">Nombre d'invités</label>
                     <Input
-                      id="guestCount"
-                      name="guestCount"
-                      type="number"
-                      value={formData.guestCount}
-                      onChange={handleChange}
+                      id="guestCount" name="guestCount" type="number"
+                      value={formData.guestCount} onChange={handleChange}
                       placeholder="ex: 50"
                       className="border-accent/20 focus:border-accent"
                     />
@@ -279,44 +201,27 @@ export const Contact = () => {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="eventDate"
-                    className="block text-sm font-medium mb-2 text-foreground"
-                  >
-                    Date d'événement souhaitée
-                  </label>
+                  <label htmlFor="eventDate" className="block text-sm font-medium mb-2 text-foreground">Date d'événement souhaitée</label>
                   <Input
-                    id="eventDate"
-                    name="eventDate"
-                    type="date"
-                    value={formData.eventDate}
-                    onChange={handleChange}
+                    id="eventDate" name="eventDate" type="date"
+                    value={formData.eventDate} onChange={handleChange}
                     className="border-accent/20 focus:border-accent"
                   />
                 </div>
-                
+
                 <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium mb-2 text-foreground"
-                  >
-                    Votre message *
-                  </label>
+                  <label htmlFor="message" className="block text-sm font-medium mb-2 text-foreground">Votre message *</label>
                   <Textarea
-                    id="message"
-                    name="message"
-                    required
-                    value={formData.message}
-                    onChange={handleChange}
+                    id="message" name="message" required
+                    value={formData.message} onChange={handleChange}
                     placeholder="Décrivez votre projet, vos besoins..."
                     rows={6}
                     className="border-accent/20 focus:border-accent"
                   />
                 </div>
-                
+
                 <Button
-                  type="submit"
-                  size="lg"
+                  type="submit" size="lg"
                   disabled={isSubmitting}
                   className="w-full bg-accent hover:bg-accent/90 text-accent-foreground disabled:opacity-50"
                 >
@@ -325,24 +230,19 @@ export const Contact = () => {
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Envoi en cours...
                     </>
-                  ) : (
-                    'Envoyer le message'
-                  )}
+                  ) : ('Envoyer le message')}
                 </Button>
               </form>
             </CardContent>
           </Card>
 
-          {/* WhatsApp Contact Card */}
+          {/* WhatsApp & Instagram Contact Card */}
           <Card className="border-2 border-accent/20 hover:border-accent/40 transition-colors duration-300 h-fit">
             <CardContent className="p-8 text-center">
               <MessageCircle className="h-16 w-16 text-accent mx-auto mb-4" />
-              <h3 className="text-2xl font-bold mb-3 text-foreground">
-                Contact Rapide
-              </h3>
+              <h3 className="text-2xl font-bold mb-3 text-foreground">Contact Rapide</h3>
               <p className="text-muted-foreground mb-6">
-                Besoin d'une réponse immédiate ? Contactez-nous directement
-                sur WhatsApp !
+                Besoin d'une réponse immédiate ? Contactez-nous directement sur WhatsApp !
               </p>
               <Button
                 size="lg"
@@ -357,6 +257,23 @@ export const Contact = () => {
                 >
                   <MessageCircle className="h-5 w-5" />
                   Ouvrir WhatsApp
+                </a>
+              </Button>
+
+              {/* Instagram Button */}
+              <Button
+                size="lg"
+                className="w-full mt-4 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:from-pink-600 hover:via-red-600 hover:to-yellow-600 text-white"
+                asChild
+              >
+                <a
+                  href="https://www.instagram.com/the_brunch_strasbourg" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2"
+                >
+                  <Instagram className="h-5 w-5" />
+                  Voir Instagram
                 </a>
               </Button>
             </CardContent>
