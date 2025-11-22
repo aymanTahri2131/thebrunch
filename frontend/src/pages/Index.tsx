@@ -6,7 +6,7 @@ import { Realisations } from "@/components/Realisations";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import FAQ from "@/components/FAQ";
-import retours from "@/components/FAQ";
+import retours from "@/components/retours";
 import { Leaf, Heart, Star, Quote } from "lucide-react";
 
 const Index = () => {
