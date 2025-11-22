@@ -82,7 +82,7 @@ export const Contact = () => {
   const contactInfo = [
     { icon: MapPin, title: "Adresse", content: "Schiltigheim, Bas-rhin (67)" },
     { icon: Phone, title: "Téléphone", content: "07 83 45 36 05", link: "tel:+33783453605" },
-    { icon: Mail, title: "Email", content: "contact@ta-traiteur.fr", link: "mailto:contact@ta-traiteur.fr" },
+    { icon: Mail, title: "Email", content: "contact@thebrunchtraiteur.fr", link: "mailto:contact@thebrunchtraiteur.fr" },
     { icon: Clock, title: "Horaires", content: "toujours ouvert" },
   ];
 
