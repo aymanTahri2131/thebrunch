@@ -1,6 +1,6 @@
 import { Quote } from "lucide-react";
 
-export const Testimonials = () => {
+export const retours = () => {
   return (
     <section>
       <h2 className="text-center text-3xl md:text-4xl font-bold mb-16 text-[#a08f60] tracking-wide">
