@@ -43,6 +43,47 @@ En cas d’annulation anticipée, il peut être converti en avoir, valable sur u
   {
     q: "Pouvons-nous personnaliser notre brunch ?",
     a: "Absolument. Nous créons des brunchs 100 % sur mesure selon vos goûts, votre thème, votre budget et votre événement."
+  },
+  {
+    q: "Avez-vous un minimum de commande ?",
+    a: "Oui, selon les prestations. En général, le minimum est de 8 à 10 personnes."
+  },
+  {
+    q: "Quelle quantité de pièces salées prévoir par personne ?",
+    a: `Selon votre type d’événement :
+• Buffet avant un repas : 2 à 4 pièces salées
+• Buffet ou brunch complet : 6 à 9 pièces salées`
+  },
+  {
+    q: "Quelle quantité de pièces sucrées prévoir par personne ?",
+    a: `• Petit cocktail : 2 à 3 pièces sucrées
+• Buffet sucré complet : 4 à 6 pièces sucrées`
+  },
+  {
+    q: "Pouvez-vous nous aider à choisir les quantités ?",
+    a: "Oui, nous vous conseillons selon le type d’événement, l’heure, le nombre d’invités et vos préférences."
+  },
+  {
+    q: "Quels moyens de paiement acceptez-vous ?",
+    a: `• Carte bancaire
+• Virement
+• Espèces
+• Paiement mobile`
+  },
+  {
+    q: "Fournissez-vous des factures pour les entreprises ?",
+    a: "Oui, nous pouvons éditer une facture professionnelle."
+  },
+  {
+    q: "Proposez-vous vos services pour les mariages ou grands événements ?",
+    a: `Oui, nous réalisons :
+• mariages & brunch du lendemain
+• baptêmes
+• baby-showers
+• événements professionnels
+• séminaires
+• anniversaires
+• réceptions privées`
   }
 ];
 
