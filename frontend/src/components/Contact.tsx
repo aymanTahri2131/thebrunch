@@ -261,7 +261,7 @@ export const Contact = () => {
               </Button>
             </CardContent>
              {/* Instagram Card */}
-<Card className="border-2 border-accent/20 hover:border-accent/40 transition-colors duration-200 h-[200px] flex items-center justify-center bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500 text-white">
+<Card className="border-2 border-accent/20 hover:border-accent/40 transition-colors duration-300 h-[300px] flex items-center justify-center bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500 text-white">
   <CardContent className="p-8 text-center flex flex-col items-center justify-center">
     <Instagram className="h-16 w-16 mb-4" />
     <h3 className="text-2xl font-bold mb-3">Suivez-nous sur Instagram</h3>
