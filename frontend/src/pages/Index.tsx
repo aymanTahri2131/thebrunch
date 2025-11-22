@@ -4,11 +4,10 @@ import { About } from "@/components/About";
 import { ReveillonMenu } from "@/components/ReveillonMenu";
 import { Realisations } from "@/components/Realisations";
 import { FAQ } from "@/components/FAQ";
-import { retours } from "@/components/retours";
+import { Testimonials } from "@/components/Testimonials"; // صححت retours
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { Leaf, Heart, Star, Quote } from "lucide-react";
-
 
 const Index = () => {
   return (
@@ -18,10 +17,14 @@ const Index = () => {
       <About />
       <ReveillonMenu />
 
+      {/* SECTION INFO */}
       <div className="flex flex-col sm:flex-col lg:flex-row w-full items-center justify-center p-12 gap-12 h-auto sm:h-auto lg:h-[350px] bg-[#99771b]/40 text-white">
         <div className="flex flex-col items-center justify-center gap-6 text-center">
           <Leaf size={40} />
-          <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>
+          <h2
+            className="text-[#4a3b36] font-semibold text-lg"
+            style={{ fontFamily: "Poppins, sans-serif" }}
+          >
             MATIÈRES PREMIÈRES SÉLECTIONNÉES
           </h2>
           <p className="text-center max-w-[400px] text-lg">
@@ -32,7 +35,10 @@ const Index = () => {
 
         <div className="flex flex-col items-center justify-center gap-6 text-center">
           <Heart size={40} />
-          <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>
+          <h2
+            className="text-[#4a3b36] font-semibold text-lg"
+            style={{ fontFamily: "Poppins, sans-serif" }}
+          >
             SAVOIR-FAIRE ARTISANAL
           </h2>
           <p className="text-center max-w-[400px] text-lg">
@@ -43,7 +49,10 @@ const Index = () => {
 
         <div className="flex flex-col items-center justify-center gap-6 text-center">
           <Star size={40} />
-          <h2 className="text-[#4a3b36] font-semibold text-lg" style={{ fontFamily: "Poppins, sans-serif" }}>
+          <h2
+            className="text-[#4a3b36] font-semibold text-lg"
+            style={{ fontFamily: "Poppins, sans-serif" }}
+          >
             SATISFACTION CLIENT
           </h2>
           <p className="text-center max-w-[400px] text-lg">
@@ -53,7 +62,9 @@ const Index = () => {
         </div>
       </div>
 
-      <Rertours />
+      {/* TESTIMONIALS */}
+      <Testimonials />
+
       <Realisations />
       <FAQ />
       <Contact />
