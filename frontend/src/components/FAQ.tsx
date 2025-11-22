@@ -2,16 +2,48 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
 const faqs = [
-  { q: "Comment passer commande ?", a: "Vous pouvez commander via le formulaire en ligne, par message ou par téléphone. Nous revenons rapidement vers vous pour confirmer la date, le nombre de personnes et personnaliser votre prestation." },
-  { q: "Combien de temps à l’avance dois-je réserver ?", a: `Pour les petits brunchs (moins de 15 personnes), 48–72 h à l’avance suffisent.\nPour les événements (mariages, entreprises, anniversaires…), nous recommandons de réserver 2 à 6 mois à l’avance.` },
-  { q: "Demandez-vous un acompte ?", a: "Oui, un acompte peut être demandé en fonction du montant de la prestation. Le solde est à régler au plus tard le jour de l’événement." },
-  { q: "L’acompte est-il remboursable ?", a: `L’acompte n’est pas remboursable.\nEn cas d’annulation anticipée, il peut être converti en avoir, valable sur une prochaine commande.` },
-  { q: "Proposez-vous la livraison ?", a: "Oui, nous livrons sur Strasbourg et tout le Bas-Rhin. Les frais varient selon la distance et le volume." },
-  { q: "Faites-vous l’installation du buffet ?", a: "Oui, nous pouvons installer entièrement votre buffet brunch : mise en place, décoration simple, organisation des pièces. Ce service est optionnel." },
-  { q: "Proposez-vous un service sur place ?", a: "Sur demande, nous pouvons mettre à disposition un(e) serveur(se) pour la gestion du buffet ou du service à table." },
-  { q: "Vous déplacez-vous en dehors du Bas-Rhin ?", a: "Oui, pour les événements importants. Un supplément déplacement peut s’appliquer." },
-  { q: "Proposez-vous des options halal, sans alcool ou végétariennes ?", a: "Oui, nous pouvons adapter l’intégralité du menu à vos besoins : halal, sans alcool, végétarien." },
-  { q: "Pouvons-nous personnaliser notre brunch ?", a: "Absolument. Nous créons des brunchs 100 % sur mesure selon vos goûts, votre thème, votre budget et votre événement." }
+  {
+    q: "Comment passer commande ?",
+    a: "Vous pouvez commander via le formulaire en ligne, par message ou par téléphone. Nous revenons rapidement vers vous pour confirmer la date, le nombre de personnes et personnaliser votre prestation."
+  },
+  {
+    q: "Combien de temps à l’avance dois-je réserver ?",
+    a: `Pour les petits brunchs (moins de 15 personnes), 48–72 h à l’avance suffisent.
+Pour les événements (mariages, entreprises, anniversaires…), nous recommandons de réserver 2 à 6 mois à l’avance.`
+  },
+  {
+    q: "Demandez-vous un acompte ?",
+    a: "Oui, un acompte peut être demandé en fonction du montant de la prestation. Le solde est à régler au plus tard le jour de l’événement."
+  },
+  {
+    q: "L’acompte est-il remboursable ?",
+    a: `L’acompte n’est pas remboursable.
+En cas d’annulation anticipée, il peut être converti en avoir, valable sur une prochaine commande.`
+  },
+  {
+    q: "Proposez-vous la livraison ?",
+    a: "Oui, nous livrons sur Strasbourg et tout le Bas-Rhin. Les frais varient selon la distance et le volume."
+  },
+  {
+    q: "Faites-vous l’installation du buffet ?",
+    a: "Oui, nous pouvons installer entièrement votre buffet brunch : mise en place, décoration simple, organisation des pièces. Ce service est optionnel."
+  },
+  {
+    q: "Proposez-vous un service sur place ?",
+    a: "Sur demande, nous pouvons mettre à disposition un(e) serveur(se) pour la gestion du buffet ou du service à table."
+  },
+  {
+    q: "Vous déplacez-vous en dehors du Bas-Rhin ?",
+    a: "Oui, pour les événements importants. Un supplément déplacement peut s’appliquer."
+  },
+  {
+    q: "Proposez-vous des options halal, sans alcool ou végétariennes ?",
+    a: "Oui, nous pouvons adapter l’intégralité du menu à vos besoins : halal, sans alcool, végétarien."
+  },
+  {
+    q: "Pouvons-nous personnaliser notre brunch ?",
+    a: "Absolument. Nous créons des brunchs 100 % sur mesure selon vos goûts, votre thème, votre budget et votre événement."
+  }
 ];
 
 const FAQ = () => {
@@ -44,7 +76,6 @@ const FAQ = () => {
               <p className="whitespace-pre-line">{item.a}</p>
             </div>
 
-            {/* فاصل ديكور صغير */}
             <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#f7d19c] via-[#a08f60] to-[#f7d19c] opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
           </div>
         ))}
