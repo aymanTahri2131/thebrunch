@@ -137,7 +137,7 @@ const Index = () => {
       </div>
 
       <Realisations />
-      <faq />
+      <FAQ />
       <Contact />
       <Footer />
     </div>
