@@ -259,25 +259,30 @@ export const Contact = () => {
                   Ouvrir WhatsApp
                 </a>
               </Button>
-
-              {/* Instagram Button */}
-              <Button
-                size="lg"
-                className="w-full mt-4 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:from-pink-600 hover:via-red-600 hover:to-yellow-600 text-white"
-                asChild
-              >
-                <a
-                  href="https://www.instagram.com/the_brunch_strasbourg" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2"
-                >
-                  <Instagram className="h-5 w-5" />
-                  Voir Instagram
-                </a>
-              </Button>
             </CardContent>
           </Card>
+          {/* Instagram Card */}
+<Card className="border-2 border-accent/20 hover:border-accent/40 transition-colors duration-300 h-[300px] flex items-center justify-center bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500 text-white">
+  <CardContent className="p-8 text-center flex flex-col items-center justify-center">
+    <Instagram className="h-16 w-16 mb-4" />
+    <h3 className="text-2xl font-bold mb-3">Suivez-nous sur Instagram</h3>
+    <Button
+      size="lg"
+      className="bg-white text-black hover:bg-gray-100 mt-4"
+      asChild
+    >
+      <a
+        href="https://www.instagram.com/the_brunch_strasbourg/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-center gap-2"
+      >
+        Voir Instagram
+      </a>
+    </Button>
+  </CardContent>
+</Card>
+
         </div>
       </div>
     </section>
