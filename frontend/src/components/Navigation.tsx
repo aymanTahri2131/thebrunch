@@ -134,6 +134,7 @@ export const Navigation = () => {
     { name: "Brunch", path: "/brunch" },
     { name: "Menu Réveillon", path: "/menu-reveillon", scrollTo: "reveillon-menu" },
     { name: "Contact", path: "/contact", isContact: true },
+    { name: "FAQ", path: "/FAQ" },
   ];
 
   return (
