@@ -259,8 +259,9 @@ export const Contact = () => {
                   Ouvrir WhatsApp
                 </a>
               </Button>
-            </CardContent>
-             {/* Instagram Card */}
+            </CardContent> 
+</Card>
+            {/* Instagram Card */}
 <Card className="border-2 border-accent/20 hover:border-accent/40 transition-colors duration-300 h-[300px] flex items-center justify-center bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500 text-white">
   <CardContent className="p-8 text-center flex flex-col items-center justify-center">
     <Instagram className="h-16 w-16 mb-4" />
@@ -280,7 +281,6 @@ export const Contact = () => {
       </a>
     </Button>
   </CardContent>
-</Card>
           </Card>
          
 
