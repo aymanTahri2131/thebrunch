@@ -19,14 +19,12 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // For now, just show a success message
-    // In production, this would send to a backend/email service
+
     toast({
       title: "Message envoyé !",
       description: "Nous vous répondrons dans les plus brefs délais.",
     });
-    
+
     setFormData({ name: "", email: "", phone: "", message: "" });
   };
 
@@ -64,7 +62,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
-      
+
       {/* Hero Section */}
       <section className="pt-32 pb-12 bg-gradient-to-b from-primary/10 to-background">
         <div className="container mx-auto px-4 text-center">
@@ -118,7 +116,9 @@ const Contact = () => {
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   Envoyez-nous un message
                 </h2>
+
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Name */}
                   <div>
                     <label
                       htmlFor="name"
@@ -136,7 +136,8 @@ const Contact = () => {
                       placeholder="Jean Dupont"
                     />
                   </div>
-                  
+
+                  {/* Email + Phone */}
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label
@@ -155,6 +156,7 @@ const Contact = () => {
                         placeholder="jean@exemple.fr"
                       />
                     </div>
+
                     <div>
                       <label
                         htmlFor="phone"
@@ -172,7 +174,8 @@ const Contact = () => {
                       />
                     </div>
                   </div>
-                  
+
+                  {/* Message */}
                   <div>
                     <label
                       htmlFor="message"
@@ -190,7 +193,7 @@ const Contact = () => {
                       rows={6}
                     />
                   </div>
-                  
+
                   <Button
                     type="submit"
                     size="lg"
@@ -213,6 +216,7 @@ const Contact = () => {
                   Besoin d'une réponse immédiate ? Contactez-nous directement
                   sur WhatsApp !
                 </p>
+
                 <Button
                   size="lg"
                   className="w-full bg-[#25D366] hover:bg-[#20BA5A] text-white"
@@ -227,29 +231,7 @@ const Contact = () => {
                     <MessageCircle className="h-5 w-5" />
                     Ouvrir WhatsApp
                   </a>
-                </Button
-                  </Button>
-
-{/* Instagram Section */}
-<div className="flex flex-col items-center mt-6">
-  <p className="text-[#4a3b36] mb-2 text-sm font-medium">
-    Suivez-nous sur Instagram
-  </p>
-
-  <a
-    href="https://instagram.com/the_brunch_strasbourg"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex items-center gap-3 bg-white px-4 py-2 rounded-full shadow hover:shadow-md transition"
-  >
-    <img
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/500px-Instagram_icon.png"
-      alt="Instagram"
-      className="w-10 h-10 rounded-lg"
-    />
-    <span className="text-[#4a3b36] font-medium">@yourusername</span>
-  </a>
-</div>
+                </Button>
               </CardContent>
             </Card>
           </div>
