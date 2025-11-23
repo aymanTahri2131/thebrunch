@@ -8,7 +8,6 @@ import Index from "./pages/Index";
 import Brunch from "./pages/Brunch";
 import Lunch from "./pages/Lunch";
 import Contact from "./pages/Contact";
-import Question from "./pages/question"; // <--- الصفحة الجديدة
 import NotFound from "./pages/NotFound";
 // Admin pages
 import AdminLogin from "./pages/AdminLogin";
@@ -27,8 +26,6 @@ const App = () => (
           <Route path="/lunch" element={<Lunch />} />
           <Route path="/brunch" element={<Brunch />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/question" element={<FAQ />} />
-          
           {/* Admin routes */}
           <Route path="/admin/login" element={
             <ProtectedRoute requireAuth={false}>
@@ -40,8 +37,7 @@ const App = () => (
               <AdminDashboard />
             </ProtectedRoute>
           } />
-
-          {/* Catch-all route */}
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
