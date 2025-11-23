@@ -96,7 +96,7 @@ const FAQ = () => {
         FAQ
       </h2>
 
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-6 px-4">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6 px-4">
         {faqs.map((item, index) => (
           <div key={index} className="border-b border-gray-300 py-3">
             <button
