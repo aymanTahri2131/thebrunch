@@ -33,14 +33,6 @@ En cas d’annulation anticipée, il peut être converti en avoir, valable sur u
     a: "Oui, pour les événements importants. Un supplément déplacement peut s’appliquer."
   },
   {
-    q: "Proposez-vous des options halal, sans alcool ou végétariennes ?",
-    a: "Oui, nous pouvons adapter l’intégralité du menu à vos besoins : halal, sans alcool, végétarien."
-  },
-  {
-    q: "Pouvons-nous personnaliser notre brunch ?",
-    a: "Absolument. Nous créons des brunchs 100 % sur mesure selon vos goûts, votre thème, votre budget et votre événement."
-  },
-  {
     q: "Avez-vous un minimum de commande ?",
     a: "Oui, selon les prestations. En général, le minimum est de 8 à 10 personnes."
   },
