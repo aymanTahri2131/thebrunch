@@ -4,7 +4,8 @@ import { About } from "@/components/About";
 import { ReveillonMenu } from "@/components/ReveillonMenu";
 import { Realisations } from "@/components/Realisations";
 import { Footer } from "@/components/Footer";
-import FAQ from "@/components/FAQ";
+import { FAQ } from "@/components/FAQ";
+import { Contact } from "@/components/Contact";
 import { RET } from "@/components/RET";
 import { AVTG } from "@/components/AVTG";
 import { Leaf, Heart, Star, Quote } from "lucide-react";
@@ -19,6 +20,7 @@ niconst Index = () => {
       <RET />
       <Realisations />
       <FAQ />
+      <Contact />
       <Footer />
     </div>
   );
