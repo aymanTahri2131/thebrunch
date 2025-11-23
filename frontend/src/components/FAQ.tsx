@@ -30,7 +30,7 @@ const FAQ = () => {
         Questions Fréquentes
       </h2>
 
-      <div className="max-w-5xl mx-auto grid gap-4 md:grid-cols-2 px-4">
+      <div className="max-w-6xl mx-auto grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-4">
         {faqs.map((item, index) => (
           <div key={index} className="relative bg-white rounded-xl shadow border border-gray-200 hover:shadow-md transition-all duration-300 group">
             <button
