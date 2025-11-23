@@ -9,7 +9,8 @@ import { Contact } from "@/components/Contact";
 import { RET } from "@/components/RET";
 import { AVTG } from "@/components/AVTG";
 import { Leaf, Heart, Star, Quote } from "lucide-react";
-niconst Index = () => {
+
+const Index = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
