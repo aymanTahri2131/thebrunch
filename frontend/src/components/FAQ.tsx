@@ -29,10 +29,6 @@ En cas d’annulation anticipée, il peut être converti en avoir, valable sur u
     a: "Oui, nous pouvons installer entièrement votre buffet brunch : mise en place, décoration simple, organisation des pièces. Ce service est optionnel."
   },
   {
-    q: "Proposez-vous un service sur place ?",
-    a: "Sur demande, nous pouvons mettre à disposition un(e) serveur(se) pour la gestion du buffet ou du service à table."
-  },
-  {
     q: "Vous déplacez-vous en dehors du Bas-Rhin ?",
     a: "Oui, pour les événements importants. Un supplément déplacement peut s’appliquer."
   },
@@ -60,19 +56,11 @@ En cas d’annulation anticipée, il peut être converti en avoir, valable sur u
 • Buffet sucré complet : 4 à 6 pièces sucrées`
   },
   {
-    q: "Pouvez-vous nous aider à choisir les quantités ?",
-    a: "Oui, nous vous conseillons selon le type d’événement, l’heure, le nombre d’invités et vos préférences."
-  },
-  {
     q: "Quels moyens de paiement acceptez-vous ?",
     a: `• Carte bancaire
 • Virement
 • Espèces
 • Paiement mobile`
-  },
-  {
-    q: "Fournissez-vous des factures pour les entreprises ?",
-    a: "Oui, nous pouvons éditer une facture professionnelle."
   },
   {
     q: "Proposez-vous vos services pour les mariages ou grands événements ?",
