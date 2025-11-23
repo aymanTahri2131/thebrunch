@@ -3,7 +3,6 @@ import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { ReveillonMenu } from "@/components/ReveillonMenu";
 import { Realisations } from "@/components/Realisations";
-import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import FAQ from "@/components/FAQ";
 import { RET } from "@/components/RET";
@@ -20,7 +19,6 @@ niconst Index = () => {
       <RET />
       <Realisations />
       <FAQ />
-      <Contact />
       <Footer />
     </div>
   );
