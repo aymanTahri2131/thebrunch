@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import Logo from "../../public/images/logo.png";
 
-interface NavLink {
+interface NavigationLink {
   name: string;
   path: string;
   isHome?: boolean;
@@ -20,64 +20,72 @@ export const Navigation = () => {
 
   useEffect(() => {
     const checkAuthStatus = () => {
-      const token = localStorage.getItem('adminToken');
-      const user = localStorage.getItem('adminUser');
+      const token = localStorage.getItem("adminToken");
+      const user = localStorage.getItem("adminUser");
       setIsAdminLoggedIn(!!(token && user));
     };
-
     checkAuthStatus();
-
-    const handleStorageChange = () => {
-      checkAuthStatus();
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('authStateChange', handleStorageChange);
-
+    const handleStorageChange = () => checkAuthStatus();
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("authStateChange", handleStorageChange);
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('authStateChange', handleStorageChange);
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("authStateChange", handleStorageChange);
     };
   }, []);
 
   const adminLink = isAdminLoggedIn ? "/admin/dashboard" : "/admin/login";
 
-  const handleHomeClick = () => {
-    if (location.pathname === '/') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+  const scrollToSection = (sectionId: string) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
     } else {
-      navigate('/');
+      const element = document.getElementById(sectionId);
+      if (element) element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const handleHomeClick = () => {
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
     }
   };
 
   const handleWhatsAppClick = async () => {
     const message = "Bonjour ! Je souhaite en savoir plus sur vos services de traiteur oriental.";
-    
     try {
-      await fetch('https://thebrunchtraiteur-production.up.railway.app/api/communication/whatsapp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message,
-          customerName: 'Client depuis le site web',
-          customerPhone: 'Via bouton WhatsApp navigation'
-        })
-      });
+      await fetch(
+        "https://thebrunchtraiteur-production.up.railway.app/api/communication/whatsapp",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message,
+            customerName: "Client depuis le site web",
+            customerPhone: "Via bouton WhatsApp navigation",
+          }),
+        }
+      );
     } catch (error) {
-      console.log('Notification WhatsApp échouée, ouverture directe');
+      console.log("Notification WhatsApp échouée, ouverture directe");
     }
-
     const phoneNumber = "33783453605";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, "_blank");
   };
 
-  const navLinks: NavLink[] = [
+  const navLinks: NavigationLink[] = [
     { name: "Accueil", path: "/", isHome: true },
     { name: "Lunch", path: "/lunch" },
     { name: "Brunch", path: "/brunch" },
     { name: "Menu Réveillon", path: "/menu-reveillon", scrollTo: "reveillon-menu" },
-    { name: "Contact", path: "/contact" }, 
+    { name: "Contact", path: "/contact" },
   ];
 
   return (
@@ -88,29 +96,17 @@ export const Navigation = () => {
             <img src={Logo} className="w-16" alt="Traiteur Oriental & Brunch à Strasbourg" />
           </Link>
 
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => {
-              if (link.isHome) {
-                return (
-                  <button
-                    key={link.name}
-                    onClick={handleHomeClick}
-                    className="text-foreground hover:text-primary transition-colors font-medium"
-                  >
-                    {link.name}
-                  </button>
-                );
-              }
-              return (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className="text-foreground hover:text-primary transition-colors font-medium"
-                >
-                  {link.name}
-                </Link>
-              );
-            })}
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className="text-foreground hover:text-primary transition-colors font-medium"
+              >
+                {link.name}
+              </Link>
+            ))}
 
             <Button
               variant="default"
@@ -131,6 +127,7 @@ export const Navigation = () => {
             </Link>
           </div>
 
+          {/* Mobile Menu Button */}
           <button
             className="md:hidden p-2"
             onClick={() => setIsOpen(!isOpen)}
@@ -140,6 +137,7 @@ export const Navigation = () => {
           </button>
         </div>
 
+        {/* Mobile Navigation */}
         <div
           className={cn(
             "md:hidden overflow-hidden transition-all duration-300",
@@ -147,34 +145,24 @@ export const Navigation = () => {
           )}
         >
           <div className="flex flex-col space-y-4 pt-4">
-            {navLinks.map((link) => {
-              if (link.isHome) {
-                return (
-                  <button
-                    key={link.name}
-                    onClick={() => { handleHomeClick(); setIsOpen(false); }}
-                    className="text-foreground hover:text-primary transition-colors font-medium py-2 text-left"
-                  >
-                    {link.name}
-                  </button>
-                );
-              }
-              return (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setIsOpen(false)}
-                  className="text-foreground hover:text-primary transition-colors font-medium py-2"
-                >
-                  {link.name}
-                </Link>
-              );
-            })}
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                onClick={() => setIsOpen(false)}
+                className="text-foreground hover:text-primary transition-colors font-medium py-2"
+              >
+                {link.name}
+              </Link>
+            ))}
 
             <Button
               variant="default"
               size="sm"
-              onClick={() => { handleWhatsAppClick(); setIsOpen(false); }}
+              onClick={() => {
+                handleWhatsAppClick();
+                setIsOpen(false);
+              }}
               className="bg-green-500 hover:bg-green-600 text-white w-full flex items-center justify-center gap-2"
             >
               <MessageCircle className="h-4 w-4" />
