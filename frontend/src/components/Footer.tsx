@@ -31,10 +31,10 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/lunch"
+                  to="/brunch"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Lunch
+                  Brunch
                 </Link>
               </li>
               <li>
