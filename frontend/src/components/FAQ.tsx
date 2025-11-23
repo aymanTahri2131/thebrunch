@@ -96,7 +96,7 @@ const FAQ = () => {
                 open === index ? "max-h-[500px] mt-2 opacity-100" : "max-h-0 opacity-0"
               }`}
             >
-              <p className="whitespace-pre-line text-gray-600 text-sm leading-relaxed">
+              <p className="whitespace-pre-line text-[#a08f60] text-sm leading-relaxed">
                 {item.a}
               </p>
             </div>
