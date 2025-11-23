@@ -1,62 +1,403 @@
-import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Logo from "../../public/favicon.ico"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { 
+  ArrowLeft, 
+  Plus, 
+  Edit, 
+  Trash2, 
+  Save, 
+  Upload,
+  Eye,
+  EyeOff,
+  Star,
+  ChefHat
+} from 'lucide-react';
 
-const faqs = [
-  { q: "Comment passer commande ?", a: "Vous pouvez commander via le formulaire en ligne, par message ou par téléphone. Nous revenons rapidement vers vous pour confirmer la date, le nombre de personnes et personnaliser votre prestation." },
-  { q: "Combien de temps à l’avance dois-je réserver ?", a: "Pour les petits brunchs (moins de 15 personnes), 48–72 h à l’avance suffisent.\nPour les événements (mariages, entreprises, anniversaires…), nous recommandons de réserver 2 à 6 mois à l’avance." },
-  { q: "Demandez-vous un acompte ?", a: "Oui, un acompte peut être demandé en fonction du montant de la prestation. Le solde est à régler au plus tard le jour de l’événement." },
-  { q: "L’acompte est-il remboursable ?", a: "L’acompte n’est pas remboursable.\nEn cas d’annulation anticipée, il peut être converti en avoir, valable sur une prochaine commande." },
-  { q: "Proposez-vous la livraison ?", a: "Oui, nous livrons sur Strasbourg et tout le Bas-Rhin. Les frais varient selon la distance et le volume." },
-  { q: "Faites-vous l’installation du buffet ?", a: "Oui, nous pouvons installer entièrement votre buffet brunch : mise en place, décoration simple, organisation des pièces. Ce service est optionnel." },
-  { q: "Proposez-vous un service sur place ?", a: "Sur demande, nous pouvons mettre à disposition un(e) serveur(se) pour la gestion du buffet ou du service à table." },
-  { q: "Vous déplacez-vous en dehors du Bas-Rhin ?", a: "Oui, pour les événements importants. Un supplément déplacement peut s’appliquer." },
-  { q: "Proposez-vous des options halal, sans alcool ou végétariennes ?", a: "Oui, nous pouvons adapter l’intégralité du menu à vos besoins : halal, sans alcool, végétarien." },
-  { q: "Pouvons-nous personnaliser notre brunch ?", a: "Absolument. Nous créons des brunchs 100 % sur mesure selon vos goûts, votre thème, votre budget et votre événement." },
-  { q: "Avez-vous un minimum de commande ?", a: "Oui, selon les prestations. En général, le minimum est de 8 à 10 personnes." },
-  { q: "Quelle quantité de pièces salées prévoir par personne ?", a: "Selon votre type d’événement :\n• Buffet avant un repas : 2 à 4 pièces salées\n• Buffet ou brunch complet : 6 à 9 pièces salées" },
-  { q: "Quelle quantité de pièces sucrées prévoir par personne ?", a: "• Petit cocktail : 2 à 3 pièces sucrées\n• Buffet sucré complet : 4 à 6 pièces sucrées" },
-  { q: "Pouvez-vous nous aider à choisir les quantités ?", a: "Oui, nous vous conseillons selon le type d’événement, l’heure, le nombre d’invités et vos préférences." },
-  { q: "Quels moyens de paiement acceptez-vous ?", a: "• Carte bancaire\n• Virement\n• Espèces\n• Paiement mobile" },
-  { q: "Fournissez-vous des factures pour les entreprises ?", a: "Oui, nous pouvons éditer une facture professionnelle." },
-  { q: "Proposez-vous vos services pour les mariages ou grands événements ?", a: "Oui, nous réalisons :\n• mariages & brunch du lendemain\n• baptêmes\n• baby-showers\n• événements professionnels\n• séminaires\n• anniversaires\n• réceptions privées" }
-];
+const AdminLunch = () => {
+  const navigate = useNavigate();
+  const [lunchData, setLunchData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [editingCategory, setEditingCategory] = useState(null);
+  const [showAddProductDialog, setShowAddProductDialog] = useState(false);
+  const [showAddCategoryDialog, setShowAddCategoryDialog] = useState(false);
 
-const FAQ = () => {
-  const [open, setOpen] = useState<number | null>(null);
+  useEffect(() => {
+    fetchLunchData();
+  }, []);
+
+  const fetchLunchData = async () => {
+    try {
+      const token = localStorage.getItem('adminToken');
+      if (!token) {
+        navigate('/admin/login');
+        return;
+      }
+
+      const response = await fetch('https://thebrunchtraiteur-production.up.railway.app/api/lunch/admin', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setLunchData(data.data);
+      } else {
+        throw new Error('Erreur lors du chargement des données');
+      }
+    } catch (error) {
+      console.error('Error fetching lunch data:', error);
+      setError('Erreur lors du chargement des données');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const saveLunchData = async () => {
+    setSaving(true);
+    setError('');
+    setSuccess('');
+
+    try {
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch('https://thebrunchtraiteur-production.up.railway.app/api/lunch/admin', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          categories: lunchData.categories
+        })
+      });
+
+      if (response.ok) {
+        setSuccess('Menu lunch sauvegardé avec succès!');
+        setTimeout(() => setSuccess(''), 3000);
+      } else {
+        throw new Error('Erreur lors de la sauvegarde');
+      }
+    } catch (error) {
+      console.error('Error saving lunch data:', error);
+      setError('Erreur lors de la sauvegarde');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const toggleProductActive = (categoryId, productIndex) => {
+    setLunchData(prev => ({
+      ...prev,
+      categories: prev.categories.map(cat => 
+        cat.id === categoryId 
+          ? {
+              ...cat,
+              products: cat.products.map((product, index) => 
+                index === productIndex 
+                  ? { ...product, isActive: !product.isActive }
+                  : product
+              )
+            }
+          : cat
+      )
+    }));
+  };
+
+  const toggleCategoryActive = (categoryId) => {
+    setLunchData(prev => ({
+      ...prev,
+      categories: prev.categories.map(cat => 
+        cat.id === categoryId 
+          ? { ...cat, isActive: !cat.isActive }
+          : cat
+      )
+    }));
+  };
+
+  const deleteProduct = (categoryId, productIndex) => {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce produit?')) {
+      setLunchData(prev => ({
+        ...prev,
+        categories: prev.categories.map(cat => 
+          cat.id === categoryId 
+            ? {
+                ...cat,
+                products: cat.products.filter((_, index) => index !== productIndex)
+              }
+            : cat
+        )
+      }));
+    }
+  };
+
+  const deleteCategory = (categoryId) => {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette catégorie et tous ses produits?')) {
+      setLunchData(prev => ({
+        ...prev,
+        categories: prev.categories.filter(cat => cat.id !== categoryId)
+      }));
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <img src={Logo} className="w-20 h-20 animate-spin mx-auto mb-4" alt="Traiteur Oriental & Brunch à Strasbourg" />
+          <p>Chargement du menu lunch...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <section className="py-16 bg-gradient-to-b from-[#fdf6f0] to-[#fffefc]">
-      <h2 className="text-center text-3xl md:text-4xl font-bold text-[#a08f60] mb-12 tracking-wide">
-        Questions Fréquentes
-      </h2>
-
-      <div className="max-w-6xl mx-auto grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-4">
-        {faqs.map((item, index) => (
-          <div key={index} className="relative bg-white rounded-xl shadow border border-gray-200 hover:shadow-md transition-all duration-300 group">
-            <button
-              onClick={() => setOpen(open === index ? null : index)}
-              className="w-full px-4 py-3 flex justify-between items-center text-left text-sm md:text-base font-medium text-gray-800 hover:text-[#a08f60] transition-colors"
-            >
-              <span className="flex-1">{item.q}</span>
-              <ChevronDown
-                className={`h-5 w-5 text-[#a08f60] transition-transform duration-500 ${open === index ? "rotate-180" : ""}`}
-              />
-            </button>
-
-            <div
-              className={`px-4 pb-4 text-gray-600 text-sm leading-relaxed transition-all duration-500 overflow-hidden ${
-                open === index ? "max-h-72 opacity-100 mt-1" : "max-h-0 opacity-0"
-              }`}
-            >
-              <p className="whitespace-pre-line">{item.a}</p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white shadow-sm border-b sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center">
+              <Button
+                variant="ghost"
+                onClick={() => navigate('/admin/dashboard')}
+                className="mr-4"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Retour
+              </Button>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">
+                  Gestion Menu Lunch
+                </h1>
+                <p className="text-sm text-gray-500">
+                  {lunchData?.categories?.length || 0} catégories • {lunchData?.categories?.reduce((sum, cat) => sum + (cat.products?.length || 0), 0) || 0} produits
+                </p>
+              </div>
             </div>
-
-            <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#f7d19c] via-[#a08f60] to-[#f7d19c] opacity-40 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="outline"
+                onClick={() => setShowAddCategoryDialog(true)}
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Catégorie
+              </Button>
+              <Button
+                onClick={saveLunchData}
+                disabled={saving}
+                className="bg-green-600 hover:bg-green-700"
+              >
+                <Save className="w-4 h-4 mr-2" />
+                {saving ? 'Sauvegarde...' : 'Sauvegarder'}
+              </Button>
+            </div>
           </div>
-        ))}
+        </div>
+      </header>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Alerts */}
+        {error && (
+          <Alert variant="destructive" className="mb-6">
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+        
+        {success && (
+          <Alert className="mb-6 border-green-200 bg-green-50">
+            <AlertDescription className="text-green-800">{success}</AlertDescription>
+          </Alert>
+        )}
+
+        {/* Categories Management */}
+        <div className="space-y-8">
+          {lunchData?.categories?.map((category, categoryIndex) => (
+            <Card key={category.id} className="overflow-hidden">
+              <CardHeader className="bg-gray-50">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <ChefHat className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <div>
+                      <CardTitle className="flex items-center gap-2">
+                        {category.name}
+                        <Badge variant={category.isActive ? "default" : "secondary"}>
+                          {category.isActive ? "Actif" : "Inactif"}
+                        </Badge>
+                      </CardTitle>
+                      <CardDescription>{category.description}</CardDescription>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => toggleCategoryActive(category.id)}
+                    >
+                      {category.isActive ? (
+                        <>
+                          <EyeOff className="w-4 h-4 mr-2" />
+                          Masquer
+                        </>
+                      ) : (
+                        <>
+                          <Eye className="w-4 h-4 mr-2" />
+                          Afficher
+                        </>
+                      )}
+                    </Button>
+                    
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowAddProductDialog(category.id)}
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Produit
+                    </Button>
+                    
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setEditingCategory(category)}
+                    >
+                      <Edit className="w-4 h-4" />
+                    </Button>
+                    
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => deleteCategory(category.id)}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+              
+              <CardContent className="p-6">
+                {category.products && category.products.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {category.products.map((product, productIndex) => (
+                      <Card key={productIndex} className="relative">
+                        <CardContent className="p-4">
+                          <div className="flex items-start justify-between mb-3">
+                            <div className="flex items-center gap-2">
+                              <h4 className="font-semibold text-sm">{product.name}</h4>
+                              {product.isPremium && (
+                                <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                              )}
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => toggleProductActive(category.id, productIndex)}
+                              >
+                                {product.isActive ? (
+                                  <Eye className="w-4 h-4 text-green-600" />
+                                ) : (
+                                  <EyeOff className="w-4 h-4 text-gray-400" />
+                                )}
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => setEditingProduct({...product, categoryId: category.id, productIndex})}
+                              >
+                                <Edit className="w-4 h-4" />
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => deleteProduct(category.id, productIndex)}
+                              >
+                                <Trash2 className="w-4 h-4 text-red-600" />
+                              </Button>
+                            </div>
+                          </div>
+                          
+                          <p className="text-xs text-gray-600 mb-2 line-clamp-2">
+                            {product.description}
+                          </p>
+                          
+                          <div className="flex items-center justify-between">
+                            <Badge variant="secondary" className="text-xs">
+                              {product.price}
+                            </Badge>
+                            <Badge variant={product.isActive ? "default" : "secondary"} className="text-xs">
+                              {product.isActive ? "Actif" : "Inactif"}
+                            </Badge>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-8 text-gray-500">
+                    <ChefHat className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                    <p>Aucun produit dans cette catégorie</p>
+                    <Button
+                      variant="outline"
+                      className="mt-4"
+                      onClick={() => setShowAddProductDialog(category.id)}
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Ajouter un produit
+                    </Button>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+          
+          {(!lunchData?.categories || lunchData.categories.length === 0) && (
+            <Card>
+              <CardContent className="text-center py-12">
+                <ChefHat className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                <h3 className="text-lg font-semibold mb-2">Aucune catégorie</h3>
+                <p className="text-gray-500 mb-4">
+                  Commencez par créer votre première catégorie de menu lunch
+                </p>
+                <Button onClick={() => setShowAddCategoryDialog(true)}>
+                  <Plus className="w-4 h-4 mr-2" />
+                  Créer une catégorie
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+        </div>
       </div>
-    </section>
+
+      {/* Add/Edit Dialogs would be added here */}
+      {/* For brevity, I'll add them in the next iteration */}
+    </div>
   );
 };
 
-export default FAQ;
+export default AdminLunch;
+
