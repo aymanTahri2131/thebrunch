@@ -8,7 +8,7 @@ import Index from "./pages/Index";
 import Brunch from "./pages/Brunch";
 import Lunch from "./pages/Lunch";
 import Contact from "./pages/Contact";
-import Questions from "./pages/questions"; // <--- الصفحة الجديدة
+import Question from "./pages/question"; // <--- الصفحة الجديدة
 import NotFound from "./pages/NotFound";
 // Admin pages
 import AdminLogin from "./pages/AdminLogin";
@@ -27,7 +27,7 @@ const App = () => (
           <Route path="/lunch" element={<Lunch />} />
           <Route path="/brunch" element={<Brunch />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/questions" element={<Questions />} /> {/* <--- جديد */}
+          <Route path="/question" element={<FAQ />} />
           
           {/* Admin routes */}
           <Route path="/admin/login" element={
