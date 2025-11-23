@@ -1,7 +1,9 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Menu, X, MessageCircle, Settings } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import Logo from "../../public/images/logo.png";
 
 interface NavLink {
   name: string;
@@ -10,83 +12,212 @@ interface NavLink {
   scrollTo?: string;
 }
 
-const navLinks: NavLink[] = [
-  { name: "Accueil", path: "/", isHome: true },
-  { name: "Lunch", path: "/lunch" },
-  { name: "Brunch", path: "/brunch" },
-  { name: "Menu Réveillon", path: "/menu-reveillon", scrollTo: "reveillon-menu" },
-  { name: "Contact", path: "/contact" },
-];
-
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
+  useEffect(() => {
+    const checkAuthStatus = () => {
+      const token = localStorage.getItem("adminToken");
+      const user = localStorage.getItem("adminUser");
+      setIsAdminLoggedIn(!!(token && user));
+    };
 
-  const handleNavClick = (link: NavLink) => {
-    if (link.isHome && link.scrollTo && location.pathname === "/") {
-      scrollToSection(link.scrollTo);
+    checkAuthStatus();
+    const handleStorageChange = () => checkAuthStatus();
+
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("authStateChange", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("authStateChange", handleStorageChange);
+    };
+  }, []);
+
+  const adminLink = isAdminLoggedIn ? "/admin/dashboard" : "/admin/login";
+
+  const scrollToSection = (sectionId: string) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-    setIsOpen(false);
   };
+
+  const handleHomeClick = () => {
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
+    }
+  };
+
+  const handleWhatsAppClick = async () => {
+    const message =
+      "Bonjour ! Je souhaite en savoir plus sur vos services de traiteur oriental.";
+
+    try {
+      await fetch(
+        "https://thebrunchtraiteur-production.up.railway.app/api/communication/whatsapp",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message,
+            customerName: "Client depuis le site web",
+            customerPhone: "Via bouton WhatsApp navigation",
+          }),
+        }
+      );
+    } catch {
+      console.log("Notification WhatsApp échouée, ouverture directe");
+    }
+
+    const phoneNumber = "33783453605";
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      message
+    )}`;
+    window.open(whatsappUrl, "_blank");
+  };
+
+  const navLinks: NavLink[] = [
+    { name: "Accueil", path: "/", isHome: true },
+    { name: "Lunch", path: "/lunch" },
+    { name: "Brunch", path: "/brunch" },
+    { name: "Menu Réveillon", path: "/", scrollTo: "reveillon-menu" },
+    { name: "Contact", path: "/contact" },
+  ];
 
   return (
-    <nav className="w-full fixed top-0 z-50 bg-white shadow-sm">
-      <div className="container mx-auto flex items-center justify-between py-4 px-4">
-        
-        {/* LOGO */}
-        <Link to="/" className="text-xl font-bold">
-          The Brunch
-        </Link>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-2">
+            <img
+              src={Logo}
+              className="w-16"
+              alt="Traiteur Oriental & Brunch à Strasbourg"
+            />
+          </Link>
 
-        {/* DESKTOP MENU */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.path}
-              onClick={() => handleNavClick(link)}
-              className={cn(
-                "text-foreground hover:text-primary transition-colors font-medium",
-                location.pathname === link.path && "text-primary"
-              )}
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navLinks.map((link) =>
+              link.scrollTo ? (
+                <button
+                  key={link.name}
+                  onClick={() => scrollToSection(link.scrollTo!)}
+                  className="text-foreground hover:text-primary transition-colors font-medium"
+                >
+                  {link.name}
+                </button>
+              ) : link.isHome ? (
+                <button
+                  key={link.name}
+                  onClick={handleHomeClick}
+                  className="text-foreground hover:text-primary transition-colors font-medium"
+                >
+                  {link.name}
+                </button>
+              ) : (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className="text-foreground hover:text-primary transition-colors font-medium"
+                >
+                  {link.name}
+                </Link>
+              )
+            )}
+            <Button
+              variant="default"
+              size="sm"
+              onClick={handleWhatsAppClick}
+              className="bg-green-500 hover:bg-green-600 text-white border-green-500 flex items-center gap-2"
             >
-              {link.name}
+              <MessageCircle className="h-4 w-4" />
+              <span className="hidden lg:inline">WhatsApp</span>
+            </Button>
+            <Link
+              to={adminLink}
+              className="text-xs text-muted-foreground hover:text-primary transition-colors opacity-50 hover:opacity-100"
+              title={isAdminLoggedIn ? "Dashboard Admin" : "Administration"}
+            >
+              <Settings className="h-6 w-6" />
             </Link>
-          ))}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X className="h-6 w-6 text-foreground" /> : <Menu className="h-6 w-6 text-foreground" />}
+          </button>
         </div>
 
-        {/* MOBILE BUTTON */}
-        <button
-          className="md:hidden"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        {/* Mobile Navigation */}
+        <div className={cn("md:hidden overflow-hidden transition-all duration-300", isOpen ? "max-h-96 pb-4" : "max-h-0")}>
+          <div className="flex flex-col space-y-4 pt-4">
+            {navLinks.map((link) =>
+              link.scrollTo ? (
+                <button
+                  key={link.name}
+                  onClick={() => {
+                    scrollToSection(link.scrollTo!);
+                    setIsOpen(false);
+                  }}
+                  className="text-foreground hover:text-primary transition-colors font-medium py-2 text-left"
+                >
+                  {link.name}
+                </button>
+              ) : link.isHome ? (
+                <button
+                  key={link.name}
+                  onClick={() => {
+                    handleHomeClick();
+                    setIsOpen(false);
+                  }}
+                  className="text-foreground hover:text-primary transition-colors font-medium py-2 text-left"
+                >
+                  {link.name}
+                </button>
+              ) : (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setIsOpen(false)}
+                  className="text-foreground hover:text-primary transition-colors font-medium py-2"
+                >
+                  {link.name}
+                </Link>
+              )
+            )}
+            <Button
+              variant="default"
+              size="sm"
+              onClick={() => {
+                handleWhatsAppClick();
+                setIsOpen(false);
+              }}
+              className="bg-green-500 hover:bg-green-600 text-white w-full flex items-center justify-center gap-2"
+            >
+              <MessageCircle className="h-4 w-4" />
+              WhatsApp
+            </Button>
+          </div>
+        </div>
       </div>
-
-      {/* MOBILE MENU */}
-      {isOpen && (
-        <div className="md:hidden bg-white shadow-md px-4 pb-4">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.path}
-              onClick={() => handleNavClick(link)}
-              className={cn(
-                "block py-2 text-foreground hover:text-primary transition-colors font-medium",
-                location.pathname === link.path && "text-primary"
-              )}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-      )}
     </nav>
   );
 };
