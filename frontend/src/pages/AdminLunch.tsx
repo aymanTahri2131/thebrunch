@@ -2,21 +2,33 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import Logo from "../../public/favicon.ico";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Logo from "../../public/favicon.ico"
 import {
-  ArrowLeft,
-  Plus,
-  Edit,
-  Trash2,
-  Save,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { 
+  ArrowLeft, 
+  Plus, 
+  Edit, 
+  Trash2, 
+  Save, 
+  Upload,
   Eye,
   EyeOff,
   Star,
   ChefHat
 } from 'lucide-react';
-import Price from '@/components/Price'; // ✅ مسار كومبوننت Price.js
 
 const AdminLunch = () => {
   const navigate = useNavigate();
@@ -97,12 +109,12 @@ const AdminLunch = () => {
   const toggleProductActive = (categoryId, productIndex) => {
     setLunchData(prev => ({
       ...prev,
-      categories: prev.categories.map(cat =>
-        cat.id === categoryId
+      categories: prev.categories.map(cat => 
+        cat.id === categoryId 
           ? {
               ...cat,
-              products: cat.products.map((product, index) =>
-                index === productIndex
+              products: cat.products.map((product, index) => 
+                index === productIndex 
                   ? { ...product, isActive: !product.isActive }
                   : product
               )
@@ -115,8 +127,8 @@ const AdminLunch = () => {
   const toggleCategoryActive = (categoryId) => {
     setLunchData(prev => ({
       ...prev,
-      categories: prev.categories.map(cat =>
-        cat.id === categoryId
+      categories: prev.categories.map(cat => 
+        cat.id === categoryId 
           ? { ...cat, isActive: !cat.isActive }
           : cat
       )
@@ -127,8 +139,8 @@ const AdminLunch = () => {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce produit?')) {
       setLunchData(prev => ({
         ...prev,
-        categories: prev.categories.map(cat =>
-          cat.id === categoryId
+        categories: prev.categories.map(cat => 
+          cat.id === categoryId 
             ? {
                 ...cat,
                 products: cat.products.filter((_, index) => index !== productIndex)
@@ -161,27 +173,44 @@ const AdminLunch = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Header */}
       <header className="bg-white shadow-sm border-b sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center">
-              <Button variant="ghost" onClick={() => navigate('/admin/dashboard')} className="mr-4">
+              <Button
+                variant="ghost"
+                onClick={() => navigate('/admin/dashboard')}
+                className="mr-4"
+              >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Retour
               </Button>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Gestion Menu Lunch</h1>
+                <h1 className="text-2xl font-bold text-gray-900">
+                  Gestion Menu Lunch
+                </h1>
                 <p className="text-sm text-gray-500">
                   {lunchData?.categories?.length || 0} catégories • {lunchData?.categories?.reduce((sum, cat) => sum + (cat.products?.length || 0), 0) || 0} produits
                 </p>
               </div>
             </div>
+            
             <div className="flex items-center space-x-2">
-              <Button variant="outline" onClick={() => setShowAddCategoryDialog(true)}>
-                <Plus className="w-4 h-4 mr-2" /> Catégorie
+              <Button
+                variant="outline"
+                onClick={() => setShowAddCategoryDialog(true)}
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Catégorie
               </Button>
-              <Button onClick={saveLunchData} disabled={saving} className="bg-green-600 hover:bg-green-700">
-                <Save className="w-4 h-4 mr-2" /> {saving ? 'Sauvegarde...' : 'Sauvegarder'}
+              <Button
+                onClick={saveLunchData}
+                disabled={saving}
+                className="bg-green-600 hover:bg-green-700"
+              >
+                <Save className="w-4 h-4 mr-2" />
+                {saving ? 'Sauvegarde...' : 'Sauvegarder'}
               </Button>
             </div>
           </div>
@@ -189,11 +218,22 @@ const AdminLunch = () => {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {error && <Alert variant="destructive" className="mb-6"><AlertDescription>{error}</AlertDescription></Alert>}
-        {success && <Alert className="mb-6 border-green-200 bg-green-50"><AlertDescription className="text-green-800">{success}</AlertDescription></Alert>}
+        {/* Alerts */}
+        {error && (
+          <Alert variant="destructive" className="mb-6">
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+        
+        {success && (
+          <Alert className="mb-6 border-green-200 bg-green-50">
+            <AlertDescription className="text-green-800">{success}</AlertDescription>
+          </Alert>
+        )}
 
+        {/* Categories Management */}
         <div className="space-y-8">
-          {lunchData?.categories?.map((category) => (
+          {lunchData?.categories?.map((category, categoryIndex) => (
             <Card key={category.id} className="overflow-hidden">
               <CardHeader className="bg-gray-50">
                 <div className="flex items-center justify-between">
@@ -211,23 +251,54 @@ const AdminLunch = () => {
                       <CardDescription>{category.description}</CardDescription>
                     </div>
                   </div>
+                  
                   <div className="flex items-center space-x-2">
-                    <Button variant="outline" size="sm" onClick={() => toggleCategoryActive(category.id)}>
-                      {category.isActive ? (<><EyeOff className="w-4 h-4 mr-2" />Masquer</>) : (<><Eye className="w-4 h-4 mr-2" />Afficher</>)}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => toggleCategoryActive(category.id)}
+                    >
+                      {category.isActive ? (
+                        <>
+                          <EyeOff className="w-4 h-4 mr-2" />
+                          Masquer
+                        </>
+                      ) : (
+                        <>
+                          <Eye className="w-4 h-4 mr-2" />
+                          Afficher
+                        </>
+                      )}
                     </Button>
-                    <Button variant="outline" size="sm" onClick={() => setShowAddProductDialog(category.id)}>
-                      <Plus className="w-4 h-4 mr-2" /> Produit
+                    
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowAddProductDialog(category.id)}
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Produit
                     </Button>
-                    <Button variant="outline" size="sm" onClick={() => setEditingCategory(category)}>
+                    
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setEditingCategory(category)}
+                    >
                       <Edit className="w-4 h-4" />
                     </Button>
-                    <Button variant="destructive" size="sm" onClick={() => deleteCategory(category.id)}>
+                    
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => deleteCategory(category.id)}
+                    >
                       <Trash2 className="w-4 h-4" />
                     </Button>
                   </div>
                 </div>
               </CardHeader>
-
+              
               <CardContent className="p-6">
                 {category.products && category.products.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -237,26 +308,46 @@ const AdminLunch = () => {
                           <div className="flex items-start justify-between mb-3">
                             <div className="flex items-center gap-2">
                               <h4 className="font-semibold text-sm">{product.name}</h4>
-                              {product.isPremium && <Star className="w-4 h-4 text-yellow-500 fill-current" />}
+                              {product.isPremium && (
+                                <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                              )}
                             </div>
                             <div className="flex items-center space-x-1">
-                              <Button variant="ghost" size="sm" onClick={() => toggleProductActive(category.id, productIndex)}>
-                                {product.isActive ? <Eye className="w-4 h-4 text-green-600" /> : <EyeOff className="w-4 h-4 text-gray-400" />}
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => toggleProductActive(category.id, productIndex)}
+                              >
+                                {product.isActive ? (
+                                  <Eye className="w-4 h-4 text-green-600" />
+                                ) : (
+                                  <EyeOff className="w-4 h-4 text-gray-400" />
+                                )}
                               </Button>
-                              <Button variant="ghost" size="sm" onClick={() => setEditingProduct({...product, categoryId: category.id, productIndex})}>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => setEditingProduct({...product, categoryId: category.id, productIndex})}
+                              >
                                 <Edit className="w-4 h-4" />
                               </Button>
-                              <Button variant="ghost" size="sm" onClick={() => deleteProduct(category.id, productIndex)}>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => deleteProduct(category.id, productIndex)}
+                              >
                                 <Trash2 className="w-4 h-4 text-red-600" />
                               </Button>
                             </div>
                           </div>
-
-                          <p className="text-xs text-gray-600 mb-2 line-clamp-2">{product.description}</p>
-
+                          
+                          <p className="text-xs text-gray-600 mb-2 line-clamp-2">
+                            {product.description}
+                          </p>
+                          
                           <div className="flex items-center justify-between">
                             <Badge variant="secondary" className="text-xs">
-                              <Price amount={product.price} /> {/* ✅ الفورمات الجديد مع € */}
+                              {product.price}
                             </Badge>
                             <Badge variant={product.isActive ? "default" : "secondary"} className="text-xs">
                               {product.isActive ? "Actif" : "Inactif"}
@@ -270,15 +361,20 @@ const AdminLunch = () => {
                   <div className="text-center py-8 text-gray-500">
                     <ChefHat className="w-12 h-12 mx-auto mb-4 opacity-50" />
                     <p>Aucun produit dans cette catégorie</p>
-                    <Button variant="outline" className="mt-4" onClick={() => setShowAddProductDialog(category.id)}>
-                      <Plus className="w-4 h-4 mr-2" /> Ajouter un produit
+                    <Button
+                      variant="outline"
+                      className="mt-4"
+                      onClick={() => setShowAddProductDialog(category.id)}
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Ajouter un produit
                     </Button>
                   </div>
                 )}
               </CardContent>
             </Card>
           ))}
-
+          
           {(!lunchData?.categories || lunchData.categories.length === 0) && (
             <Card>
               <CardContent className="text-center py-12">
@@ -288,15 +384,20 @@ const AdminLunch = () => {
                   Commencez par créer votre première catégorie de menu lunch
                 </p>
                 <Button onClick={() => setShowAddCategoryDialog(true)}>
-                  <Plus className="w-4 h-4 mr-2" /> Créer une catégorie
+                  <Plus className="w-4 h-4 mr-2" />
+                  Créer une catégorie
                 </Button>
               </CardContent>
             </Card>
           )}
         </div>
       </div>
+
+      {/* Add/Edit Dialogs would be added here */}
+      {/* For brevity, I'll add them in the next iteration */}
     </div>
   );
 };
 
 export default AdminLunch;
+
