@@ -193,7 +193,7 @@ const Lunch = () => {
                               ? 'bg-gradient-to-r from-[#cbb36f] to-[#99771b]' 
                               : 'bg-gradient-to-r from-green-500 to-emerald-600'
                           }`}>
-                            {product.price}
+                            {Number(product.price).toFixed(2)} €
                           </Badge>
                         </div>
                         
