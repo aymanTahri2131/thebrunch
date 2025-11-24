@@ -11,7 +11,6 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
-import ProductForm from "../components/ProductForm";
 import { 
   LogOut, 
   Coffee, 
@@ -1041,36 +1040,6 @@ const AdminDashboard = () => {
     </div>
   );
 };
-
-
-
-function AdminDashboard() {
-
-  const addProduct = async ({ name, price }) => {
-    try {
-      const res = await fetch("/add-product", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, price })
-      });
-
-      const data = await res.json();
-      if (data.success) {
-        alert("Produit ajouté avec succès !");
-        // هنا تقدر تحدث اللائحة ديال المنتجات إذا بغيت
-      } else {
-        alert("Erreur: " + data.error);
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Erreur lors de l'ajout du produit");
-    }
-  };
-return (
-  <div>
-    <h2>Ajouter un produit</h2>
-    <ProductForm onSave={addProduct} />
-  </div>
 );
 
 
