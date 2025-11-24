@@ -457,6 +457,27 @@ export const createBrunchMenuItem = async (req, res) => {
         message: `Champs obligatoires manquants: ${missingFields.join(', ')}`
       });
     }
+
+    // Validation et nettoyage du prix
+    let cleanPrice = productData.price;
+    if (typeof cleanPrice === 'string') {
+      cleanPrice = cleanPrice.replace(/[€\s]/g, '').replace(',', '.');
+    }
+    cleanPrice = parseFloat(cleanPrice);
+    
+    if (isNaN(cleanPrice) || cleanPrice <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Le prix doit être un nombre positif valide'
+      });
+    }
+
+    if (cleanPrice > 1000) {
+      return res.status(400).json({
+        success: false,
+        message: 'Le prix ne peut pas dépasser 1000€'
+      });
+    }
     
     let brunchMenu = await BrunchMenu.findOne().sort({ updatedAt: -1 });
     
@@ -492,6 +513,7 @@ export const createBrunchMenuItem = async (req, res) => {
         id: Date.now().toString(),
         name: productData.name.trim(),
         description: productData.description.trim(),
+        price: cleanPrice,
         quantity: productData.quantity ? productData.quantity.trim() : '',
         items: productData.items || [],
         lastItem: productData.lastItem ? productData.lastItem.trim() : '',
