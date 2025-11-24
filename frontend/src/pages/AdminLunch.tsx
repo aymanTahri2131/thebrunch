@@ -347,7 +347,7 @@ const AdminLunch = () => {
                           
                           <div className="flex items-center justify-between">
                             <Badge variant="secondary" className="text-xs">
-                              {product.price} &euro;
+                              {product.price} {'€'}
                             </Badge>
                             <Badge variant={product.isActive ? "default" : "secondary"} className="text-xs">
                               {product.isActive ? "Actif" : "Inactif"}
