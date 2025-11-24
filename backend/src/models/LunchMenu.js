@@ -14,9 +14,9 @@ const productSchema = new mongoose.Schema({
     maxlength: [500, 'Description cannot exceed 500 characters']
   },
   price: {
-    type: String,
-    required: [true, 'Price is required'],
-    trim: true
+  type: Number,
+  required: [true, 'Price is required'],
+  min: [0, 'Price must be positive']
   },
   quantity: {
     type: String,
