@@ -461,7 +461,7 @@ export const createBrunchMenuItem = async (req, res) => {
     // Validation et nettoyage du prix
     let cleanPrice = productData.price;
     if (typeof cleanPrice === 'string') {
-      cleanPrice = cleanPrice.replace(/[\s]/g, '').replace(',', '.');
+      cleanPrice = cleanPrice.replace(/[€\s]/g, '').replace(',', '.');
     }
     cleanPrice = parseFloat(cleanPrice);
     
