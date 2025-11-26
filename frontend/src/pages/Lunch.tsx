@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Star, ChefHat, Utensils, Package, Wine, Loader2 } from "lucide-react";
-
+import "@fontsource/inconsolata"; 
 const Lunch = () => {
   const [lunchData, setLunchData] = useState(null);
   const [loading, setLoading] = useState(true);
