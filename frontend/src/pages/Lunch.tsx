@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Star, ChefHat, Utensils, Package, Wine, Loader2 } from "lucide-react";
-import "@fontsource/inconsolata"; 
+
 const Lunch = () => {
   const [lunchData, setLunchData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -101,7 +101,7 @@ const Lunch = () => {
         {/* Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url("/images/card2.jpg")' }}
+          style={{ backgroundImage: 'url("/images/lunch.jpg")' }}
         ></div>
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/50"></div>
@@ -111,9 +111,9 @@ const Lunch = () => {
               Menu Lunch
             </h1>
           </div>
-        <p className="text-sm md:text-base mb-8 text-white/90 max-w-2xl mx-auto" style={{ fontFamily: '"Inconsolata", monospace' }}>
-    Découvrez une sélection raffinée, soigneusement imaginée pour vous offrir une expérience culinaire généreuse, inventive et subtilement orchestrée autour des saveurs les plus délicates
-        </p>
+          <p className="text-xl text-white max-w-2xl mx-auto drop-shadow-lg">
+            Découvrez notre collection complète de créations gourmandes
+          </p>
         </div>
       </section>
 
@@ -193,7 +193,7 @@ const Lunch = () => {
                               ? 'bg-gradient-to-r from-[#cbb36f] to-[#99771b]' 
                               : 'bg-gradient-to-r from-green-500 to-emerald-600'
                           }`}>
-                                {product.price}
+                            {product.price}
                           </Badge>
                         </div>
                         
@@ -337,7 +337,3 @@ const Lunch = () => {
 };
 
 export default Lunch;
-
-
-
-
