@@ -101,7 +101,7 @@ const Lunch = () => {
         {/* Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url("/images/lunch.jpg")' }}
+          style={{ backgroundImage: 'url("/images/card2.jpg")' }}
         ></div>
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/50"></div>
