@@ -112,11 +112,12 @@ const Lunch = () => {
             </h1>
           </div>
         <p 
-  className="text-sm md:text-base mb-8 text-white/90 max-w-2xl mx-auto" 
-  style={{ fontFamily: '"Inconsolata", monospace' }}
->
-  Découvrez une sélection raffinée, soigneusement imaginée pour vous offrir une expérience culinaire généreuse, inventive et subtilement orchestrée autour des saveurs les plus délicates.
-</p>
+  {/* Content */}
+      <div className="relative z-10 container mx-auto px-4 text-center text-white">
+        <img src={HeroImage} alt="Traiteur Oriental basé à Strasbourg animate-fade-in" className="w-80 mx-auto mb-8" /> 
+        <p className="text-sm md:text-base mb-8 text-white/90 max-w-2xl mx-auto" style={{ fontFamily: '"Inconsolata", monospace' }}>
+          Découvrez une sélection exquise de créations salées et sucrées, ainsi que des brunchs d’exception imaginés pour sublimer vos réceptions. Chaque détail est pensé pour émerveiller vos convives et transformer vos instants gourmands en expériences culinaires uniques et mémorables.
+        </p>
         </div>
       </section>
 
