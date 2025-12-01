@@ -17,6 +17,8 @@ import {
   Coffee
 } from 'lucide-react';
 
+const API_URL = 'https://thebrunchtraiteur-production.up.railway.app/api/brunch/admin';
+
 const AdminBrunch = () => {
   const navigate = useNavigate();
   const [brunchData, setBrunchData] = useState(null);
@@ -24,6 +26,12 @@ const AdminBrunch = () => {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  // States for category modals
+  const [showAddCategory, setShowAddCategory] = useState(false);
+  const [showEditCategory, setShowEditCategory] = useState(false);
+  const [categoryToEdit, setCategoryToEdit] = useState(null);
+  const [newCategory, setNewCategory] = useState({ name: '', description: '' });
 
   useEffect(() => {
     fetchBrunchData();
@@ -36,13 +44,11 @@ const AdminBrunch = () => {
         navigate('/admin/login');
         return;
       }
-
-      const response = await fetch('https://thebrunchtraiteur-production.up.railway.app/api/brunch/admin', {
+      const response = await fetch(API_URL, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
-
       if (response.ok) {
         const data = await response.json();
         setBrunchData(data.data);
@@ -50,7 +56,6 @@ const AdminBrunch = () => {
         throw new Error('Erreur lors du chargement des données');
       }
     } catch (error) {
-      console.error('Error fetching brunch data:', error);
       setError('Erreur lors du chargement des données');
     } finally {
       setLoading(false);
@@ -61,10 +66,9 @@ const AdminBrunch = () => {
     setSaving(true);
     setError('');
     setSuccess('');
-
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch('https://thebrunchtraiteur-production.up.railway.app/api/brunch/admin', {
+      const response = await fetch(API_URL, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -74,7 +78,6 @@ const AdminBrunch = () => {
           categories: brunchData.categories
         })
       });
-
       if (response.ok) {
         setSuccess('Menu brunch sauvegardé avec succès!');
         setTimeout(() => setSuccess(''), 3000);
@@ -82,13 +85,122 @@ const AdminBrunch = () => {
         throw new Error('Erreur lors de la sauvegarde');
       }
     } catch (error) {
-      console.error('Error saving brunch data:', error);
       setError('Erreur lors de la sauvegarde');
     } finally {
       setSaving(false);
     }
   };
 
+  // Category CRUD
+  const handleAddCategory = async () => {
+    setError('');
+    if (!newCategory.name.trim()) {
+      setError("Le nom de la catégorie est obligatoire.");
+      return;
+    }
+    try {
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch(`${API_URL}/category`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(newCategory)
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setBrunchData(prev => ({
+          ...prev,
+          categories: [...prev.categories, data.category]
+        }));
+        setShowAddCategory(false);
+        setNewCategory({ name: '', description: '' });
+        setSuccess("Catégorie ajoutée !");
+        setTimeout(() => setSuccess(''), 2000);
+      } else {
+        setError("Erreur lors de l'ajout de la catégorie.");
+      }
+    } catch (err) {
+      setError("Erreur lors de l'ajout de la catégorie.");
+    }
+  };
+
+  const handleEditCategory = async () => {
+    setError('');
+    if (!categoryToEdit.name.trim()) {
+      setError("Le nom de la catégorie est obligatoire.");
+      return;
+    }
+    try {
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch(`${API_URL}/category/${categoryToEdit.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(categoryToEdit)
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setBrunchData(prev => ({
+          ...prev,
+          categories: prev.categories.map(cat =>
+            cat.id === categoryToEdit.id ? data.category : cat
+          )
+        }));
+        setShowEditCategory(false);
+        setCategoryToEdit(null);
+        setSuccess("Catégorie modifiée !");
+        setTimeout(() => setSuccess(''), 2000);
+      } else {
+        setError("Erreur lors de la modification.");
+      }
+    } catch (err) {
+      setError("Erreur lors de la modification.");
+    }
+  };
+
+  const handleDeleteCategory = async (categoryId) => {
+    setError('');
+    if (!window.confirm("Supprimer cette catégorie ?")) return;
+    try {
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch(`${API_URL}/category/${categoryId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (response.ok) {
+        setBrunchData(prev => ({
+          ...prev,
+          categories: prev.categories.filter(cat => cat.id !== categoryId)
+        }));
+        setSuccess("Catégorie supprimée !");
+        setTimeout(() => setSuccess(''), 2000);
+      } else {
+        setError("Erreur lors de la suppression.");
+      }
+    } catch (err) {
+      setError("Erreur lors de la suppression.");
+    }
+  };
+
+  // Toggle active state
+  const toggleCategoryActive = (categoryId) => {
+    setBrunchData(prev => ({
+      ...prev,
+      categories: prev.categories.map(cat => 
+        cat.id === categoryId 
+          ? { ...cat, isActive: !cat.isActive }
+          : cat
+      )
+    }));
+  };
+
+  // Product toggle (unchanged)
   const toggleProductActive = (categoryId, productIndex) => {
     setBrunchData(prev => ({
       ...prev,
@@ -102,17 +214,6 @@ const AdminBrunch = () => {
                   : product
               )
             }
-          : cat
-      )
-    }));
-  };
-
-  const toggleCategoryActive = (categoryId) => {
-    setBrunchData(prev => ({
-      ...prev,
-      categories: prev.categories.map(cat => 
-        cat.id === categoryId 
-          ? { ...cat, isActive: !cat.isActive }
           : cat
       )
     }));
@@ -153,7 +254,6 @@ const AdminBrunch = () => {
                 </p>
               </div>
             </div>
-            
             <div className="flex items-center space-x-2">
               <Button
                 onClick={saveBrunchData}
@@ -162,6 +262,13 @@ const AdminBrunch = () => {
               >
                 <Save className="w-4 h-4 mr-2" />
                 {saving ? 'Sauvegarde...' : 'Sauvegarder'}
+              </Button>
+              <Button
+                onClick={() => setShowAddCategory(true)}
+                className="bg-red-600 hover:bg-blue-700"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Ajouter une catégorie
               </Button>
             </div>
           </div>
@@ -175,7 +282,6 @@ const AdminBrunch = () => {
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
-        
         {success && (
           <Alert className="mb-6 border-green-200 bg-green-50">
             <AlertDescription className="text-green-800">{success}</AlertDescription>
@@ -202,7 +308,6 @@ const AdminBrunch = () => {
                       <CardDescription>{category.description}</CardDescription>
                     </div>
                   </div>
-                  
                   <div className="flex items-center space-x-2">
                     <Button
                       variant="outline"
@@ -221,10 +326,26 @@ const AdminBrunch = () => {
                         </>
                       )}
                     </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        setCategoryToEdit({ ...category });
+                        setShowEditCategory(true);
+                      }}
+                    >
+                      <Edit className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => handleDeleteCategory(category.id)}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
                   </div>
                 </div>
               </CardHeader>
-              
               <CardContent className="p-6">
                 {category.products && category.products.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -252,11 +373,9 @@ const AdminBrunch = () => {
                               </Button>
                             </div>
                           </div>
-                          
                           <p className="text-xs text-gray-600 mb-2 line-clamp-3">
                             {product.description}
                           </p>
-                          
                           <div className="flex items-center justify-between mt-4">
                             <Badge variant="secondary" className="text-xs">
                               {product.price}
@@ -265,7 +384,6 @@ const AdminBrunch = () => {
                               {product.isActive ? "Actif" : "Inactif"}
                             </Badge>
                           </div>
-                          
                           {product.quantity && (
                             <p className="text-xs text-gray-500 mt-2">
                               {product.quantity}
@@ -284,7 +402,6 @@ const AdminBrunch = () => {
               </CardContent>
             </Card>
           ))}
-          
           {(!brunchData?.categories || brunchData.categories.length === 0) && (
             <Card>
               <CardContent className="text-center py-12">
@@ -298,6 +415,68 @@ const AdminBrunch = () => {
           )}
         </div>
       </div>
+
+      {/* Modal Add Category */}
+      {showAddCategory && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <h3 className="text-xl font-bold mb-4">Nouvelle catégorie</h3>
+            <input
+              type="text"
+              placeholder="Nom"
+              className="mb-2 w-full border px-3 py-2 rounded"
+              value={newCategory.name}
+              onChange={e => setNewCategory({ ...newCategory, name: e.target.value })}
+            />
+            <textarea
+              placeholder="Description"
+              className="mb-2 w-full border px-3 py-2 rounded"
+              value={newCategory.description}
+              onChange={e => setNewCategory({ ...newCategory, description: e.target.value })}
+            />
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setShowAddCategory(false)}>Annuler</Button>
+              <Button
+                onClick={handleAddCategory}
+                disabled={!newCategory.name}
+              >
+                Ajouter
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Edit Category */}
+      {showEditCategory && categoryToEdit && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <h3 className="text-xl font-bold mb-4">Modifier la catégorie</h3>
+            <input
+              type="text"
+              placeholder="Nom"
+              className="mb-2 w-full border px-3 py-2 rounded"
+              value={categoryToEdit.name}
+              onChange={e => setCategoryToEdit({ ...categoryToEdit, name: e.target.value })}
+            />
+            <textarea
+              placeholder="Description"
+              className="mb-2 w-full border px-3 py-2 rounded"
+              value={categoryToEdit.description}
+              onChange={e => setCategoryToEdit({ ...categoryToEdit, description: e.target.value })}
+            />
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setShowEditCategory(false)}>Annuler</Button>
+              <Button
+                onClick={handleEditCategory}
+                disabled={!categoryToEdit.name}
+              >
+                Sauvegarder
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
