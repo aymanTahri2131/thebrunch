@@ -14,7 +14,7 @@ export const Realisations = () => {
     {
       id: 1,
       title: "Plateau Signature Premium",
-      image: "/images/Captura de pantalla 2025-11-06 161444.png",
+      image: "https://i.postimg.cc/3wX4QZ7p/22.jpg",
     },
     {
       id: 2,
