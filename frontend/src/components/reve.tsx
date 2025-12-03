@@ -11,7 +11,7 @@ const CarteReveillon: React.FC = () => {
         {/* Plateau Signature */}
         <div style={{ background: 'white', borderRadius: '12px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)', width: '280px', textAlign: 'center', marginBottom: '20px', position: 'relative' }}>
           <div style={{ position: 'relative' }}>
-            <img src="/plateau1.jpg" alt="Plateau Signature" style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
+            <img src="/images/card1.jpg" alt="Plateau Signature" style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
             <span style={{ position: 'absolute', top: '10px', right: '10px', background: '#a89050', color: 'white', padding: '4px 8px', fontSize: '12px', borderRadius: '6px' }}>Premium</span>
             <span style={{ position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(255,255,255,0.85)', padding: '5px 15px', borderRadius: '8px', fontWeight: 'bold', fontSize: '16px' }}>70 € par plateau</span>
           </div>
@@ -29,7 +29,7 @@ const CarteReveillon: React.FC = () => {
         {/* Plateau Prestige */}
         <div style={{ background: 'white', borderRadius: '12px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)', width: '280px', textAlign: 'center', marginBottom: '20px', position: 'relative' }}>
           <div style={{ position: 'relative' }}>
-            <img src="/plateau2.jpg" alt="Plateau Prestige" style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
+            <img src="/images/card2.jpg" alt="Plateau Prestige" style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
             <span style={{ position: 'absolute', top: '10px', right: '10px', background: '#a89050', color: 'white', padding: '4px 8px', fontSize: '12px', borderRadius: '6px' }}>Premium</span>
             <span style={{ position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(255,255,255,0.85)', padding: '5px 15px', borderRadius: '8px', fontWeight: 'bold', fontSize: '16px' }}>80 € par plateau</span>
           </div>
