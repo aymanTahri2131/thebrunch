@@ -115,14 +115,14 @@ const Brunch = () => {
         <div className="container mx-auto px-4">
           <Tabs defaultValue={categories[0]?.id} className="w-full">
             {/* Tabs Navigation */}
-            <TabsList className="grid w-full max-w-4xl mx-auto mb-12 h-auto p-2 bg-accent/10 border border-accent/30 shadow-lg rounded-2xl" style={{ gridTemplateColumns: `repeat(${categories.length}, 1fr)` }}>
+            <TabsList className="grid w-full max-w-4xl mx-auto mb-12 h-48 p-2 bg-accent/10 border border-accent/30 shadow-lg rounded-2xl" style={{ gridTemplateColumns: `repeat(${categories.length}, 1fr)` }}>
               {categories.map((category) => {
                 const IconComponent = getIconForCategory(category.id);
                 return (
                   <TabsTrigger 
                     key={category.id} 
                     value={category.id} 
-                    className="flex flex-col gap-2 p-4 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white rounded-xl transition-all duration-300"
+                    className="flex flex-col gap-2 p-4 py-16 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white rounded-xl transition-all duration-300"
                   >
                     <IconComponent className="h-5 w-5" />
                     <span className="text-xs font-medium text-center">{category.name}</span>
