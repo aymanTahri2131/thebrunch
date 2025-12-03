@@ -125,7 +125,7 @@ const Brunch = () => {
                     className="flex flex-col gap-2 p-4 py-16 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white rounded-xl transition-all duration-300"
                   >
                     <IconComponent className="h-5 w-5" />
-                    <span className="text-xs font-medium text-center">{category.name}</span>
+                    <span className="text-xs font-medium text-center max-w-[300px]">{category.name}</span>
                   </TabsTrigger>
                 );
               })}
