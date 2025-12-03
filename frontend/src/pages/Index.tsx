@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import FAQ from "@/components/FAQ";
 import { RET } from "@/components/RET";
 import { AVTG } from "@/components/AVTG";
+import { reve } from "@/components/reve";
 import { Leaf, Heart, Star, Quote } from "lucide-react";
 
 const Index = () => {
@@ -18,6 +19,7 @@ const Index = () => {
       <ReveillonMenu />
       <AVTG />
       <RET />
+      <reve />
       <Realisations />
       <FAQ />
       <Footer />
