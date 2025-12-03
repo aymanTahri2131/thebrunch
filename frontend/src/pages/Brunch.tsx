@@ -93,7 +93,7 @@ const Brunch = () => {
         {/* Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url("/images/card3.jpg")' }}
+          style={{ backgroundImage: 'url("/images/card2.jpg")' }}
         ></div>
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/50"></div>
@@ -103,9 +103,8 @@ const Brunch = () => {
               Menu Brunch
             </h1>
           </div>
-          <p className="text-sm md:text-base mb-8 text-white/90 max-w-2xl mx-auto" style={{ fontFamily: '"Inconsolata", monospace' }}>
-            Un brunch d’exception, pensé comme une véritable expérience gustative.
-            Des produits frais, une présentation soignée et des compositions généreuses pour sublimer chacun de vos moments.
+          <p className="text-xl text-white max-w-2xl mx-auto drop-shadow-lg">
+            Savourez nos formules brunch complètes pour tous vos moments gourmands
           </p>
         </div>
       </section>
@@ -115,17 +114,39 @@ const Brunch = () => {
         <div className="container mx-auto px-4">
           <Tabs defaultValue={categories[0]?.id} className="w-full">
             {/* Tabs Navigation */}
-            <TabsList className="grid w-full max-w-4xl mx-auto mb-12 h-48 p-2 bg-accent/10 border border-accent/30 shadow-lg rounded-2xl" style={{ gridTemplateColumns: `repeat(${categories.length}, 1fr)` }}>
+            <TabsList className="grid w-full max-w-4xl mx-auto mb-12 h-auto p-2 bg-accent/10 border border-accent/30 shadow-lg rounded-2xl" style={{ gridTemplateColumns: `repeat(${categories.length}, 1fr)` }}>
               {categories.map((category) => {
                 const IconComponent = getIconForCategory(category.id);
+                
+                // Fonction pour diviser le titre sur deux lignes
+                const splitCategoryName = (name) => {
+                  // Chercher "planche" avec un tiret ou espace après
+                  if (name.toLowerCase().includes('planches')) {
+                    const parts = name.split(/\s+planches/i);
+                    if (parts.length > 1) {
+                      return {
+                        line1: parts[0].trim(),
+                        line2: 'planches' + name.substring(parts[0].length + 8).trim()
+                      };
+                    }
+                  }
+                  
+                  return { line1: name, line2: null };
+                };
+                
+                const { line1, line2 } = splitCategoryName(category.name);
+                
                 return (
                   <TabsTrigger 
                     key={category.id} 
                     value={category.id} 
-                    className="flex flex-col gap-2 p-4 py-16 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white rounded-xl transition-all duration-300"
+                    className="flex flex-col gap-2 p-8 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white rounded-xl transition-all duration-300"
                   >
                     <IconComponent className="h-5 w-5" />
-                    <span className="text-xs font-medium text-center max-w-[300px]">{category.name}</span>
+                    <div className="text-xs font-medium text-center leading-tight">
+                      <div>{line1}</div>
+                      {line2 && <div className="mt-0.5">{line2}</div>}
+                    </div>
                   </TabsTrigger>
                 );
               })}
