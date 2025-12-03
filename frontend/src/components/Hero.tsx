@@ -29,7 +29,7 @@ export const Hero = () => {
             className="bg-primary hover:bg-primary/90 text-foreground font-semibold px-8"
             asChild
           >
-            <Link to="/lunch">Traiteur</Link>
+            <Link to="/lunch">Lunch</Link>
           </Button>
           <Button
             size="lg"
