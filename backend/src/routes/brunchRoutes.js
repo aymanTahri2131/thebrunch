@@ -18,22 +18,20 @@ const router = express.Router();
 // Public routes
 router.get('/', getBrunchMenu);
 
-// Protected admin routes
-router.use('/admin', authMiddleware);
-router.get('/admin', getAdminBrunchMenu);
-router.post('/admin', createBrunchMenuItem);
-router.put('/admin', updateBrunchMenu);
-router.post('/admin/category/:categoryId/product', addBrunchProduct);
-router.put('/admin/category/:categoryId/product/:productId', updateBrunchProduct);
-router.delete('/admin/category/:categoryId/product/:productId', deleteBrunchProduct);
+// Protected admin routes - IMPORTANT: définir les routes spécifiques AVANT router.use()
+// Gestion des catégories
+router.post('/admin/category', authMiddleware, addBrunchCategory);
+router.put('/admin/category/:categoryId', authMiddleware, updateBrunchCategory);
+router.delete('/admin/category/:categoryId', authMiddleware, deleteBrunchCategory);
 
-// Ajout d'une catégorie
-router.post('/admin/category', addBrunchCategory);
+// Gestion des produits
+router.post('/admin/category/:categoryId/product', authMiddleware, addBrunchProduct);
+router.put('/admin/category/:categoryId/product/:productId', authMiddleware, updateBrunchProduct);
+router.delete('/admin/category/:categoryId/product/:productId', authMiddleware, deleteBrunchProduct);
 
-// Modification d'une catégorie
-router.put('/admin/category/:categoryId', updateBrunchCategory);
-
-// Suppression d'une catégorie
-router.delete('/admin/category/:categoryId', deleteBrunchCategory);
+// Routes générales admin
+router.get('/admin', authMiddleware, getAdminBrunchMenu);
+router.post('/admin', authMiddleware, createBrunchMenuItem);
+router.put('/admin', authMiddleware, updateBrunchMenu);
 
 export default router;
