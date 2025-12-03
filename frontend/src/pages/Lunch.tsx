@@ -113,11 +113,11 @@ const Lunch = () => {
         <div className="container mx-auto px-4">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             {/* Tabs Navigation */}
-            <TabsList className="grid w-full max-w-6xl mx-auto mb-12 h-48 p-2 bg-accent/10 border border-accent/30 shadow-lg rounded-2xl" style={{ gridTemplateColumns: `repeat(${Math.min(visibleCategories.length, 3)}, 1fr)` }}>
+            <TabsList className="grid w-full max-w-6xl mx-auto mb-12 h-auto p-2 bg-accent/10 border border-accent/30 shadow-lg rounded-2xl" style={{ gridTemplateColumns: `repeat(${Math.min(visibleCategories.length, 3)}, 1fr)` }}>
               {visibleCategories.map((category) => {
                 const IconComponent = getIconForCategory(category.id);
                 return (
-                  <TabsTrigger key={category.id} value={category.id} className="flex flex-col gap-2 p-4 py-16 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white rounded-xl transition-all duration-300">
+                  <TabsTrigger key={category.id} value={category.id} className="flex flex-col gap-2 p-8 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white rounded-xl transition-all duration-300">
                     <IconComponent className="h-5 w-5" />
                     <span className="text-xs font-medium text-center">{category.name}</span>
                   </TabsTrigger>
