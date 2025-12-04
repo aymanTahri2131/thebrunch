@@ -519,116 +519,126 @@ const AdminDashboard = () => {
   };
 
   const handleSaveProduct = async () => {
-    setFormErrors({});
+  setFormErrors({});
+  
+  if (!validateForm()) {
+    toast({
+      title: "Erreurs de validation",
+      description: "Veuillez corriger les erreurs dans le formulaire",
+      variant: "destructive",
+    });
+    return;
+  }
+  
+  const token = localStorage.getItem('adminToken');
+  if (!token) {
+    toast({
+      title: "Erreur d'authentification",
+      description: "Vous devez être connecté pour effectuer cette action",
+      variant: "destructive",
+    });
+    navigate('/admin/login');
+    return;
+  }
+
+  setIsSubmitting(true);
+
+  try {
+    const cleanedFormData = cleanFormData();
     
-    if (!validateForm()) {
-      toast({
-        title: "Erreurs de validation",
-        description: "Veuillez corriger les erreurs dans le formulaire",
-        variant: "destructive",
-      });
-      return;
+    // ✅ S'assurer que l'image est bien présente ou vide (pas de valeur par défaut)
+    if (!cleanedFormData.image || cleanedFormData.image.trim() === '') {
+      cleanedFormData.image = '';  // Envoyer une chaîne vide au lieu d'undefined
     }
     
-    const token = localStorage.getItem('adminToken');
-    if (!token) {
-      toast({
-        title: "Erreur d'authentification",
-        description: "Vous devez être connecté pour effectuer cette action",
-        variant: "destructive",
-      });
-      navigate('/admin/login');
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const cleanedFormData = cleanFormData();
-      
-      let requestData;
-      let method = 'PUT';
-      
-      if (editingItem) {
-        if (editingMenuType === 'reveillon') {
-          requestData = {
-            action: 'updateProduct',
-            itemId: editingItem._id || editingItem.id,
-            updates: cleanedFormData
-          };
-        } else {
-          requestData = {
-            action: editingType === 'plateau' ? 'updatePlateau' : 'updateProduct',
-            itemId: editingItem._id || editingItem.id,
-            categoryId: editingCategoryId,
-            updates: cleanedFormData
-          };
-        }
+    let requestData;
+    let method = 'PUT';
+    
+    if (editingItem) {
+      if (editingMenuType === 'reveillon') {
+        requestData = {
+          action: 'updateProduct',
+          itemId: editingItem._id || editingItem.id,
+          updates: cleanedFormData
+        };
       } else {
-        method = 'POST';
-        if (editingMenuType === 'reveillon') {
-          requestData = {
-            action: 'addProduct',
-            productData: cleanedFormData
-          };
-        } else {
-          requestData = {
-            action: editingType === 'plateau' ? 'addPlateau' : 'addProduct',
-            categoryId: editingCategoryId,
-            productData: cleanedFormData
-          };
-        }
+        requestData = {
+          action: editingType === 'plateau' ? 'updatePlateau' : 'updateProduct',
+          itemId: editingItem._id || editingItem.id,
+          categoryId: editingCategoryId,
+          updates: cleanedFormData
+        };
       }
+    } else {
+      method = 'POST';
+      if (editingMenuType === 'reveillon') {
+        requestData = {
+          action: 'addProduct',
+          productData: cleanedFormData
+        };
+      } else {
+        requestData = {
+          action: editingType === 'plateau' ? 'addPlateau' : 'addProduct',
+          categoryId: editingCategoryId,
+          productData: cleanedFormData
+        };
+      }
+    }
 
-      const response = await fetch(`https://thebrunchtraiteur-production.up.railway.app/api/${editingMenuType}/admin`, {
-        method,
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestData)
+    // ✅ Log pour vérifier les données envoyées
+    console.log('🔍 Données envoyées:', requestData);
+
+    const response = await fetch(`https://thebrunchtraiteur-production.up.railway.app/api/${editingMenuType}/admin`, {
+      method,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestData)
+    });
+
+    const result = await response.json();
+
+    // ✅ Log pour vérifier la réponse
+    console.log('📥 Réponse du serveur:', result);
+
+    if (response.ok) {
+      toast({
+        title: "Succès",
+        description: editingItem 
+          ? `${editingType === 'plateau' ? 'Plateau' : 'Produit'} modifié avec succès` 
+          : `${editingType === 'plateau' ? 'Plateau' : 'Produit'} créé avec succès`,
+        variant: "default",
       });
-
-      const result = await response.json();
-
-      if (response.ok) {
+      
+      setEditModalOpen(false);
+      fetchAllMenus();
+    } else {
+      if (result.message && result.message.includes('validation failed')) {
         toast({
-          title: "Succès",
-          description: editingItem 
-            ? `${editingType === 'plateau' ? 'Plateau' : 'Produit'} modifié avec succès` 
-            : `${editingType === 'plateau' ? 'Plateau' : 'Produit'} créé avec succès`,
-          variant: "default",
+          title: "Erreur de validation",
+          description: "Certains champs ne sont pas valides. Vérifiez le prix et les champs obligatoires.",
+          variant: "destructive",
         });
-        
-        setEditModalOpen(false);
-        fetchAllMenus();
       } else {
-        if (result.message && result.message.includes('validation failed')) {
-          toast({
-            title: "Erreur de validation",
-            description: "Certains champs ne sont pas valides. Vérifiez le prix et les champs obligatoires.",
-            variant: "destructive",
-          });
-        } else {
-          toast({
-            title: "Erreur",
-            description: result.message || "Une erreur est survenue lors de l'enregistrement",
-            variant: "destructive",
-          });
-        }
+        toast({
+          title: "Erreur",
+          description: result.message || "Une erreur est survenue lors de l'enregistrement",
+          variant: "destructive",
+        });
       }
-    } catch (error) {
-      console.error('Erreur lors de l\'enregistrement:', error);
-      toast({
-        title: "Erreur de connexion",
-        description: "Impossible de contacter le serveur. Vérifiez votre connexion.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
     }
-  };
-
+  } catch (error) {
+    console.error('Erreur lors de l\'enregistrement:', error);
+    toast({
+      title: "Erreur de connexion",
+      description: "Impossible de contacter le serveur. Vérifiez votre connexion.",
+      variant: "destructive",
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
   const handleImageUpload = async (file) => {
     if (!file) return;
 
