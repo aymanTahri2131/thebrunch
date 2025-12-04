@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -23,7 +23,20 @@ import {
   Menu as MenuIcon,
   Save,
   X,
-  Upload
+  Upload,
+  Folder,
+  Utensils,
+  Package,
+  Apple,
+  Cake,
+  Wine,
+  Croissant,
+  Cookie,
+  IceCream,
+  Pizza,
+  Sandwich,
+  Salad,
+  UtensilsCrossed
 } from 'lucide-react';
 
 const AdminDashboard = () => {
@@ -35,11 +48,11 @@ const AdminDashboard = () => {
   const [reveillonData, setReveillonData] = useState({ categories: [], plateaux: [] });
   const [loading, setLoading] = useState(true);
 
-  // Estados para modals de edição
+  // États pour modals de produit
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
-  const [editingType, setEditingType] = useState(''); // 'product', 'plateau'
-  const [editingMenuType, setEditingMenuType] = useState(''); // 'lunch', 'brunch', 'reveillon'
+  const [editingType, setEditingType] = useState('');
+  const [editingMenuType, setEditingMenuType] = useState('');
   const [editingCategoryId, setEditingCategoryId] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -61,29 +74,248 @@ const AdminDashboard = () => {
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Fonction de validation des champs
+  // ========== NOUVEAUX ÉTATS POUR LA GESTION DES CATÉGORIES ==========
+  const [categoryModalOpen, setCategoryModalOpen] = useState(false);
+  const [editingCategory, setEditingCategory] = useState(null);
+  const [categoryFormData, setCategoryFormData] = useState({
+    name: '',
+    description: '',
+    icon: 'Utensils',
+    isActive: true,
+    sortOrder: 0
+  });
+  const [categoryFormErrors, setCategoryFormErrors] = useState<Record<string, string>>({});
+  const [isSubmittingCategory, setIsSubmittingCategory] = useState(false);
+
+  // Liste des icônes disponibles
+  const availableIcons = [
+    { name: 'Utensils', component: Utensils },
+    { name: 'Package', component: Package },
+    { name: 'Apple', component: Apple },
+    { name: 'Cake', component: Cake },
+    { name: 'Coffee', component: Coffee },
+    { name: 'Wine', component: Wine },
+    { name: 'Croissant', component: Croissant },
+    { name: 'Cookie', component: Cookie },
+    { name: 'IceCream', component: IceCream },
+    { name: 'Pizza', component: Pizza },
+    { name: 'Sandwich', component: Sandwich },
+    { name: 'Salad', component: Salad }
+  ];
+
+  // ========== FONCTIONS DE VALIDATION DES CATÉGORIES ==========
+  const validateCategoryForm = () => {
+    const errors: Record<string, string> = {};
+    
+    if (!categoryFormData.name || categoryFormData.name.trim().length === 0) {
+      errors.name = 'Le nom de la catégorie est obligatoire';
+    } else if (categoryFormData.name.trim().length < 2) {
+      errors.name = 'Le nom doit contenir au moins 2 caractères';
+    }
+    
+    if (categoryFormData.description && categoryFormData.description.trim().length > 0 && categoryFormData.description.trim().length < 10) {
+      errors.description = 'La description doit contenir au moins 10 caractères';
+    }
+    
+    if (categoryFormData.sortOrder !== undefined && categoryFormData.sortOrder < 0) {
+      errors.sortOrder = 'L\'ordre doit être un nombre positif';
+    }
+    
+    setCategoryFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // ========== FONCTIONS DE GESTION DES CATÉGORIES ==========
+  const handleAddCategory = (menuType) => {
+    setCategoryFormData({
+      name: '',
+      description: '',
+      icon: 'Utensils',
+      isActive: true,
+      sortOrder: 0
+    });
+    setEditingCategory(null);
+    setEditingMenuType(menuType);
+    setCategoryModalOpen(true);
+  };
+
+  const handleEditCategory = (menuType, category) => {
+    setCategoryFormData({
+      name: category.name || '',
+      description: category.description || '',
+      icon: category.icon || 'Utensils',
+      isActive: category.isActive !== undefined ? category.isActive : true,
+      sortOrder: category.sortOrder !== undefined ? category.sortOrder : 0
+    });
+    setEditingCategory(category);
+    setEditingMenuType(menuType);
+    setCategoryModalOpen(true);
+  };
+
+  const handleSaveCategory = async () => {
+    if (!validateCategoryForm()) {
+      toast({
+        title: "Erreurs de validation",
+        description: "Veuillez corriger les erreurs dans le formulaire",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      toast({
+        title: "Erreur d'authentification",
+        description: "Vous devez être connecté",
+        variant: "destructive",
+      });
+      navigate('/admin/login');
+      return;
+    }
+
+    setIsSubmittingCategory(true);
+
+    try {
+      // Générer l'ID à partir du nom (kebab-case)
+      const generateId = (name) => {
+        return name
+          .toLowerCase()
+          .trim()
+          .replace(/\s+/g, '-')
+          .replace(/[^a-z0-9-]/g, '');
+      };
+
+      const cleanedData = {
+        id: editingCategory ? editingCategory.id : generateId(categoryFormData.name),
+        name: categoryFormData.name.trim(),
+        description: categoryFormData.description?.trim() || '',
+        icon: categoryFormData.icon || 'Utensils',
+        isActive: categoryFormData.isActive,
+        sortOrder: parseInt(categoryFormData.sortOrder.toString()) || 0
+      };
+
+      let url = `https://thebrunchtraiteur-production.up.railway.app/api/${editingMenuType}/admin/category`;
+      let method = 'POST';
+      
+      if (editingCategory) {
+        // Mode modification
+        url = `https://thebrunchtraiteur-production.up.railway.app/api/${editingMenuType}/admin/category/${editingCategory.id}`;
+        method = 'PUT';
+      }
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cleanedData)
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast({
+          title: "Succès",
+          description: editingCategory 
+            ? 'Catégorie modifiée avec succès' 
+            : 'Catégorie créée avec succès',
+        });
+        
+        setCategoryModalOpen(false);
+        fetchAllMenus();
+      } else {
+        toast({
+          title: "Erreur",
+          description: result.message || "Une erreur est survenue",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'enregistrement de la catégorie:', error);
+      toast({
+        title: "Erreur de connexion",
+        description: "Impossible de contacter le serveur",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmittingCategory(false);
+    }
+  };
+
+  const handleDeleteCategory = async (menuType, categoryId) => {
+    const confirmed = window.confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ? Tous les produits associés seront également supprimés.');
+    
+    if (!confirmed) return;
+
+    const token = localStorage.getItem('adminToken');
+    
+    try {
+      const response = await fetch(`https://thebrunchtraiteur-production.up.railway.app/api/${menuType}/admin/category/${categoryId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast({
+          title: "Succès",
+          description: 'Catégorie supprimée avec succès',
+        });
+        fetchAllMenus();
+      } else {
+        toast({
+          title: "Erreur",
+          description: result.message || "Impossible de supprimer la catégorie",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Erreur lors de la suppression:', error);
+      toast({
+        title: "Erreur",
+        description: "Erreur lors de la suppression de la catégorie",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleCancelCategory = () => {
+    setCategoryModalOpen(false);
+    setEditingCategory(null);
+    setCategoryFormErrors({});
+    setCategoryFormData({
+      name: '',
+      description: '',
+      icon: 'Utensils',
+      isActive: true,
+      sortOrder: 0
+    });
+  };
+
+  // ========== VALIDATION DES PRODUITS ==========
   const validateForm = () => {
     const errors: Record<string, string> = {};
     
-    // Validation du nom
     if (!formData.name || formData.name.trim().length === 0) {
       errors.name = 'Le nom est obligatoire';
     } else if (formData.name.trim().length < 2) {
       errors.name = 'Le nom doit contenir au moins 2 caractères';
     }
     
-    // Validation de la description
     if (!formData.description || formData.description.trim().length === 0) {
       errors.description = 'La description est obligatoire';
     } else if (formData.description.trim().length < 10) {
       errors.description = 'La description doit contenir au moins 10 caractères';
     }
     
-    // Validation du prix
     if (!formData.price || formData.price.toString().trim().length === 0) {
       errors.price = 'Le prix est obligatoire';
     } else {
-      // Nettoyer le prix (enlever €, espaces, etc.)
       const cleanPrice = formData.price.toString().replace(/[€\s]/g, '').replace(',', '.');
       const priceNum = parseFloat(cleanPrice);
       
@@ -94,7 +326,6 @@ const AdminDashboard = () => {
       }
     }
     
-    // Validation spécifique pour les plateaux
     if (editingType === 'plateau') {
       if (!formData.items || formData.items.length === 0 || 
           (formData.items.length === 1 && formData.items[0].trim().length === 0)) {
@@ -102,10 +333,8 @@ const AdminDashboard = () => {
       }
     }
     
-    // Validation spécifique pour les produits
     if (editingType === 'product') {
       if (formData.quantity && formData.quantity.trim().length > 0) {
-        // Si une quantité est spécifiée, elle doit être valide
         const quantity = formData.quantity.trim();
         if (quantity.length < 2) {
           errors.quantity = 'La quantité doit être plus descriptive (ex: "10 pièces")';
@@ -117,24 +346,20 @@ const AdminDashboard = () => {
     return Object.keys(errors).length === 0;
   };
 
-  // Fonction pour nettoyer les données avant envoi
   const cleanFormData = () => {
     const cleanedData = { ...formData };
     
-    // Nettoyer le prix
     if (cleanedData.price) {
       const cleanPrice = cleanedData.price.toString().replace(/[€\s]/g, '').replace(',', '.');
       cleanedData.price = cleanPrice;
     }
     
-    // Nettoyer les champs texte
     cleanedData.name = cleanedData.name.trim();
     cleanedData.description = cleanedData.description.trim();
     if (cleanedData.quantity) {
       cleanedData.quantity = cleanedData.quantity.trim();
     }
     
-    // Nettoyer les items pour les plateaux
     if (editingType === 'plateau' && cleanedData.items) {
       cleanedData.items = cleanedData.items
         .filter(item => item && item.trim().length > 0)
@@ -149,7 +374,6 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
-    // Check authentication
     const token = localStorage.getItem('adminToken');
     if (!token) {
       navigate('/admin/login');
@@ -195,10 +419,7 @@ const AdminDashboard = () => {
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
     localStorage.removeItem('adminUser');
-    
-    // Déclencher l'événement de changement d'état d'auth
     window.dispatchEvent(new Event('authStateChange'));
-    
     navigate('/admin/login');
   };
 
@@ -206,7 +427,6 @@ const AdminDashboard = () => {
     let item = null;
     let itemType = '';
 
-    // Buscar o item nos dados
     if (menuType === 'reveillon') {
       item = reveillonData.plateaux?.find(p => (p._id || p.id) === productId);
       itemType = 'plateau';
@@ -221,7 +441,6 @@ const AdminDashboard = () => {
     }
 
     if (item) {
-      // Configurar os dados do formulário
       setFormData({
         name: item.name || '',
         title: item.title || '',
@@ -249,7 +468,6 @@ const AdminDashboard = () => {
       [field]: value
     }));
     
-    // Effacer l'erreur pour ce champ quand l'utilisateur commence à taper
     if (formErrors[field]) {
       setFormErrors(prev => ({
         ...prev,
@@ -258,9 +476,7 @@ const AdminDashboard = () => {
     }
   };
 
-  // Fonction pour ajouter un nouveau produit
   const handleAddProduct = (menuType, categoryId) => {
-    // Réinitialiser le formulaire pour un nouveau produit
     setFormData({
       name: '',
       title: '',
@@ -274,16 +490,14 @@ const AdminDashboard = () => {
       lastItem: ''
     });
 
-    setEditingItem(null); // Pas d'item en cours d'édition
+    setEditingItem(null);
     setEditingType('product');
     setEditingMenuType(menuType);
     setEditingCategoryId(categoryId);
     setEditModalOpen(true);
   };
 
-  // Fonction pour ajouter un nouveau plateau (réveillon)
   const handleAddPlateau = (menuType) => {
-    // Réinitialiser le formulaire pour un nouveau plateau
     setFormData({
       name: '',
       title: '',
@@ -297,19 +511,16 @@ const AdminDashboard = () => {
       lastItem: ''
     });
 
-    setEditingItem(null); // Pas d'item en cours d'édition
+    setEditingItem(null);
     setEditingType('plateau');
     setEditingMenuType(menuType);
     setEditingCategoryId(null);
     setEditModalOpen(true);
   };
 
-  // Fonction pour sauvegarder (création ou modification)
   const handleSaveProduct = async () => {
-    // Réinitialiser les erreurs
     setFormErrors({});
     
-    // Validation du formulaire
     if (!validateForm()) {
       toast({
         title: "Erreurs de validation",
@@ -333,14 +544,12 @@ const AdminDashboard = () => {
     setIsSubmitting(true);
 
     try {
-      // Nettoyer les données avant envoi
       const cleanedFormData = cleanFormData();
       
       let requestData;
       let method = 'PUT';
       
       if (editingItem) {
-        // Mode modification
         if (editingMenuType === 'reveillon') {
           requestData = {
             action: 'updateProduct',
@@ -356,7 +565,6 @@ const AdminDashboard = () => {
           };
         }
       } else {
-        // Mode création
         method = 'POST';
         if (editingMenuType === 'reveillon') {
           requestData = {
@@ -371,12 +579,6 @@ const AdminDashboard = () => {
           };
         }
       }
-
-      console.log('📤 Envoi de la requête:', {
-        method,
-        endpoint: `https://thebrunchtraiteur-production.up.railway.app/api/${editingMenuType}/admin`,
-        data: requestData
-      });
 
       const response = await fetch(`https://thebrunchtraiteur-production.up.railway.app/api/${editingMenuType}/admin`, {
         method,
@@ -399,11 +601,8 @@ const AdminDashboard = () => {
         });
         
         setEditModalOpen(false);
-        fetchAllMenus(); // Recharger les données
+        fetchAllMenus();
       } else {
-        console.error('❌ Erreur de réponse:', result);
-        
-        // Gestion spécifique des erreurs de validation backend
         if (result.message && result.message.includes('validation failed')) {
           toast({
             title: "Erreur de validation",
@@ -419,7 +618,7 @@ const AdminDashboard = () => {
         }
       }
     } catch (error) {
-      console.error('❌ Erreur lors de l\'enregistrement:', error);
+      console.error('Erreur lors de l\'enregistrement:', error);
       toast({
         title: "Erreur de connexion",
         description: "Impossible de contacter le serveur. Vérifiez votre connexion.",
@@ -430,7 +629,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // Fonction pour uploader l'image vers Cloudinary
   const handleImageUpload = async (file) => {
     if (!file) return;
 
@@ -440,8 +638,6 @@ const AdminDashboard = () => {
 
     try {
       const token = localStorage.getItem('adminToken');
-      console.log('Uploading file:', file.name, file.type, file.size);
-      console.log('Token present:', !!token);
       
       const response = await fetch('https://thebrunchtraiteur-production.up.railway.app/api/upload/image', {
         method: 'POST',
@@ -451,16 +647,12 @@ const AdminDashboard = () => {
         body: uploadFormData
       });
 
-      console.log('Response status:', response.status);
       const data = await response.json();
-      console.log('Response data:', data);
 
       if (response.ok) {
-        // Mettre à jour l'URL de l'image dans le formulaire
         handleFormChange('image', data.data.url);
         alert('Image uploadée avec succès !');
       } else {
-        console.error('Erreur lors de l\'upload de l\'image:', data);
         alert(`Erreur: ${data.message || 'Erreur lors de l\'upload de l\'image'}`);
       }
     } catch (error) {
@@ -474,8 +666,8 @@ const AdminDashboard = () => {
   const handleCancelEdit = () => {
     setEditModalOpen(false);
     setEditingItem(null);
-    setFormErrors({}); // Réinitialiser les erreurs
-    setIsSubmitting(false); // Réinitialiser l'état de soumission
+    setFormErrors({});
+    setIsSubmitting(false);
     setFormData({
       name: '',
       title: '',
@@ -520,7 +712,6 @@ const AdminDashboard = () => {
 
   const renderProductTable = (data, menuType) => {
     if (menuType === 'reveillon') {
-      // Special handling for réveillon menu (plateaux)
       if (!data.plateaux || data.plateaux.length === 0) {
         return (
           <div className="text-center py-8">
@@ -604,108 +795,156 @@ const AdminDashboard = () => {
       );
     }
 
-    // Regular handling for brunch and lunch menus (categories)
+    // GESTION DES CATÉGORIES POUR BRUNCH ET LUNCH
     const categories = data.categories;
-    if (!categories || categories.length === 0) {
+    
+    // Trier les catégories par sortOrder
+    const sortedCategories = categories ? [...categories].sort((a, b) => {
+      const orderA = a.sortOrder !== undefined ? a.sortOrder : 0;
+      const orderB = b.sortOrder !== undefined ? b.sortOrder : 0;
+      return orderA - orderB;
+    }) : [];
+    
+    if (!sortedCategories || sortedCategories.length === 0) {
       return (
         <div className="text-center py-8">
-          <p className="text-gray-500">Aucun produit trouvé</p>
+          <p className="text-gray-500">Aucune catégorie trouvée</p>
+          <Button 
+            className="mt-4 bg-gradient-to-r from-[#cbb36f] to-[#99771b] hover:from-[#b8a060] hover:to-[#856818]"
+            onClick={() => handleAddCategory(menuType)}
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Ajouter une catégorie
+          </Button>
         </div>
       );
     }
 
     return (
-      <Tabs defaultValue={categories[0]?.id} className="w-full">
-        <TabsList className="grid w-full mb-6" style={{ gridTemplateColumns: `repeat(${categories.length}, 1fr)` }}>
-          {categories.map((category) => (
-            <TabsTrigger 
-              key={category.id} 
-              value={category.id}
-              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white"
-            >
-              {category.name}
-            </TabsTrigger>
-          ))}
-        </TabsList>
+      <div className="space-y-4">
+        {/* Bouton pour ajouter une catégorie */}
+        <div className="flex justify-end">
+          <Button 
+            className="bg-gradient-to-r from-[#cbb36f] to-[#99771b] hover:from-[#b8a060] hover:to-[#856818]"
+            onClick={() => handleAddCategory(menuType)}
+          >
+            <Folder className="h-4 w-4 mr-2" />
+            Ajouter une catégorie
+          </Button>
+        </div>
 
-        {categories.map((category) => (
-          <TabsContent key={category.id} value={category.id}>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="flex items-center gap-2">
-                  <MenuIcon className="h-5 w-5" />
-                  {category.name}
-                  <Badge variant="secondary">{category.products?.length || 0} produits</Badge>
-                </CardTitle>
-                <Button 
-                  className="bg-gradient-to-r from-[#cbb36f] to-[#99771b] hover:from-[#b8a060] hover:to-[#856818]"
-                  onClick={() => handleAddProduct(menuType, category.id)}
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Ajouter un produit
-                </Button>
-              </CardHeader>
-              <CardContent>
-                {category.products && category.products.length > 0 ? (
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Nom</TableHead>
-                        <TableHead>Description</TableHead>
-                        <TableHead>Prix</TableHead>
-                        <TableHead>Items</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {category.products.map((product) => (
-                        <TableRow key={product._id || product.id}>
-                          <TableCell className="font-medium">{product.name}</TableCell>
-                          <TableCell className="max-w-md">
-                            <p className="truncate" title={product.description}>
-                              {product.description}
-                            </p>
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant="outline" className="text-[#99771b] border-[#99771b]">
-                              {product.price}
-                            </Badge>
-                          </TableCell>
-                          <TableCell>{product.quantity}</TableCell>
-                          <TableCell className="text-right">
-                            <div className="flex justify-end gap-2">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="h-8 w-8 p-0"
-                                onClick={() => editProduct(menuType, category.id, product._id || product.id)}
-                              >
-                                <Edit className="h-4 w-4" />
-                              </Button>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
-                                onClick={() => deleteProduct(menuType, category.id, product._id || product.id)}
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                ) : (
-                  <div className="text-center py-8">
-                    <p className="text-gray-500">Aucun produit dans cette catégorie</p>
+        <Tabs defaultValue={sortedCategories[0]?.id} className="w-full">
+          <TabsList className="grid w-full mb-6" style={{ gridTemplateColumns: `repeat(${sortedCategories.length}, 1fr)` }}>
+            {sortedCategories.map((category) => (
+              <TabsTrigger 
+                key={category.id} 
+                value={category.id}
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white"
+              >
+                {category.name}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          {sortedCategories.map((category) => (
+            <TabsContent key={category.id} value={category.id}>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <CardTitle className="flex items-center gap-2">
+                    <MenuIcon className="h-5 w-5" />
+                    {category.name}
+                    <Badge variant="secondary">{category.products?.length || 0} produits</Badge>
+                    <Badge variant="outline" className="text-xs">
+                      Ordre: {category.sortOrder !== undefined ? category.sortOrder : 0}
+                    </Badge>
+                  </CardTitle>
+                  <div className="flex gap-2">
+                    <Button 
+                      variant="outline"
+                      onClick={() => handleEditCategory(menuType, category)}
+                    >
+                      <Edit className="h-4 w-4 mr-2" />
+                      Modifier catégorie
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                      onClick={() => handleDeleteCategory(menuType, category.id)}
+                    >
+                      <Trash2 className="h-4 w-4 mr-2" />
+                      Supprimer catégorie
+                    </Button>
+                    <Button 
+                      className="bg-gradient-to-r from-[#cbb36f] to-[#99771b] hover:from-[#b8a060] hover:to-[#856818]"
+                      onClick={() => handleAddProduct(menuType, category.id)}
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Ajouter un produit
+                    </Button>
                   </div>
-                )}
-              </CardContent>
-            </Card>
-          </TabsContent>
-        ))}
-      </Tabs>
+                </CardHeader>
+                <CardContent>
+                  {category.products && category.products.length > 0 ? (
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Nom</TableHead>
+                          <TableHead>Description</TableHead>
+                          <TableHead>Prix</TableHead>
+                          <TableHead>Items</TableHead>
+                          <TableHead className="text-right">Actions</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {category.products.map((product) => (
+                          <TableRow key={product._id || product.id}>
+                            <TableCell className="font-medium">{product.name}</TableCell>
+                            <TableCell className="max-w-md">
+                              <p className="truncate" title={product.description}>
+                                {product.description}
+                              </p>
+                            </TableCell>
+                            <TableCell>
+                              <Badge variant="outline" className="text-[#99771b] border-[#99771b]">
+                                {product.price}
+                              </Badge>
+                            </TableCell>
+                            <TableCell>{product.quantity}</TableCell>
+                            <TableCell className="text-right">
+                              <div className="flex justify-end gap-2">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="h-8 w-8 p-0"
+                                  onClick={() => editProduct(menuType, category.id, product._id || product.id)}
+                                >
+                                  <Edit className="h-4 w-4" />
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
+                                  onClick={() => deleteProduct(menuType, category.id, product._id || product.id)}
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  ) : (
+                    <div className="text-center py-8">
+                      <p className="text-gray-500">Aucun produit dans cette catégorie</p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+          ))}
+        </Tabs>
+      </div>
     );
   };
 
@@ -811,7 +1050,157 @@ const AdminDashboard = () => {
         </main>
       </div>
 
-      {/* Modal d'édition */}
+      {/* ========== MODAL DE GESTION DES CATÉGORIES ========== */}
+      <Dialog open={categoryModalOpen} onOpenChange={setCategoryModalOpen}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              {editingCategory ? <Edit className="h-5 w-5" /> : <Folder className="h-5 w-5" />}
+              {editingCategory ? 'Modifier la catégorie' : 'Ajouter une catégorie'}
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="categoryName" className={categoryFormErrors.name ? 'text-red-500' : ''}>
+                Nom de la catégorie
+                <span className="text-red-500 ml-1">*</span>
+              </Label>
+              <Input
+                id="categoryName"
+                value={categoryFormData.name}
+                onChange={(e) => {
+                  setCategoryFormData(prev => ({ ...prev, name: e.target.value }));
+                  if (categoryFormErrors.name) {
+                    setCategoryFormErrors(prev => ({ ...prev, name: undefined }));
+                  }
+                }}
+                placeholder="Ex: Sandwichs, Salades, Desserts..."
+                className={categoryFormErrors.name ? 'border-red-500' : ''}
+              />
+              {categoryFormErrors.name && (
+                <p className="text-sm text-red-500 mt-1">{categoryFormErrors.name}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="categoryDescription">Description (optionnel)</Label>
+              <Textarea
+                id="categoryDescription"
+                value={categoryFormData.description}
+                onChange={(e) => {
+                  setCategoryFormData(prev => ({ ...prev, description: e.target.value }));
+                  if (categoryFormErrors.description) {
+                    setCategoryFormErrors(prev => ({ ...prev, description: undefined }));
+                  }
+                }}
+                placeholder="Description de la catégorie..."
+                rows={3}
+                className={categoryFormErrors.description ? 'border-red-500' : ''}
+              />
+              {categoryFormErrors.description && (
+                <p className="text-sm text-red-500 mt-1">{categoryFormErrors.description}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="sortOrder" className={categoryFormErrors.sortOrder ? 'text-red-500' : ''}>
+                Ordre d'affichage
+                <span className="text-red-500 ml-1">*</span>
+              </Label>
+              <Input
+                id="sortOrder"
+                type="number"
+                min="0"
+                value={categoryFormData.sortOrder}
+                onChange={(e) => {
+                  setCategoryFormData(prev => ({ ...prev, sortOrder: parseInt(e.target.value) || 0 }));
+                  if (categoryFormErrors.sortOrder) {
+                    setCategoryFormErrors(prev => ({ ...prev, sortOrder: undefined }));
+                  }
+                }}
+                placeholder="0"
+                className={categoryFormErrors.sortOrder ? 'border-red-500' : ''}
+              />
+              {categoryFormErrors.sortOrder && (
+                <p className="text-sm text-red-500 mt-1">{categoryFormErrors.sortOrder}</p>
+              )}
+              <p className="text-xs text-gray-500">
+                Plus le nombre est petit, plus la catégorie apparaît en premier (0 = première position)
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label>
+                Icône de la catégorie
+                <span className="text-red-500 ml-1">*</span>
+              </Label>
+              <div className="grid grid-cols-4 gap-3">
+                {availableIcons.map((icon) => {
+                  const IconComponent = icon.component;
+                  const isSelected = categoryFormData.icon === icon.name;
+                  return (
+                    <button
+                      key={icon.name}
+                      type="button"
+                      onClick={() => setCategoryFormData(prev => ({ ...prev, icon: icon.name }))}
+                      className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all ${
+                        isSelected 
+                          ? 'border-[#99771b] bg-[#cbb36f]/10' 
+                          : 'border-gray-200 hover:border-[#cbb36f]'
+                      }`}
+                    >
+                      <IconComponent className={`h-6 w-6 ${isSelected ? 'text-[#99771b]' : 'text-gray-600'}`} />
+                      <span className={`text-xs mt-2 ${isSelected ? 'text-[#99771b] font-medium' : 'text-gray-500'}`}>
+                        {icon.name}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <Label htmlFor="categoryActive">Catégorie active</Label>
+              <Switch
+                id="categoryActive"
+                checked={categoryFormData.isActive}
+                onCheckedChange={(checked) => setCategoryFormData(prev => ({ ...prev, isActive: checked }))}
+              />
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-3 pt-4 border-t">
+            <Button
+              variant="outline"
+              onClick={handleCancelCategory}
+              disabled={isSubmittingCategory}
+            >
+              <X className="h-4 w-4 mr-2" />
+              Annuler
+            </Button>
+            <Button
+              onClick={handleSaveCategory}
+              className="bg-gradient-to-r from-[#cbb36f] to-[#99771b] hover:from-[#b8a060] hover:to-[#856818]"
+              disabled={isSubmittingCategory}
+            >
+              {isSubmittingCategory ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  Enregistrement...
+                </>
+              ) : (
+                <>
+                  <Save className="h-4 w-4 mr-2" />
+                  {editingCategory ? 'Enregistrer' : 'Ajouter'}
+                </>
+              )}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* ========== MODAL D'ÉDITION DES PRODUITS ========== */}
       <Dialog open={editModalOpen} onOpenChange={setEditModalOpen}>
         <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
           <DialogHeader>
@@ -825,7 +1214,6 @@ const AdminDashboard = () => {
           </DialogHeader>
 
           <div className="space-y-4 py-4">
-            {/* Nom/Titre */}
             <div className="space-y-2">
               <Label htmlFor="name" className={formErrors.name ? 'text-red-500' : ''}>
                 {editingType === 'plateau' ? 'Titre du plateau' : 'Nom du produit'}
@@ -843,7 +1231,6 @@ const AdminDashboard = () => {
               )}
             </div>
 
-            {/* Description */}
             <div className="space-y-2">
               <Label htmlFor="description" className={formErrors.description ? 'text-red-500' : ''}>
                 Description
@@ -862,7 +1249,6 @@ const AdminDashboard = () => {
               )}
             </div>
 
-            {/* Prix */}
             <div className="space-y-2">
               <Label htmlFor="price" className={formErrors.price ? 'text-red-500' : ''}>
                 Prix
@@ -882,7 +1268,6 @@ const AdminDashboard = () => {
               <p className="text-sm text-gray-500">Il faut saisir le prix avec le symbole €</p>
             </div>
 
-            {/* Quantité - seulement pour les produits */}
             {editingType === 'product' && (
               <div className="space-y-2">
                 <Label htmlFor="quantity" className={formErrors.quantity ? 'text-red-500' : ''}>
@@ -901,7 +1286,6 @@ const AdminDashboard = () => {
               </div>
             )}
 
-            {/* Items - seulement pour les plateaux */}
             {editingType === 'plateau' && (
               <>
                 <div className="space-y-2">
@@ -935,7 +1319,6 @@ const AdminDashboard = () => {
               </>
             )}
 
-            {/* Image */}
             <div className="space-y-2">
               <Label htmlFor="image">Image du produit</Label>
               <div className="flex space-x-2">
@@ -970,7 +1353,6 @@ const AdminDashboard = () => {
                   </Button>
                 </div>
               </div>
-              {/* Prévisualisation de l'image */}
               {formData.image && (
                 <div className="mt-2">
                   <img
@@ -985,7 +1367,6 @@ const AdminDashboard = () => {
               )}
             </div>
 
-            {/* Switches */}
             <div className="flex flex-col space-y-3">
               <div className="flex items-center justify-between">
                 <Label htmlFor="isPremium">Produit Premium</Label>
@@ -1007,7 +1388,6 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          {/* Actions */}
           <div className="flex justify-end gap-3 pt-4 border-t">
             <Button
               variant="outline"
@@ -1040,6 +1420,5 @@ const AdminDashboard = () => {
     </div>
   );
 };
-
 
 export default AdminDashboard;
