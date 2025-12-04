@@ -218,7 +218,7 @@ const Brunch = () => {
                               ? 'bg-gradient-to-r from-[#cbb36f] to-[#99771b]' 
                               : 'bg-gradient-to-r from-green-500 to-emerald-600'
                           }`}>
-                            {product.price} €
+                            {product.price}€
                           </Badge>
                         </div>
                         
@@ -240,7 +240,7 @@ const Brunch = () => {
                           </CardTitle>
                         </CardHeader>
                         <CardContent className="p-0">
-                          <p className="text-gray-600 text-sm leading-relaxed line-clamp-4">
+                          <p className="text-gray-600 text-sm leading-relaxed">
                             {product.description}
                           </p>
                         </CardContent>
