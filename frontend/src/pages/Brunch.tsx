@@ -156,8 +156,9 @@ const Brunch = () => {
               Menu Brunch
             </h1>
           </div>
-          <p className="text-xl text-white max-w-2xl mx-auto drop-shadow-lg">
-            Savourez nos formules brunch complètes pour tous vos moments gourmands
+          <p className="text-sm md:text-base mb-8 text-white/90 max-w-2xl mx-auto" style={{ fontFamily: '"Inconsolata", monospace' }}>
+          Un brunch d’exception, pensé comme une véritable expérience gustative.
+          Des produits frais, une présentation soignée et des compositions généreuses pour sublimer chacun de vos moments.
           </p>
         </div>
       </section>
