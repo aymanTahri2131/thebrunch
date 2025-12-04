@@ -1294,7 +1294,7 @@ const AdminDashboard = () => {
               {formErrors.price && (
                 <p className="text-sm text-red-500 mt-1">{formErrors.price}</p>
               )}
-              <p className="text-sm text-gray-500">Il faut saisir le prix avec le symbole €</p>
+              <p className="text-sm text-gray-500">Il ne faut pas saisir le symbole €, uniquement le montant</p>
             </div>
 
             {editingType === 'product' && (
