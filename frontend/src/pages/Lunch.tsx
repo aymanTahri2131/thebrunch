@@ -200,7 +200,7 @@ const Lunch = () => {
               {categoryRows.map((row, rowIndex) => (
                 <TabsList 
                   key={rowIndex}
-                  className="grid w-full max-w-6xl mx-auto h-48 p-2 bg-accent/10 border border-accent/30 shadow-lg rounded-2xl" 
+                  className="grid w-full max-w-6xl mx-auto h-auto p-2 bg-accent/10 border border-accent/30 shadow-lg rounded-2xl" 
                   style={{ gridTemplateColumns: `repeat(${row.length}, 1fr)` }}
                 >
                 
@@ -212,7 +212,7 @@ const Lunch = () => {
                       <TabsTrigger
                         key={category.id} 
                         value={category.id} 
-                        className="flex flex-col gap-2 p-4 py-16 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white rounded-xl transition-all duration-300"
+                        className="flex flex-col gap-2 p-4 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white rounded-xl transition-all duration-300"
                       >
                         <IconComponent className="h-5 w-5" />
                         <div className="text-xs font-medium text-center leading-tight">
