@@ -249,14 +249,20 @@ const Lunch = () => {
                     >
                       {/* Image Section */}
                       <div className="relative aspect-[4/3] overflow-hidden rounded-t-2xl">
-                        <img
-                          src={product.image || '/images/placeholder.jpg'}
-                          alt={product.name || 'Produit'}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src = '/images/placeholder.jpg';
-                          }}
-                        />
+                        {product.image ? (
+                          <img
+                            src={product.image}
+                            alt={product.name || 'Produit'}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect width="400" height="300" fill="%23ddd"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="18" fill="%23999"%3EImage non disponible%3C/text%3E%3C/svg%3E';
+                            }}
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                            <span className="text-gray-400 text-sm">Image non disponible</span>
+                          </div>
+                        )}
                         
                         {/* Price Badge */}
                         <div className="absolute top-4 right-4">
@@ -265,7 +271,7 @@ const Lunch = () => {
                               ? 'bg-gradient-to-r from-[#cbb36f] to-[#99771b]' 
                               : 'bg-gradient-to-r from-green-500 to-emerald-600'
                           }`}>
-                            {product.price || 'Prix non défini'}
+                            {product.price ? `${product.price}€` : 'Prix non défini'}
                           </Badge>
                         </div>
                         
