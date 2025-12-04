@@ -176,7 +176,7 @@ const Brunch = () => {
                   <TabsTrigger 
                     key={category.id} 
                     value={category.id} 
-                    className="flex flex-col gap-2 p-4 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white rounded-xl transition-all duration-300"
+                    className="flex flex-col gap-2 p-8 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white rounded-xl transition-all duration-300"
                   >
                     <IconComponent className="h-5 w-5" />
                     <div className="text-xs font-medium text-center leading-tight">
@@ -218,7 +218,7 @@ const Brunch = () => {
                               ? 'bg-gradient-to-r from-[#cbb36f] to-[#99771b]' 
                               : 'bg-gradient-to-r from-green-500 to-emerald-600'
                           }`}>
-                            {product.price}
+                            {product.price}€
                           </Badge>
                         </div>
                         
