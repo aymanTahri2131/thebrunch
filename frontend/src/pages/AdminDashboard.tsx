@@ -301,16 +301,22 @@ const AdminDashboard = () => {
   const validateForm = () => {
     const errors: Record<string, string> = {};
     
-    if (!formData.name || formData.name.trim().length === 0) {
-      errors.name = 'Le nom est obligatoire';
-    } else if (formData.name.trim().length < 2) {
-      errors.name = 'Le nom doit contenir au moins 2 caractères';
-    }
-    
-    if (!formData.description || formData.description.trim().length === 0) {
-      errors.description = 'La description est obligatoire';
-    } else if (formData.description.trim().length < 10) {
-      errors.description = 'La description doit contenir au moins 10 caractères';
+    // Validation du nom/titre selon le type
+    if (editingType === 'plateau') {
+      // Pour les plateaux, vérifier le champ 'title' ou 'name'
+      const titleValue = formData.title || formData.name || '';
+      if (titleValue.trim().length === 0) {
+        errors.title = 'Le titre est obligatoire';
+      } else if (titleValue.trim().length < 2) {
+        errors.title = 'Le titre doit contenir au moins 2 caractères';
+      }
+    } else {
+      // Pour les produits, vérifier le champ 'name'
+      if (!formData.name || formData.name.trim().length === 0) {
+        errors.name = 'Le nom est obligatoire';
+      } else if (formData.name.trim().length < 2) {
+        errors.name = 'Le nom doit contenir au moins 2 caractères';
+      }
     }
     
     if (!formData.price || formData.price.toString().trim().length === 0) {
@@ -326,6 +332,7 @@ const AdminDashboard = () => {
       }
     }
     
+    // Validation spécifique pour les plateaux (brunch et reveillon)
     if (editingType === 'plateau') {
       if (!formData.items || formData.items.length === 0 || 
           (formData.items.length === 1 && formData.items[0].trim().length === 0)) {
@@ -354,7 +361,18 @@ const AdminDashboard = () => {
       cleanedData.price = cleanPrice;
     }
     
-    cleanedData.name = cleanedData.name.trim();
+    // Pour les plateaux, utiliser 'title', sinon 'name'
+    if (editingType === 'plateau') {
+      if (cleanedData.title) {
+        cleanedData.title = cleanedData.title.trim();
+      } else if (cleanedData.name) {
+        cleanedData.title = cleanedData.name.trim();
+        delete cleanedData.name;
+      }
+    } else {
+      cleanedData.name = cleanedData.name.trim();
+    }
+    
     cleanedData.description = cleanedData.description.trim();
     if (cleanedData.quantity) {
       cleanedData.quantity = cleanedData.quantity.trim();
@@ -639,6 +657,7 @@ const AdminDashboard = () => {
     setIsSubmitting(false);
   }
 };
+
   const handleImageUpload = async (file) => {
     if (!file) return;
 
