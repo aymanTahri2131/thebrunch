@@ -6,8 +6,24 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Star, ChefHat, Utensils, Package, Wine, Loader2 } from "lucide-react";
-import "@fontsource/inconsolata";
+import { 
+  Star, 
+  ChefHat, 
+  Utensils, 
+  Package, 
+  Wine, 
+  Loader2,
+  Cake,
+  Coffee,
+  Croissant,
+  Cookie,
+  IceCream,
+  Pizza,
+  Sandwich,
+  Salad,
+  UtensilsCrossed,
+  Apple
+} from "lucide-react";
 
 const Lunch = () => {
   const [lunchData, setLunchData] = useState(null);
@@ -15,14 +31,44 @@ const Lunch = () => {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('');
 
-  const getIconForCategory = (categoryId) => {
-    const iconMap = {
-      'mini-burgers': ChefHat,
-      'plateaux-gourmands': Package,
-      'verrines': Wine,
-      'boites-aperitives': Package,
-    };
-    return iconMap[categoryId] || Utensils;
+  // Map des composants d'icônes Lucide React
+  const iconComponents = {
+    Utensils,
+    Package,
+    Apple,
+    Cake,
+    Coffee,
+    Wine,
+    Croissant,
+    Cookie,
+    IceCream,
+    Pizza,
+    Sandwich,
+    Salad,
+    UtensilsCrossed,
+    ChefHat,
+    Star
+  };
+
+  // Fonction pour obtenir le composant d'icône depuis le nom
+  const getIconComponent = (iconName) => {
+    return iconComponents[iconName] || Utensils;
+  };
+
+  // Fonction pour diviser le titre sur deux lignes si nécessaire
+  const splitCategoryName = (name) => {
+    if (name.toLowerCase().includes('planches') || name.toLowerCase().includes('planche')) {
+      const regex = /\s+(planches?)/i;
+      const match = name.match(regex);
+      if (match) {
+        const index = match.index;
+        return {
+          line1: name.substring(0, index).trim(),
+          line2: name.substring(index).trim()
+        };
+      }
+    }
+    return { line1: name, line2: null };
   };
 
   useEffect(() => {
@@ -30,11 +76,24 @@ const Lunch = () => {
       try {
         setLoading(true);
         const response = await fetch('https://thebrunchtraiteur-production.up.railway.app/api/lunch');
+        
         if (!response.ok) {
           throw new Error(`Erreur ${response.status}: ${response.statusText}`);
         }
+        
         const data = await response.json();
+        
+        // Trier les catégories par sortOrder
+        if (data.data?.categories) {
+          data.data.categories.sort((a, b) => {
+            const orderA = a.sortOrder !== undefined ? a.sortOrder : 0;
+            const orderB = b.sortOrder !== undefined ? b.sortOrder : 0;
+            return orderA - orderB;
+          });
+        }
+        
         setLunchData(data.data);
+        // Définir le premier onglet par défaut
         if (data.data?.categories?.length > 0) {
           setActiveTab(data.data.categories[0].id);
         }
@@ -45,6 +104,7 @@ const Lunch = () => {
         setLoading(false);
       }
     };
+
     fetchLunchData();
   }, []);
 
@@ -71,7 +131,10 @@ const Lunch = () => {
           <div className="text-center">
             <p className="text-lg text-red-600 mb-4">Erreur lors du chargement du menu</p>
             <p className="text-sm text-gray-500">{error}</p>
-            <Button onClick={() => window.location.reload()} className="mt-4 bg-[#cbb36f] hover:bg-[#99771b]">
+            <Button 
+              onClick={() => window.location.reload()} 
+              className="mt-4 bg-[#cbb36f] hover:bg-[#99771b]"
+            >
               Réessayer
             </Button>
           </div>
@@ -82,13 +145,17 @@ const Lunch = () => {
   }
 
   const categories = lunchData?.categories || [];
-  const visibleCategories = categories.slice(0, 3);
-  const allCategories = categories;
+  
+  // Diviser les catégories en lignes de 3
+  const categoryRows = [];
+  for (let i = 0; i < categories.length; i += 3) {
+    categoryRows.push(categories.slice(i, i + 3));
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
-
+      
       {/* Hero Section */}
       <section className="relative h-[60vh] mt-20 flex items-center justify-center overflow-hidden">
         {/* Background Image */}
@@ -100,10 +167,12 @@ const Lunch = () => {
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <h1 className="text-5xl md:text-6xl font-bold text-white drop-shadow-lg">Menu Lunch</h1>
+            <h1 className="text-5xl md:text-6xl font-bold text-white drop-shadow-lg">
+              Menu Lunch
+            </h1>
           </div>
-          <p className="text-sm md:text-base mb-8 text-white/90 max-w-2xl mx-auto" style={{ fontFamily: '"Inconsolata", monospace' }}>
-            Découvrez une sélection raffinée, soigneusement imaginée pour vous offrir une expérience culinaire généreuse, inventive et subtilement orchestrée autour des saveurs les plus délicates
+          <p className="text-xl text-white max-w-2xl mx-auto drop-shadow-lg">
+            Découvrez notre collection complète de créations gourmandes
           </p>
         </div>
       </section>
@@ -112,38 +181,38 @@ const Lunch = () => {
       <section className="py-16 bg-gray-50 flex-1">
         <div className="container mx-auto px-4">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            {/* Tabs Navigation */}
-            <TabsList className="grid w-full max-w-6xl mx-auto mb-12 h-auto p-2 bg-accent/10 border border-accent/30 shadow-lg rounded-2xl" style={{ gridTemplateColumns: `repeat(${Math.min(visibleCategories.length, 3)}, 1fr)` }}>
-              {visibleCategories.map((category) => {
-                const IconComponent = getIconForCategory(category.id);
-                return (
-                  <TabsTrigger key={category.id} value={category.id} className="flex flex-col gap-2 p-8 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white rounded-xl transition-all duration-300">
-                    <IconComponent className="h-5 w-5" />
-                    <span className="text-xs font-medium text-center">{category.name}</span>
-                  </TabsTrigger>
-                );
-              })}
-            </TabsList>
-
-            {/* Show More Categories Tabs */}
-            {allCategories.length > 3 && (
-              <div className="text-center mb-8">
-                <TabsList className="grid w-full max-w-6xl mx-auto mb-12 h-auto p-2 bg-accent/10 border border-accent/30 shadow-lg rounded-2xl" style={{ gridTemplateColumns: `repeat(${Math.min(visibleCategories.length, 3)}, 1fr)` }}>
-                  {allCategories.slice(3).map((category) => {
-                    const IconComponent = getIconForCategory(category.id);
+            {/* Tabs Navigation - Multiple lignes (3 catégories par ligne) */}
+            <div className="space-y-4 mb-12">
+              {categoryRows.map((row, rowIndex) => (
+                <TabsList 
+                  key={rowIndex}
+                  className="grid w-full max-w-6xl mx-auto h-48 p-2 bg-accent/10 border border-accent/30 shadow-lg rounded-2xl" 
+                  style={{ gridTemplateColumns: `repeat(${row.length}, 1fr)` }}
+                >
+                  {row.map((category) => {
+                    const IconComponent = getIconComponent(category.icon);
+                    const { line1, line2 } = splitCategoryName(category.name);
+                    
                     return (
-                      <TabsTrigger key={category.id} value={category.id} className="flex flex-col gap-2 p-8 mx-1 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white rounded-xl transition-all duration-300">
-                        <IconComponent className="h-4 w-4" />
-                        <span className="text-xs font-medium text-center">{category.name}</span>
+                      <TabsTrigger 
+                        key={category.id} 
+                        value={category.id} 
+                        className="flex flex-col gap-2 p-4 py-16 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white rounded-xl transition-all duration-300"
+                      >
+                        <IconComponent className="h-5 w-5" />
+                        <div className="text-xs font-medium text-center leading-tight">
+                          <div>{line1}</div>
+                          {line2 && <div className="mt-0.5">{line2}</div>}
+                        </div>
                       </TabsTrigger>
                     );
                   })}
                 </TabsList>
-              </div>
-            )}
+              ))}
+            </div>
 
             {/* Tab Contents */}
-            {allCategories.map((category) => (
+            {categories.map((category) => (
               <TabsContent key={category.id} value={category.id} className="mt-0">
                 {/* Category Header */}
                 <div className="text-center mb-12">
@@ -154,18 +223,32 @@ const Lunch = () => {
                 {/* Products Grid */}
                 <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 max-w-6xl mx-auto mb-8">
                   {category.products?.map((product, index) => (
-                    <Card key={product._id || index} className="group overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white border border-bg-accent/30 rounded-2xl">
+                    <Card
+                      key={product._id || index}
+                      className="group overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white border border-bg-accent/30 rounded-2xl"
+                    >
                       {/* Image Section */}
                       <div className="relative aspect-[4/3] overflow-hidden rounded-t-2xl">
-                        <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                          onError={(e) => { (e.target as HTMLImageElement).src = '/images/placeholder.jpg'; }}
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = '/images/placeholder.jpg';
+                          }}
                         />
+                        
                         {/* Price Badge */}
                         <div className="absolute top-4 right-4">
-                          <Badge className={`text-white font-bold text-lg px-4 py-2 ${product.isPremium ? 'bg-gradient-to-r from-[#cbb36f] to-[#99771b]' : 'bg-gradient-to-r from-green-500 to-emerald-600'}`}>
+                          <Badge className={`text-white font-bold text-lg px-4 py-2 ${
+                            product.isPremium 
+                              ? 'bg-gradient-to-r from-[#cbb36f] to-[#99771b]' 
+                              : 'bg-gradient-to-r from-green-500 to-emerald-600'
+                          }`}>
                             {product.price}
                           </Badge>
                         </div>
+                        
                         {/* Quantity Badge */}
                         {product.quantity && (
                           <div className="absolute bottom-4 left-4">
@@ -174,22 +257,29 @@ const Lunch = () => {
                             </div>
                           </div>
                         )}
+                        
                         {/* Premium Star */}
                         {product.isPremium && (
                           <div className="absolute top-4 left-4">
                             <Star className="h-6 w-6 text-yellow-400 fill-yellow-400" />
                           </div>
                         )}
+                        
                         {/* Gradient Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       </div>
+
                       {/* Content Section */}
                       <div className="p-6">
                         <CardHeader className="p-0 mb-4">
-                          <CardTitle className="text-xl font-bold text-gray-800 leading-tight">{product.name}</CardTitle>
+                          <CardTitle className="text-xl font-bold text-gray-800 leading-tight">
+                            {product.name}
+                          </CardTitle>
                         </CardHeader>
                         <CardContent className="p-0">
-                          <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">{product.description}</p>
+                          <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
+                            {product.description}
+                          </p>
                         </CardContent>
                       </div>
                     </Card>
@@ -205,37 +295,56 @@ const Lunch = () => {
                     </div>
                     <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
                       {category.plateaux.map((plateau, index) => (
-                        <Card key={plateau._id || index} className="group overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white border-0 rounded-2xl">
+                        <Card
+                          key={plateau._id || index}
+                          className="group overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white border-0 rounded-2xl"
+                        >
                           {/* Image Section */}
                           <div className="relative aspect-[4/3] overflow-hidden rounded-t-2xl">
-                            <img src={plateau.image} alt={plateau.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                              onError={(e) => { (e.target as HTMLImageElement).src = '/images/placeholder.jpg'; }}
+                            <img
+                              src={plateau.image}
+                              alt={plateau.name}
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).src = '/images/placeholder.jpg';
+                              }}
                             />
+                            
                             {/* Price Badge */}
                             <div className="absolute top-4 right-4">
-                              <Badge className="bg-gradient-to-r from-[#cbb36f] to-[#99771b] text-white font-bold text-lg px-4 py-2">{plateau.price}</Badge>
+                              <Badge className="bg-gradient-to-r from-[#cbb36f] to-[#99771b] text-white font-bold text-lg px-4 py-2">
+                                {plateau.price}
+                              </Badge>
                             </div>
+                            
                             {/* Premium Star */}
                             <div className="absolute top-4 left-4">
                               <Star className="h-6 w-6 text-yellow-400 fill-yellow-400" />
                             </div>
+                            
                             {/* Gradient Overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                           </div>
+
                           {/* Content Section */}
                           <div className="p-6">
                             <CardHeader className="p-0 mb-4">
-                              <CardTitle className="text-xl font-bold text-gray-800 leading-tight">{plateau.name}</CardTitle>
+                              <CardTitle className="text-xl font-bold text-gray-800 leading-tight">
+                                {plateau.name}
+                              </CardTitle>
                             </CardHeader>
                             <CardContent className="p-0">
-                              <p className="text-gray-600 text-sm leading-relaxed mb-4">{plateau.description}</p>
+                              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                                {plateau.description}
+                              </p>
                               {plateau.items && plateau.items.length > 0 && (
                                 <div className="space-y-2">
                                   <p className="font-medium text-gray-800 text-sm">Inclus :</p>
                                   <ul className="text-xs text-gray-600 space-y-1">
                                     {plateau.items.map((item, idx) => (
                                       <li key={idx} className="flex items-start gap-2">
-                                        <span className="text-[#cbb36f] mt-1">•</span> {item}
+                                        <span className="text-[#cbb36f] mt-1">•</span>
+                                        {item}
                                       </li>
                                     ))}
                                   </ul>
@@ -254,9 +363,17 @@ const Lunch = () => {
 
           {/* Call to Action */}
           <div className="text-center mt-16 rounded-3xl p-8 w-full max-w-6xl bg-accent/10 border border-accent/30 mx-auto shadow-xl">
-            <h3 className="text-2xl font-bold text-[#99771b] mb-4">Prêt à composer votre commande ?</h3>
-            <p className="text-gray-600 mb-6 text-lg">Contactez-nous pour personnaliser votre sélection</p>
-            <Button size="lg" className="bg-gradient-to-r from-[#cbb36f] to-[#99771b] hover:from-[#b8a060] hover:to-[#856818] text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" asChild>
+            <h3 className="text-2xl font-bold text-[#99771b] mb-4">
+              Prêt à composer votre commande ?
+            </h3>
+            <p className="text-gray-600 mb-6 text-lg">
+              Contactez-nous pour personnaliser votre sélection
+            </p>
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-[#cbb36f] to-[#99771b] hover:from-[#b8a060] hover:to-[#856818] text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" 
+              asChild
+            >
               <Link to="/contact">
                 <ChefHat className="mr-2 h-5 w-5" />
                 Commander maintenant
