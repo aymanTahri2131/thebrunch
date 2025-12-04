@@ -147,7 +147,7 @@ const Brunch = () => {
       <section className="relative h-[60vh] mt-20 flex items-center justify-center overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url("/images/card2.jpg")' }}
+          style={{ backgroundImage: 'url("/images/card3.jpg")' }}
         ></div>
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 container mx-auto px-4 text-center">
