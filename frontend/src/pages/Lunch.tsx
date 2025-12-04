@@ -57,7 +57,13 @@ const Lunch = () => {
 
   // Fonction pour diviser le titre sur deux lignes si nécessaire
   const splitCategoryName = (name) => {
-    if (name.toLowerCase().includes('planches') || name.toLowerCase().includes('planche')) {
+    // Vérifier que name existe et est une string
+    if (!name || typeof name !== 'string') {
+      return { line1: 'Sans nom', line2: null };
+    }
+    
+    const lowerName = name.toLowerCase();
+    if (lowerName.includes('planches') || lowerName.includes('planche')) {
       const regex = /\s+(planches?)/i;
       const match = name.match(regex);
       if (match) {
@@ -144,7 +150,10 @@ const Lunch = () => {
     );
   }
 
-  const categories = lunchData?.categories || [];
+  // Récupérer et filtrer les catégories valides
+  const categories = (lunchData?.categories || []).filter(
+    category => category && category.id && category.name
+  );
   
   // Diviser les catégories en lignes de 3
   const categoryRows = [];
@@ -180,6 +189,11 @@ const Lunch = () => {
       {/* Products Section with Tabs */}
       <section className="py-16 bg-gray-50 flex-1">
         <div className="container mx-auto px-4">
+          {categories.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="text-xl text-gray-600">Aucune catégorie disponible pour le moment</p>
+            </div>
+          ) : (
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             {/* Tabs Navigation - Multiple lignes (3 catégories par ligne) */}
             <div className="space-y-4 mb-12">
@@ -189,12 +203,13 @@ const Lunch = () => {
                   className="grid w-full max-w-6xl mx-auto h-48 p-2 bg-accent/10 border border-accent/30 shadow-lg rounded-2xl" 
                   style={{ gridTemplateColumns: `repeat(${row.length}, 1fr)` }}
                 >
+                
                   {row.map((category) => {
                     const IconComponent = getIconComponent(category.icon);
                     const { line1, line2 } = splitCategoryName(category.name);
                     
                     return (
-                      <TabsTrigger 
+                      <TabsTrigger
                         key={category.id} 
                         value={category.id} 
                         className="flex flex-col gap-2 p-4 py-16 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#cbb36f] data-[state=active]:to-[#99771b] data-[state=active]:text-white rounded-xl transition-all duration-300"
@@ -216,13 +231,18 @@ const Lunch = () => {
               <TabsContent key={category.id} value={category.id} className="mt-0">
                 {/* Category Header */}
                 <div className="text-center mb-12">
-                  <h2 className="text-3xl font-bold text-gray-800 mb-4">{category.name}</h2>
-                  <p className="text-lg text-gray-600">{category.description}</p>
+                  <h2 className="text-3xl font-bold text-gray-800 mb-4">
+                    {category.name || 'Sans nom'}
+                  </h2>
+                  <p className="text-lg text-gray-600">
+                    {category.description || ''}
+                  </p>
                 </div>
 
                 {/* Products Grid */}
                 <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 max-w-6xl mx-auto mb-8">
-                  {category.products?.map((product, index) => (
+                  {category.products && category.products.length > 0 ? (
+                    category.products.map((product, index) => (
                     <Card
                       key={product._id || index}
                       className="group overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white border border-bg-accent/30 rounded-2xl"
@@ -230,8 +250,8 @@ const Lunch = () => {
                       {/* Image Section */}
                       <div className="relative aspect-[4/3] overflow-hidden rounded-t-2xl">
                         <img
-                          src={product.image}
-                          alt={product.name}
+                          src={product.image || '/images/placeholder.jpg'}
+                          alt={product.name || 'Produit'}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                           onError={(e) => {
                             (e.target as HTMLImageElement).src = '/images/placeholder.jpg';
@@ -245,7 +265,7 @@ const Lunch = () => {
                               ? 'bg-gradient-to-r from-[#cbb36f] to-[#99771b]' 
                               : 'bg-gradient-to-r from-green-500 to-emerald-600'
                           }`}>
-                            {product.price}
+                            {product.price || 'Prix non défini'}
                           </Badge>
                         </div>
                         
@@ -273,17 +293,22 @@ const Lunch = () => {
                       <div className="p-6">
                         <CardHeader className="p-0 mb-4">
                           <CardTitle className="text-xl font-bold text-gray-800 leading-tight">
-                            {product.name}
+                            {product.name || 'Produit sans nom'}
                           </CardTitle>
                         </CardHeader>
                         <CardContent className="p-0">
                           <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
-                            {product.description}
+                            {product.description || 'Aucune description disponible'}
                           </p>
                         </CardContent>
                       </div>
                     </Card>
-                  ))}
+                  ))
+                  ) : (
+                    <div className="col-span-full text-center py-8">
+                      <p className="text-gray-500">Aucun produit dans cette catégorie</p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Plateaux Section */}
@@ -302,8 +327,8 @@ const Lunch = () => {
                           {/* Image Section */}
                           <div className="relative aspect-[4/3] overflow-hidden rounded-t-2xl">
                             <img
-                              src={plateau.image}
-                              alt={plateau.name}
+                              src={plateau.image || '/images/placeholder.jpg'}
+                              alt={plateau.name || 'Plateau'}
                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                               onError={(e) => {
                                 (e.target as HTMLImageElement).src = '/images/placeholder.jpg';
@@ -313,7 +338,7 @@ const Lunch = () => {
                             {/* Price Badge */}
                             <div className="absolute top-4 right-4">
                               <Badge className="bg-gradient-to-r from-[#cbb36f] to-[#99771b] text-white font-bold text-lg px-4 py-2">
-                                {plateau.price}
+                                {plateau.price || 'Prix non défini'}
                               </Badge>
                             </div>
                             
@@ -330,12 +355,12 @@ const Lunch = () => {
                           <div className="p-6">
                             <CardHeader className="p-0 mb-4">
                               <CardTitle className="text-xl font-bold text-gray-800 leading-tight">
-                                {plateau.name}
+                                {plateau.name || 'Plateau sans nom'}
                               </CardTitle>
                             </CardHeader>
                             <CardContent className="p-0">
                               <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                                {plateau.description}
+                                {plateau.description || 'Aucune description disponible'}
                               </p>
                               {plateau.items && plateau.items.length > 0 && (
                                 <div className="space-y-2">
@@ -360,6 +385,7 @@ const Lunch = () => {
               </TabsContent>
             ))}
           </Tabs>
+          )}
 
           {/* Call to Action */}
           <div className="text-center mt-16 rounded-3xl p-8 w-full max-w-6xl bg-accent/10 border border-accent/30 mx-auto shadow-xl">
