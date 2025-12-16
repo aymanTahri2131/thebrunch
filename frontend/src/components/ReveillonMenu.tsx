@@ -103,7 +103,7 @@ export const ReveillonMenu = () => {
             ✨ Pour les dates du 24–25 et 30–31
              </p>
            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                le retrait s’effectue de 14h00 à 18h30.
+                Le retrait s’effectue de 🕘14h00 à 🕘18h30.
               </p>
            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Merci de votre compréhension et à très bientôt !
