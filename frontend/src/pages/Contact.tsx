@@ -154,6 +154,7 @@ const Contact = () => {
                   netlify-honeypot="bot-field"
                   onSubmit={handleSubmit}
                   className="space-y-6"
+                  netlify
                 >
                   {/* Netlify required hidden fields */}
                   <input type="hidden" name="form-name" value="contact" />
