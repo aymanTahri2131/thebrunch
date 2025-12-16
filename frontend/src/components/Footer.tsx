@@ -87,7 +87,7 @@ export const Footer = () => {
               <li className="flex items-center gap-2 text-muted-foreground">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
                 <a
-                  href="mailto:thebrunchtraiteur@gmail.com"
+                  href="mailto:contact@thebrunchtraiteur.fr"
                   className="hover:text-primary transition-colors"
                 >
                   contact@thebrunchtraiteur.fr
