@@ -6,14 +6,30 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Phone, Mail, MessageCircle, Clock, Instagram } from "lucide-react";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+
 
 const Contact = () => {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
   });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // For now, just show a success message
+    // In production, this would send to a backend/email service
+    toast({
+      title: "Message envoyé !",
+      description: "Nous vous répondrons dans les plus brefs délais.",
+    });
+    
+    setFormData({ name: "", email: "", phone: "", message: "" });
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -78,8 +94,7 @@ const Contact = () => {
                 <h2 className="text-3xl font-bold mb-6 text-foreground">Envoyez-nous un message</h2>
 
                 <form 
-                  action="https://formspree.io/f/xdkqypbe"
-                  method="POST"
+                  onSubmit={handleSubmit}
                   className="space-y-6"
                 >
                   <div>
