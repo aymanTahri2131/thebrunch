@@ -7,12 +7,16 @@ const partners = [
   { logo: "https://www2.0zz0.com/2025/12/17/23/185516486.png", name: "Partner 4" },
   { logo: "https://www2.0zz0.com/2025/12/17/23/883165123.png", name: "Partner 5" },
   { logo: "https://www2.0zz0.com/2025/12/17/23/474396477.png", name: "Partner 6" },
+  { logo: "https://www2.0zz0.com/2025/12/17/23/627892011.png", name: "Partner 7" },
+  { logo: "https://www2.0zz0.com/2025/12/17/23/376431091.png", name: "Partner 8" },
+  { logo: "--", name: "Partner 9" },
+  { logo: "--", name: "Partner 10" },
 ];
 
 export default function Partners() {
   return (
     <section style={styles.section}>
-      <h2 style={styles.title}>Nos partenaires</h2>
+      <h2 style={styles.title}>Nos Partenaires</h2>
 
       <div style={styles.slider}>
         <div style={styles.track} className="partners-track">
