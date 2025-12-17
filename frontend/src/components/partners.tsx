@@ -2,12 +2,12 @@ import React from "react";
 import "./Partners.css";
 
 const partners = [
-  { id: 1, logo: "/logos/logo1.png", name: "Partner 1" },
-  { id: 2, logo: "/logos/logo2.png", name: "Partner 2" },
-  { id: 3, logo: "/logos/logo3.png", name: "Partner 3" },
-  { id: 4, logo: "/logos/logo4.png", name: "Partner 4" },
-  { id: 5, logo: "/logos/logo5.png", name: "Partner 5" },
-  { id: 6, logo: "/logos/logo6.png", name: "Partner 6" },
+  { id: 1, logo: "https://www2.0zz0.com/2025/12/17/22/405105782.png", name: "Partner 1" },
+  { id: 2, logo: "https://www2.0zz0.com/2025/12/17/22/405105782.png", name: "Partner 2" },
+  { id: 3, logo: "https://www2.0zz0.com/2025/12/17/22/405105782.png", name: "Partner 3" },
+  { id: 4, logo: "https://www2.0zz0.com/2025/12/17/22/405105782.png", name: "Partner 4" },
+  { id: 5, logo: "https://www2.0zz0.com/2025/12/17/22/405105782.png", name: "Partner 5" },
+  { id: 6, logo: "https://www2.0zz0.com/2025/12/17/22/405105782.png", name: "Partner 6" },
 ];
 
 const Partners: React.FC = () => {
