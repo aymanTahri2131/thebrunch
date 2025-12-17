@@ -7,7 +7,7 @@ import { Footer } from "@/components/Footer";
 import FAQ from "@/components/FAQ";
 import { RET } from "@/components/RET";
 import { AVTG } from "@/components/AVTG";
-import { partners } from "@/components/partners";
+import Partners from "@/components/Partners";
 import { Leaf, Heart, Star, Quote } from "lucide-react";
 
 const Index = () => {
@@ -21,7 +21,7 @@ const Index = () => {
       <RET />
       <Realisations />
       <FAQ />
-      <partners />
+      <Partners />
       <Footer />
     </div>
   );
