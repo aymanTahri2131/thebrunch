@@ -29,7 +29,6 @@ export default function Partners() {
         </div>
       </div>
 
-      {/* CSS مدمج */}
       <style>
         {`
           .partners-track {
@@ -81,9 +80,9 @@ const styles: Record<string, React.CSSProperties> = {
   },
   logo: {
     maxWidth: "140px",
-    opacity: 0.8,
-    filter: "grayscale(100%)",
-    transition: "all 0.3s ease",
+    opacity: 1,
+    filter: "none", // 🔥 هنا الحل
+    transition: "transform 0.3s ease",
     cursor: "pointer",
   },
 };
