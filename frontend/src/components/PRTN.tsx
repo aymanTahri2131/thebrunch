@@ -9,8 +9,13 @@ const partners = [
   { logo: "https://www2.0zz0.com/2025/12/17/23/474396477.png", name: "Partner 6" },
   { logo: "https://www2.0zz0.com/2025/12/17/23/627892011.png", name: "Partner 7" },
   { logo: "https://www2.0zz0.com/2025/12/17/23/376431091.png", name: "Partner 8" },
-  { logo: "--", name: "Partner 9" },
-  { logo: "--", name: "Partner 10" },
+  { logo: "https://www2.0zz0.com/2025/12/17/23/719095499.png", name: "Partner 9" },
+  { logo: "https://www2.0zz0.com/2025/12/17/23/286124848.png", name: "Partner 10" },
+  { logo: "https://www2.0zz0.com/2025/12/17/23/204231593.png", name: "Partner 11" },
+  { logo: "https://www2.0zz0.com/2025/12/17/23/128217283.png", name: "Partner 12" },
+  { logo: "https://www2.0zz0.com/2025/12/17/23/844110878.png", name: "Partner 13" },
+  { logo: "https://www2.0zz0.com/2025/12/17/23/716025616.png", name: "Partner 14" },
+  { logo: "https://www2.0zz0.com/2025/12/18/00/289737642.png", name: "Partner 15" },
 ];
 
 export default function Partners() {
@@ -36,7 +41,7 @@ export default function Partners() {
       <style>
         {`
           .partners-track {
-            animation: scrollRTL 25s linear infinite;
+            animation: scrollRTL 18s linear infinite;
           }
 
           .partners-track:hover {
