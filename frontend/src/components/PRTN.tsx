@@ -41,7 +41,7 @@ export default function Partners() {
       <style>
         {`
           .partners-track {
-            animation: scrollRTL 18s linear infinite;
+            animation: scrollRTL 20s linear infinite;
           }
 
           .partners-track:hover {
