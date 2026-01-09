@@ -88,7 +88,7 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: "center",
   },
   logo: {
-    maxWidth: "140px",
+    maxWidth: "200px",
     opacity: 1,
     filter: "none", // 🔥 هنا الحل
     transition: "transform 0.3s ease",
