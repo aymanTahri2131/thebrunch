@@ -1,10 +1,10 @@
 import React from "react";
 
 const partners = [
-  { logo: "https://www2.0zz0.com/2025/12/17/22/405105782.png", name: "Partner 1" },
-  { logo: "https://www2.0zz0.com/2025/12/17/23/287341257.png", name: "Partner 2" },
-  { logo: "https://www2.0zz0.com/2025/12/17/23/726935830.png", name: "Partner 3" },
-  { logo: "https://www2.0zz0.com/2025/12/17/23/185516486.png", name: "Partner 4" },
+  { logo: "https://i.postimg.cc/FHmkDzmL/1.png", name: "Partner 1" },
+  { logo: "https://i.postimg.cc/HkH8BnHQ/2.png", name: "Partner 2" },
+  { logo: "https://i.postimg.cc/GmrTqtrG/3.png", name: "Partner 3" },
+  { logo: "https://i.postimg.cc/P5hv2Jh1/4.png", name: "Partner 4" },
   { logo: "https://www2.0zz0.com/2025/12/17/23/883165123.png", name: "Partner 5" },
   { logo: "https://www2.0zz0.com/2025/12/17/23/474396477.png", name: "Partner 6" },
   { logo: "https://www2.0zz0.com/2025/12/17/23/627892011.png", name: "Partner 7" },
