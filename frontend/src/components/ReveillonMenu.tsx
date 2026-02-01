@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+  import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Sparkles, Star, ChefHat, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -90,7 +90,7 @@ export const ReveillonMenu = () => {
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-2 mb-4">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-              Carte Spéciale Réveillon
+              Carte Menu Ramadan
             </h2>
           </div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
