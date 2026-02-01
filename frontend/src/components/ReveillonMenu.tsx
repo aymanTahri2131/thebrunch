@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Sparkles, Star, Loader2 } from "lucide-react";
+import { Sparkles, Star, ChefHat, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const ReveillonMenu = () => {
@@ -8,10 +8,14 @@ export const ReveillonMenu = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fonction pour scroller vers la section contact
   const scrollToContact = () => {
-    const element = document.getElementById("contact");
+    const element = document.getElementById('contact');
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
   };
 
@@ -19,18 +23,17 @@ export const ReveillonMenu = () => {
     const fetchReveillonData = async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          "https://thebrunchtraiteur-production.up.railway.app/api/reveillon"
-        );
-
+        const response = await fetch('https://thebrunchtraiteur-production.up.railway.app/api/reveillon');
+        
         if (!response.ok) {
-          throw new Error(`Erreur ${response.status}`);
+          throw new Error(`Erreur ${response.status}: ${response.statusText}`);
         }
-
+        
         const data = await response.json();
         setReveillonData(data.data);
       } catch (err) {
         setError(err.message);
+        console.error('Erreur lors du chargement des données réveillon:', err);
       } finally {
         setLoading(false);
       }
@@ -42,12 +45,12 @@ export const ReveillonMenu = () => {
   if (loading) {
     return (
       <section className="py-20 bg-accent/10">
-        <div className="container mx-auto px-4 flex justify-center items-center min-h-[400px]">
-          <div className="text-center">
-            <Loader2 className="h-12 w-12 animate-spin mx-auto mb-4 text-[#cbb36f]" />
-            <p className="text-lg text-muted-foreground">
-              Chargement du menu réveillon...
-            </p>
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center items-center min-h-[400px]">
+            <div className="text-center">
+              <Loader2 className="h-12 w-12 animate-spin mx-auto mb-4 text-[#cbb36f]" />
+              <p className="text-lg text-muted-foreground">Chargement du menu réveillon...</p>
+            </div>
           </div>
         </div>
       </section>
@@ -57,140 +60,156 @@ export const ReveillonMenu = () => {
   if (error) {
     return (
       <section className="py-20 bg-accent/10">
-        <div className="container mx-auto px-4 text-center">
-          <div className="bg-red-50 border border-red-200 rounded-lg p-8 max-w-md mx-auto">
-            <p className="text-red-600 mb-2">
-              Erreur lors du chargement du menu
-            </p>
-            <p className="text-sm text-red-500">{error}</p>
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-8 max-w-md mx-auto">
+              <p className="text-red-600 mb-4">Erreur lors du chargement du menu réveillon</p>
+              <p className="text-sm text-red-500">{error}</p>
+            </div>
           </div>
         </div>
       </section>
     );
   }
 
-  if (!reveillonData?.plateaux?.length) {
+  if (!reveillonData?.plateaux || reveillonData.plateaux.length === 0) {
     return (
       <section className="py-20 bg-accent/10">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-lg text-muted-foreground">
-            Aucun menu réveillon disponible pour le moment.
-          </p>
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <p className="text-lg text-muted-foreground">Aucun menu réveillon disponible pour le moment.</p>
+          </div>
         </div>
       </section>
     );
   }
 
   return (
-    <section
+ <section
       id="reveillon-menu"
       className="py-20 bg-cover bg-center bg-no-repeat relative"
       style={{
         backgroundImage: "url('https://i.postimg.cc/NFmyJxz3/Chat-GPT-Image-Feb-2-2026-12-25-53-AM.jpg')",
       }}
-    >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/60"></div>
-
-      <div className="relative z-10 container mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-12 text-white">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Carte Menu Ramadan
-          </h2>
-
-          <p className="text-lg opacity-90">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground">
+              Carte Menu Ramadan
+            </h2>
+          </div>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Pour des fêtes gourmandes réussies
           </p>
-          <p className="text-lg opacity-90">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Retrait de vos commandes
+            </p>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             ✨ Pour les dates du 24–25 et 30–31
-          </p>
-          <p className="text-lg opacity-90">
-            Retrait de 🕘14h00 à 🕘18h30
-          </p>
-          <p className="text-lg opacity-90 mt-2">
-            Merci de votre compréhension !
+             </p>
+           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Le retrait s’effectue de 🕘14h00 à 🕘18h30.
+              </p>
+           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Merci de votre compréhension et à très bientôt !
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto mb-16">
           {reveillonData.plateaux.map((plateau, index) => (
-            <Card
+            <div
               key={plateau._id || index}
-              className="overflow-hidden bg-white shadow-2xl rounded-3xl transform transition-all hover:-translate-y-2"
+              className="group relative"
             >
-              {/* Premium */}
-              {plateau.isPremium && (
-                <div className="absolute top-6 right-6 z-20 bg-gradient-to-r from-[#cbb36f] to-[#99771b] text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
-                  <Star className="h-4 w-4" />
-                  Premium
-                </div>
-              )}
+              {/* Card Container */}
+              <Card className="relative overflow-hidden bg-white shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 border-0 rounded-3xl">
 
-              {/* Image */}
-              <div className="relative h-[32rem]">
-                <img
-                  src={plateau.image}
-                  alt={plateau.name}
-                  className="w-full h-full object-cover"
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-                <div className="absolute bottom-6 left-1/3 bg-white/80 backdrop-blur-md rounded-2xl px-6 py-3 shadow-xl">
-                  <div className="text-3xl font-bold text-gray-800">
-                    {plateau.price} €
-                  </div>
-                  <div className="text-sm text-gray-600 text-center">
-                    par plateau
-                  </div>
-                </div>
-              </div>
-
-              {/* Content */}
-              <CardContent className="p-8">
-                <h3 className="text-3xl font-bold text-center mb-4">
-                  {plateau.name || plateau.title}
-                </h3>
-
-                {plateau.description && (
-                  <p className="text-center text-gray-600 mb-6">
-                    {plateau.description}
-                  </p>
-                )}
-
-                <div className="grid grid-cols-2 gap-2 mb-6">
-                  {plateau.items?.map((item, i) => (
-                    <div
-                      key={i}
-                      className="text-center p-3 bg-gray-50 rounded-xl text-sm"
-                    >
-                      {item}
+                {/* Premium Badge */}
+                {plateau.isPremium && (
+                  <div className="absolute top-6 right-6 z-20">
+                    <div className="flex items-center gap-1 bg-gradient-to-r from-[#cbb36f] to-[#99771b] text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
+                      <Star className="h-4 w-4" />
+                      Premium
                     </div>
-                  ))}
-                </div>
-
-                {plateau.lastItem && (
-                  <div className="text-center p-3 bg-gray-50 rounded-xl text-sm mb-4">
-                    {plateau.lastItem}
                   </div>
                 )}
 
-                {plateau.quantity && (
-                  <p className="text-center text-sm text-gray-600 mb-4">
-                    Pour {plateau.quantity} personnes
-                  </p>
-                )}
+                {/* Image Section */}
+                <div className="relative h-[32rem] overflow-hidden rounded-t-3xl">
+                  <img
+                    src={plateau.image}
+                    alt={plateau.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-                <Button
-                  onClick={scrollToContact}
-                  className="w-full bg-gradient-to-r from-[#cbb36f] to-[#99771b] text-white font-semibold py-3 rounded-xl"
-                >
-                  Commander <Sparkles className="ml-2 h-4 w-4" />
-                </Button>
-              </CardContent>
-            </Card>
+                  {/* Floating Price Tag */}
+                  <div className="absolute bottom-6 left-1/3">
+                    <div className="bg-white/75 backdrop-blur-md rounded-2xl px-6 py-3 shadow-2xl flex items-center gap-4">
+                      <div className="text-3xl font-bold text-gray-800">{plateau.price} €</div>
+                      <div className="text-sm text-gray-600 font-medium">par plateau</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content Section */}
+                <CardContent className="p-8 bg-gradient-to-br from-gray-50 to-white">
+                  {/* Title */}
+                  <div className="flex items-center justify-center gap-3 mb-6">
+                    <h3 className="text-3xl font-bold text-gray-800">{plateau.name || plateau.title}</h3>
+                  </div>
+
+                  {/* Description */}
+                  {plateau.description && (
+                    <p className="text-gray-600 text-center mb-6">{plateau.description}</p>
+                  )}
+
+                  {/* Items Grid */}
+                  <div className="mb-6">
+                    {plateau.items && plateau.items.length > 0 && (
+                      <div className="grid grid-cols-2 gap-2 mb-4">
+                        {plateau.items.map((item, itemIndex) => (
+                          <div
+                            key={itemIndex}
+                            className="flex items-center justify-center gap-3 p-3 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100"
+                          >
+                            <span className="text-gray-700 font-medium text-sm">{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    
+                    {plateau.lastItem && (
+                      <span className="grid grid-cols-1 text-center text-gray-700 font-medium text-sm p-3 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
+                        {plateau.lastItem}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Quantity info */}
+                  {plateau.quantity && (
+                    <div className="text-center text-sm text-gray-600 mb-4">
+                      Pour {plateau.quantity} personnes
+                    </div>
+                  )}
+
+                  {/* Action Button */}
+                  <Button
+                    className="w-full bg-gradient-to-r from-[#cbb36f] to-[#99771b] text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
+                    onClick={scrollToContact}
+                  >
+                    <span>Commander</span>
+                    <Sparkles className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+
+              </Card>
+
+              {/* Decorative Elements */}
+              <div className="absolute -top-2 -right-2 w-20 h-20 bg-gradient-to-br from-[#e8dcc0] to-[#d4c49a] rounded-full opacity-20 blur-xl group-hover:opacity-30 transition-opacity duration-500"></div>
+              <div className="absolute -bottom-2 -left-2 w-16 h-16 bg-gradient-to-tr from-[#d4c49a] to-[#e8dcc0] rounded-full opacity-20 blur-xl group-hover:opacity-30 transition-opacity duration-500"></div>
+            </div>
           ))}
         </div>
       </div>
