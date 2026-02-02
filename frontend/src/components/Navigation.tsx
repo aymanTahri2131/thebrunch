@@ -132,7 +132,6 @@ export const Navigation = () => {
     { name: "Accueil", path: "/", isHome: true },
     { name: "Lunch", path: "/lunch" },
     { name: "Brunch", path: "/brunch" },
-    { name: "Menu Ramadan", scrollto: "reveillon-menu" },
     { name: "Contact", path: "/contact"},
   ];
 
