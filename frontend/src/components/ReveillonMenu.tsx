@@ -99,20 +99,11 @@ export const ReveillonMenu = () => {
             </h2>
           </div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Pour des fêtes gourmandes réussies
-          </p>
+            Un Ftour gourmand, un geste solidaire          </p>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Retrait de vos commandes
-            </p>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            ✨ Pour les dates du 24–25 et 30–31
-             </p>
+            5€ reverses à une association à la fin du Ramadan pour chaque box vendue            </p>
            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Le retrait s’effectue de 🕘14h00 à 🕘18h30.
-              </p>
-           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Merci de votre compréhension et à très bientôt !
-          </p>
+              Bon Ramadan à Vous       </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto mb-16">
