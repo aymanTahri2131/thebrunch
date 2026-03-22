@@ -1,7 +1,6 @@
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
-import { ReveillonMenu } from "@/components/ReveillonMenu";
 import { Realisations } from "@/components/Realisations";
 import { Footer } from "@/components/Footer";
 import FAQ from "@/components/FAQ";
@@ -19,7 +18,6 @@ const Index = () => {
       <ReveillonMenu />
       <AVTG />
       <RET />
-      <Realisations />
       <FAQ />
       <PRTN />
       <Footer />
