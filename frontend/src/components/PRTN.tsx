@@ -1,21 +1,21 @@
 import React from "react";
 
 const partners = [
-  { logo: "https://i.postimg.cc/FHmkDzmL/1.png", name: "Partner 1" },
-  { logo: "https://i.postimg.cc/HkH8BnHQ/2.png", name: "Partner 2" },
-  { logo: "https://i.postimg.cc/GmrTqtrG/3.png", name: "Partner 3" },
-  { logo: "https://i.postimg.cc/P5hv2Jh1/4.png", name: "Partner 4" },
-  { logo: "https://i.postimg.cc/gkMbBBb0/5.png", name: "Partner 5" },
-  { logo: "https://i.postimg.cc/CLvp66pz/6.png", name: "Partner 6" },
-  { logo: "https://i.postimg.cc/8Pygnng7/7.png", name: "Partner 7" },
-  { logo: "https://i.postimg.cc/qMmHZZHh/8.png", name: "Partner 8" },
-  { logo: "https://i.postimg.cc/Kv9hssh3/9.png", name: "Partner 9" },
-  { logo: "https://i.postimg.cc/m2dW66WM/10.png", name: "Partner 10" },
-  { logo: "https://i.postimg.cc/PxKSr94Q/11.png", name: "Partner 11" },
-  { logo: "https://i.postimg.cc/4dwWNq58/12.png", name: "Partner 12" },
-  { logo: "https://i.postimg.cc/63zM5g0z/13.png", name: "Partner 13" },
-  { logo: "https://i.postimg.cc/PxKSr94S/14.png", name: "Partner 14" },
-  { logo: "https://i.postimg.cc/cHTF42mX/15.png", name: "Partner 15" },
+  { logo: "https://i.ibb.co/WpDQdmMp/1.png", name: "Partner 1" },
+  { logo: "https://i.ibb.co/b8CD4Nh/2.png", name: "Partner 2" },
+  { logo: "https://i.ibb.co/gbfDYPrP/3.png", name: "Partner 3" },
+  { logo: "https://i.ibb.co/p6kd7g77/4.png", name: "Partner 4" },
+  { logo: "https://i.ibb.co/CKYPm8d0/5.png", name: "Partner 5" },
+  { logo: "https://i.ibb.co/6cdcZwDF/6.png", name: "Partner 6" },
+  { logo: "https://i.ibb.co/FPTd6mG/7.png", name: "Partner 7" },
+  { logo: "https://i.ibb.co/HfHZZHyT/8.png", name: "Partner 8" },
+  { logo: "https://i.ibb.co/XrdFf7z9/9.png", name: "Partner 9" },
+  { logo: "https://i.ibb.co/BH1BwPyd/10.png", name: "Partner 10" },
+  { logo: "https://i.ibb.co/hxdfZtjj/11.png", name: "Partner 11" },
+  { logo: "https://i.ibb.co/xSG25QrQ/12.png", name: "Partner 12" },
+  { logo: "https://i.ibb.co/XfZnt1Cy/13.png", name: "Partner 13" },
+  { logo: "https://i.ibb.co/zTNYVmYm/14.png", name: "Partner 14" },
+  { logo: "https://i.ibb.co/TqkmDYCV/15.png", name: "Partner 15" },
 ];
 
 export default function Partners() {
