@@ -14,17 +14,17 @@ export const Realisations = () => {
     {
       id: 1,
       title: "Plateau Signature Premium",
-      image: "/images/Captura de pantalla 2025-11-06 16144.png",
+      image: "https://i.ibb.co/cS94rDmt/3.png",
     },
     {
       id: 2,
       title: "Assortiment Gourmand",
-      image: "https://i.postimg.cc/SRPNMgCD/3.png",
+      image: "https://i.ibb.co/h1MTxKR6/Captura-de-pantalla-2025-11-06-16144.png",
     },
     {
       id: 3,
       title: "Menu Brunch Élégant",
-      image: "https://i.postimg.cc/zvQXgxKd/Captura-de-pantalla-2025-11-06-161444.png",
+      image: "https://i.ibb.co/7tf4C9hs/Captura-de-pantalla-2025-11-06-161607.png",
     },
     {
       id: 4,
