@@ -8,13 +8,14 @@ import { RET } from "@/components/RET";
 import { AVTG } from "@/components/AVTG";
 import PRTN from "@/components/PRTN";
 import { Leaf, Heart, Star, Quote } from "lucide-react";
-
+import { ReveillonMenu } from "@/components/ReveillonMenu";
 const Index = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
       <Hero />
       <About />
+      <ReveillonMenu />
       <AVTG />
       <RET />
       <Realisations />
