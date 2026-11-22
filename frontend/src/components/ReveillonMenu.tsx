@@ -100,7 +100,7 @@ export const ReveillonMenu = () => {
       className="py-20 bg-cover bg-center bg-no-repeat relative"
       style={{
         backgroundImage:
-          "url('https://i.postimg.cc/NFmyJxz3/Chat-GPT-Image-Feb-2-2026-12-25-53-AM.jpg')",
+          "url('https://i.postimg.cc/hjcZ4xXy/Noel-dore-enchante-avec-lanternes-et-cadeaux.png')",
       }}
     >
       {/* Overlay باش تبان الكتابة */}
