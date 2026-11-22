@@ -109,16 +109,16 @@ export const ReveillonMenu = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12 text-white">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Carte Menu Ramadan
+            The Festive Collection
           </h2>
           <p className="text-lg max-w-2xl mx-auto">
-            Un Ftour gourmand, un geste solidaire
+            Édition Noël & Fêtes de fin d'année
           </p>
           <p className="text-lg max-w-2xl mx-auto">
-            5€ reversés à une association à la fin du Ramadan pour chaque box vendue
+            Pour célébrer les fêtes avec élégance et gourmandise, découvrez notre nouvelle collection de créations salées et sucrées.
           </p>
           <p className="text-lg max-w-2xl mx-auto">
-            Bon Ramadan à vous
+            ✨ Les fêtes commencent chez T&A Brunch & Traiteur ✨
           </p>
         </div>
 
